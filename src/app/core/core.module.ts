@@ -33,6 +33,8 @@ import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/shareReplay';
 import 'rxjs/add/operator/switchMap';
 
+import '../utils/debug.util';
+
 import {loadSvgResource} from '../utils/svg.util';
 
 @NgModule({

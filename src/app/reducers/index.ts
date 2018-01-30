@@ -55,6 +55,7 @@ import { storeFreeze } from 'ngrx-store-freeze';
  * 分别从每个 reducer 中将需要导出的函数或对象进行导出，并起个易懂的名字
  */
 
+import * as fromQuote from './quote.reducer';
 import * as fromAuth from './auth.reducer';
 import * as fromUsers from './user.reducer';
 import * as fromTheme from './theme.reducer';
@@ -67,6 +68,7 @@ import {Auth} from '../domain';
  */
 export interface State {
     auth: Auth;
+    quote: fromQuote.State;
     routerReducer: fromRouter.RouterReducerState<RouterStateUrl>;
     theme: fromTheme.State;
     users: fromUsers.State;
@@ -79,6 +81,7 @@ export interface State {
  */
 export const reducers: ActionReducerMap<State> = {
     auth: fromAuth.reducer,
+    quote: fromQuote.reducer,
     routerReducer: fromRouter.routerReducer,
     theme: fromTheme.reducer,
     users: fromUsers.reducer
@@ -102,11 +105,13 @@ export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
  */
 export const metaReducers: MetaReducer<State>[] = !environment.production ? [logger, storeFreeze] : [];
 
+export const getQuoteState = (state: State) => state.quote;
 export const getAuthState = (state: State) => state.auth;
 export const getUserState = (state: State) => state.users;
 export const getThemeState = (state: State) => state.theme;
 
 // 带【记忆】功能的函数运算，无论多少个参数，最后一个才是用于函数计算，其他的都是它的输入
+export const getQuote = createSelector(getQuoteState, fromQuote.getQuote);
 export const getUsers = createSelector(getUserState, fromUsers.getUsers);
 export const getTheme = createSelector(getThemeState, fromTheme.getTheme);
 
