@@ -1,0 +1,76 @@
+// 引入angular material主题支持
+@import '~@angular/material/theming';
+
+// 引入Material 公用的主体风格,请确保只在此处包含一次，其他地方不要再include
+@include mat-core();
+
+@mixin fz-site-theme($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+
+    $drawer-container-background-color: mat-color($background, background) !default;
+
+    .fz-site-container {
+        background-color: $drawer-container-background-color;
+        color: mat-color($foreground, text);
+    }
+
+    @media (max-width: 480px) {
+        .mat-paginator-page-size{
+            display: none;
+        }
+
+        .mat-paginator-range-label{
+            display: none;
+        }
+    }
+}
+
+@mixin fz-toolbar-theme($theme) {
+    $background: map-get($theme, background);
+
+    .mat-toolbar {
+        background: mat-color($background, status-bar);
+    }
+}
+
+// 定义默认主题颜色，使用_theming.scss 中定义的 Material Design 调色板来定义我们自有主题的调色板
+$my-app-primary: mat-palette($mat-indigo);
+$my-app-accent: mat-palette($mat-pink, A200, A100, A400);
+$my-app-warn: mat-palette($mat-red); //警告的调色默认红色，但列在这里便于以后的自定义。
+
+// 创建一个主题对象 (包含所有自定义的调色板)
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+
+// 设置自定义主题，使其生效
+// @include angular-material-theme($my-app-theme);
+
+.myapp-light-theme {
+    @include angular-material-theme($my-app-theme);
+    @include fz-site-theme($my-app-theme);
+    @include fz-toolbar-theme($my-app-theme);
+}
+
+// 提供一个深色主题
+.myapp-dark-theme {
+    $dark-primary: mat-palette($mat-blue-grey);
+    $dark-accent: mat-palette($mat-amber, A200, A100, A400);
+
+    $dark-warn: mat-palette($mat-deep-orange);
+
+    $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+    @include angular-material-theme($dark-theme);
+    @include fz-site-theme($dark-theme);
+
+    // 改变字体,Typography
+    /*$custom-typography: mat-typography-config(
+        $font-family: Raleway,
+        $headline: mat-typography-level(24px, 48px, 400),
+        $body-1: mat-typography-level(16px, 24px, 400)
+    );
+    @include angular-material-typography($custom-typography);*/
+}
