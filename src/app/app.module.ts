@@ -20,10 +20,14 @@ import {SharedModule} from './shared/shared.module';
 import {RouterModule} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
+import {HomeComponent} from './home/home.component';
+import {FzHighlightModule} from './ngx-fuzhutech-common';
+
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        HomeComponent
     ],
     imports: [
         BrowserModule,
@@ -72,7 +76,8 @@ import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
          * See: https://github.com/ngrx/platform/blob/master/docs/effects/api.md#forroot
          */
         EffectsModule.forRoot([]),
-        AppRoutingModule
+        AppRoutingModule,
+        FzHighlightModule
     ],
     providers: [
         /**
