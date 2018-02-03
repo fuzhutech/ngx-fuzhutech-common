@@ -26,6 +26,9 @@ import {
     MatTabsModule,
     MatChipsModule,
 } from '@angular/material';
+
+import {MarkdownModule} from '../../lib/components/markdown/markdown.module';
+
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
@@ -35,6 +38,7 @@ import {AgeInputComponent} from './age-input/age-input.component';
 import {ChipsListComponent} from './chips-list/chips-list.component';
 import {IdentityInputComponent} from './identity-input/identity-input.component';
 import {AreaListComponent} from './area-list/area-list.component';
+
 
 @NgModule({
     imports: [
@@ -63,6 +67,7 @@ import {AreaListComponent} from './area-list/area-list.component';
         MatButtonToggleModule,
         MatTabsModule,
         MatChipsModule,
+        MarkdownModule,
     ],
     declarations: [
         HeaderComponent,
@@ -103,6 +108,7 @@ import {AreaListComponent} from './area-list/area-list.component';
         MatButtonToggleModule,
         MatTabsModule,
         MatChipsModule,
+        MarkdownModule,
         ImageListSelectComponent,
         AgeInputComponent,
         ChipsListComponent,

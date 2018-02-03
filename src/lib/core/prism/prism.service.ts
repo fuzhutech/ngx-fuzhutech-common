@@ -50,12 +50,6 @@ export class PrismService {
             .then(res => {
                 this.emitter.next(true);
             })
-            .catch(err => console.log(err));
-
-        Promise.all(promises)
-            .then(res => {
-                this.emitter.next(true);
-            })
             .catch(err => console.log('prism js文件加载失败', err));
 
         return this;
