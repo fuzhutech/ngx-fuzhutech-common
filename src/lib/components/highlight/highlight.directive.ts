@@ -1,21 +1,39 @@
-import {Directive, ElementRef, OnInit} from '@angular/core';
-import * as Prism from 'prismjs';
-import 'prismjs/components/prism-typescript';
-import 'prismjs/components/prism-bash';
+import {Directive, ElementRef, OnInit, OnDestroy} from '@angular/core';
+import {Subscription} from 'rxjs/Subscription';
+import {PrismService} from '../../core/prism/prism.service';
 
 @Directive({
     selector: '[fzHighlight]'
 })
-export class HighlightDirective implements OnInit {
+export class HighlightDirective implements OnInit, OnDestroy {
 
-    constructor(public el: ElementRef) {
+    sub: Subscription;
+    executed = false;
+
+    constructor(public el: ElementRef, private prismService: PrismService) {
     }
 
     ngOnInit() {
-        Prism.highlightElement(this.el.nativeElement);
-        /*if (window['Prism']) {
-            window['Prism'].highlightElement(this.el.nativeElement);
-        }*/
+        if (this.prismService.Prism) {
+            this.executed = true;
+            this.prismService.Prism.highlightElement(this.el.nativeElement);
+        } else {
+            this.sub = this.prismService.getChangeEmitter().subscribe(
+                val => {
+                    if (!this.executed && this.prismService.Prism) {
+                        this.executed = true;
+                        this.prismService.Prism.highlightElement(this.el.nativeElement);
+                    }
+                }
+            );
+        }
+    }
+
+    ngOnDestroy(): void {
+        if (this.sub) {
+            this.sub.unsubscribe();
+            this.sub = null;
+        }
     }
 
 }

@@ -4,24 +4,25 @@
     </p>
 </div>
 <div>
-    <!--fz-highlight [fzCode]="_code" [fzLanguage]="'javascript'"></fz-highlight-->
-    <!--fz-highlight [fzCode]="_code" [fzLanguage]="'typescript'"></fz-highlight-->
+    <!--fz-prism [fzCode]="_code" [fzLanguage]="'javascript'"></fz-prism-->
+    <fz-highlight [fzCode]="_code" [fzLanguage]="'javascript'"></fz-highlight>
+    <fz-highlight [fzCode]="_code" [fzLanguage]="'typescript'"></fz-highlight>
 
     <pre>
-        <code class="language-typescript">
+        <code class="language-typescript" fzHighlight>
             {{_code1}}
         </code>
     </pre>
 
-<pre>
-    <code class="language-typescript">
+    <pre>
+    <code class="language-typescript" fzHighlight>
         import &#123;AccordionModule&#125; from 'primeng/accordion';
     </code>
 </pre>
 
 
     <pre>
-<code class="language-markup">
+<code class="language-markup" fzHighlight>
 &lt;p-accordion&gt;
     &lt;p-accordionTab header="Header 1" [selected]="true"&gt;
        Content 1

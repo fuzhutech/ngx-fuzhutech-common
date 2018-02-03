@@ -22,6 +22,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import {HomeComponent} from './home/home.component';
 import {FzHighlightModule} from './ngx-fuzhutech-common';
+import {FzPrismModule} from '../lib/core/prism/prism.module';
 
 
 @NgModule({
@@ -77,7 +78,15 @@ import {FzHighlightModule} from './ngx-fuzhutech-common';
          */
         EffectsModule.forRoot([]),
         AppRoutingModule,
-        FzHighlightModule
+        FzPrismModule.forRoot({
+            // 指定ueditor.js路径目录
+            path: 'assets/js',
+            // 默认全局配置项
+            options: {
+                // themePath: '/assets/ueditor1_4_3_3-utf8-jsp/themes/'
+            }
+        }),
+        FzHighlightModule,
     ],
     providers: [
         /**
