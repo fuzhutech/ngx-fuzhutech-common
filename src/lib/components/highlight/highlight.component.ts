@@ -22,7 +22,7 @@ export class HighlightComponent implements OnInit, OnDestroy {
 
     set fzCode(value: string) {
         this._code = value;
-        if (this.prismService.Prism) {
+        if (value && this.prismService.Prism) {
             this._displayCode = this.prismService.Prism.highlight(value, (this.prismService.Prism.languages as any).javascript);
         } else {
             this._displayCode = this._code;
@@ -35,7 +35,7 @@ export class HighlightComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.sub = this.prismService.getChangeEmitter().subscribe(
             val => {
-                if (this.prismService.Prism) {
+                if (this._code && this.prismService.Prism) {
                     this._displayCode
                         = this.prismService.Prism.highlight(this._code, (this.prismService.Prism.languages as any).javascript);
                 }
