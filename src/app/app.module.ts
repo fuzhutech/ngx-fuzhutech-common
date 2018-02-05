@@ -23,6 +23,7 @@ import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import {HomeComponent} from './home/home.component';
 import {FzHighlightModule} from './ngx-fuzhutech-common';
 import {FzPrismModule} from '../lib/core/prism/prism.module';
+import {NgxFuzhutechCommonModule} from '../lib/ngx-fuzhutech-common.module';
 
 
 @NgModule({
@@ -87,6 +88,7 @@ import {FzPrismModule} from '../lib/core/prism/prism.module';
             }
         }),
         FzHighlightModule,
+        NgxFuzhutechCommonModule.forRoot()
     ],
     providers: [
         /**

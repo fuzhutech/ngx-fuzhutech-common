@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {MessageService} from '../../lib/components/message/message.service';
 
 @Component({
     selector: 'fz-home',
@@ -58,7 +59,8 @@ export class HomeComponent implements OnInit {
         '\n' +
         '## 本地部署\n' +
         '\n' +
-        '图标默认托管在 [iconfont.cn](http://iconfont.cn)，默认公网可访问。如需本地部署，可以下载<a href="./assets/download/fonts.zip">iconfont</a>文件,解压后放在 `assets/fonts`或其他公网可访问的文件夹下\n' +
+        '图标默认托管在 [iconfont.cn](http://iconfont.cn)，默认公网可访问。如需本地部署，可以下载<a href="./assets/download/fonts.zip">iconfont</a>文' +
+        '件,解压后放在 `assets/fonts`或其他公网可访问的文件夹下\n' +
         '\n' +
         '> `NgZorroAntdModule.forRoot()` 方法能够接受一个可选的配置对象，用于引入外部的字体文件，类型为 `{ extraFontName: string, extraFontUrl: string }`。\n' +
         '\n' +
@@ -78,10 +80,14 @@ export class HomeComponent implements OnInit {
         '\n' +
         '> 点击图标复制代码。';
 
-    constructor() {
+    constructor(private _message: MessageService) {
     }
 
     ngOnInit() {
+    }
+
+    createBasicMessage() {
+        this._message.info('这是一条普通的提醒');
     }
 
 }
