@@ -4,8 +4,7 @@
     </p>
 </div>
 <div>
-    <!--fz-prism [fzCode]="_code" [fzLanguage]="'javascript'"></fz-prism-->
-    <!--fz-highlight [fzCode]="_code" [fzLanguage]="'javascript'"></fz-highlight>
+    <fz-highlight [fzCode]="_code" [fzLanguage]="'javascript'"></fz-highlight>
     <fz-highlight [fzCode]="_code" [fzLanguage]="'typescript'"></fz-highlight>
 
     <pre>
@@ -15,32 +14,32 @@
     </pre>
 
     <pre>
-    <code class="language-typescript" fzHighlight>
-        import &#123;AccordionModule&#125; from 'primeng/accordion';
-    </code>
-</pre>
+        <code class="language-typescript" fzHighlight>
+            import &#123;AccordionModule&#125; from 'primeng/accordion';
+        </code>
+    </pre>
 
 
     <pre>
-<code class="language-markup" fzHighlight>
-&lt;p-accordion&gt;
-    &lt;p-accordionTab header="Header 1" [selected]="true"&gt;
-       Content 1
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header 2"&gt;
-        Content 2
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header 3"&gt;
-        Content 3
-    &lt;/p-accordionTab&gt;
-&lt;/p-accordion&gt;
-</code>
-</pre-->
-    <!--fz-markdown [nzContent]="_markdownCode"></fz-markdown-->
+        <code class="language-markup" fzHighlight>
+            &lt;p-accordion&gt;
+            &lt;p-accordionTab header="Header 1" [selected]="true"&gt;
+            Content 1
+            &lt;/p-accordionTab&gt;
+            &lt;p-accordionTab header="Header 2"&gt;
+            Content 2
+            &lt;/p-accordionTab&gt;
+            &lt;p-accordionTab header="Header 3"&gt;
+            Content 3
+            &lt;/p-accordionTab&gt;
+            &lt;/p-accordion&gt;
+        </code>
+    </pre>
+    <fz-markdown [nzContent]="_markdownCode"></fz-markdown>
 
-    <!--button (click)="createBasicMessage()">显示普通提醒</button>
+    <button (click)="createBasicMessage()">显示普通提醒</button>
 
-    <button (click)="createBasicNotification()">打开通知提示框</button-->
+    <button (click)="createBasicNotification()">打开通知提示框</button>
 
     <fz-timeline>
         <fz-timeline-item>Create a services site 2015-09-01</fz-timeline-item>
@@ -48,5 +47,7 @@
         <fz-timeline-item>Technical testing 2015-09-01</fz-timeline-item>
         <fz-timeline-item>Network problems being solved 2015-09-01</fz-timeline-item>
     </fz-timeline>
+
+    <fz-back-top></fz-back-top>
 </div>
 

@@ -1,3 +1,6 @@
-<p>
-  back-top works!
-</p>
+<div class="ant-back-top" (click)="clickBackTop()" [@enterLeave] *ngIf="_display">
+    <ng-template #defaultContent>
+        <div class="ant-back-top-content"><i class="anticon anticon-to-top ant-back-top-icon"></i></div>
+    </ng-template>
+    <ng-template [ngTemplateOutlet]="nzTemplate || defaultContent"></ng-template>
+</div>
