@@ -1,0 +1,34 @@
+<div class="ant-transfer-list-header">
+    <mat-checkbox [(ngModel)]="stat.checkAll" (ngModelChange)="onHandleSelectAll($event)"></mat-checkbox>
+    <span class="ant-transfer-list-header-selected">
+        <span>{{ (stat.checkCount > 0 ? stat.checkCount + '/' : '') + stat.shownCount }} {{ dataSource.length > 1 ? itemsUnit : itemUnit }}</span>
+        <span *ngIf="titleText" class="ant-transfer-list-header-title">{{ titleText }}</span>
+    </span>
+</div>
+<div class="{{showSearch ? 'ant-transfer-list-body ant-transfer-list-body-with-search' : 'ant-transfer-list-body'}}"
+     [ngClass]="{'ant-transfer__nodata': stat.shownCount === 0}">
+    <div *ngIf="showSearch" class="ant-transfer-list-body-search-wrapper">
+        <fz-transfer-search class="ant-transfer-list-search"
+                            (valueChanged)="handleFilter($event)"
+                            (valueClear)="handleClear()"
+                            [placeholder]="searchPlaceholder"
+                            [value]="filter"></fz-transfer-search>
+    </div>
+    <ul class="ant-transfer-list-content">
+        <ng-container *ngFor="let item of dataSource">
+            <li *ngIf="!item._hiden" (click)="_handleSelect(item)" class="ant-transfer-list-content-item">
+                <mat-checkbox [ngModel]="item.checked">
+                    <span>
+                        <ng-container *ngIf="!render; else renderContainer">{{ item.title }}</ng-container>
+                        <ng-template #renderContainer [ngTemplateOutlet]="render"
+                                     [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
+                    </span>
+                </mat-checkbox>
+            </li>
+        </ng-container>
+    </ul>
+    <div class="ant-transfer-list-body-not-found">{{ notFoundContent }}</div>
+</div>
+<div *ngIf="footer" class="ant-transfer-list-footer">
+    <ng-template [ngTemplateOutlet]="footer" [ngTemplateOutletContext]="{ $implicit: direction }"></ng-template>
+</div>

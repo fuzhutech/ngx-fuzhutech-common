@@ -84,5 +84,12 @@
               [nzDescription]="'Error Description Error Description Error Description Error Description'">
     </fz-alert>
 
+    <fz-transfer
+        [nzDataSource]="list"
+        [nzTitles]="['Source', 'Target']"
+        (nzSelectChange)="select($event)"
+        (nzChange)="change($event)">
+    </fz-transfer>
+
 </div>
 

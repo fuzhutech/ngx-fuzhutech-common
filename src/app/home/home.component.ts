@@ -81,10 +81,21 @@ export class HomeComponent implements OnInit {
         '\n' +
         '> 点击图标复制代码。';
 
+    list: any[] = [];
+
     constructor(private _message: MessageService, private _notification: NotificationService) {
     }
 
     ngOnInit() {
+        for (let i = 0; i < 20; i++) {
+            this.list.push({
+                key: i.toString(),
+                title: `content${i + 1}`,
+                disabled: i % 3 < 1,
+            });
+        }
+
+        [ 2, 3 ].forEach(idx => this.list[idx].direction = 'right');
     }
 
     createBasicMessage() {
@@ -93,6 +104,14 @@ export class HomeComponent implements OnInit {
 
     createBasicNotification() {
         this._notification.blank('这是标题', '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案');
+    }
+
+    select(ret: any) {
+        console.log('nzSelectChange', ret);
+    }
+
+    change(ret: any) {
+        console.log('nzChange', ret);
     }
 
 }

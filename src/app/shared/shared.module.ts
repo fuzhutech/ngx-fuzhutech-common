@@ -46,6 +46,7 @@ import {FzRateModule} from '../../lib/components/rate/rate.module';
 import {FzCodeBoxModule} from '../../lib/components/code-box/code-box.module';
 import {FzAlertModule} from '../../lib/components/alert/alert.module';
 import {FzAffixModule} from '../../lib/components/affix/affix.module';
+import {FzTransferModule} from '../../lib/components/transfer/transfer.module';
 
 
 @NgModule({
@@ -84,6 +85,7 @@ import {FzAffixModule} from '../../lib/components/affix/affix.module';
         FzCodeBoxModule,
         FzAlertModule,
         FzAffixModule,
+        FzTransferModule,
     ],
     declarations: [
         HeaderComponent,
@@ -133,6 +135,7 @@ import {FzAffixModule} from '../../lib/components/affix/affix.module';
         FzCodeBoxModule,
         FzAlertModule,
         FzAffixModule,
+        FzTransferModule,
         ImageListSelectComponent,
         AgeInputComponent,
         ChipsListComponent,
