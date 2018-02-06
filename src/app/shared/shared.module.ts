@@ -40,6 +40,7 @@ import {IdentityInputComponent} from './identity-input/identity-input.component'
 import {AreaListComponent} from './area-list/area-list.component';
 import {FzMessageModule} from '../../lib/components/message/message.module';
 import {FzNotificationModule} from '../../lib/components/notification/notification.module';
+import {FzTimelineModule} from '../../lib/components/timeline/timeline.module';
 
 
 @NgModule({
@@ -72,6 +73,7 @@ import {FzNotificationModule} from '../../lib/components/notification/notificati
         MarkdownModule,
         FzMessageModule,
         FzNotificationModule,
+        FzTimelineModule,
     ],
     declarations: [
         HeaderComponent,
@@ -115,6 +117,7 @@ import {FzNotificationModule} from '../../lib/components/notification/notificati
         MarkdownModule,
         FzMessageModule,
         FzNotificationModule,
+        FzTimelineModule,
         ImageListSelectComponent,
         AgeInputComponent,
         ChipsListComponent,
