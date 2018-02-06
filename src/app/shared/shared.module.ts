@@ -42,6 +42,7 @@ import {FzMessageModule} from '../../lib/components/message/message.module';
 import {FzNotificationModule} from '../../lib/components/notification/notification.module';
 import {FzTimelineModule} from '../../lib/components/timeline/timeline.module';
 import {FzBackTopModule} from '../../lib/components/back-top/back-top.module';
+import {FzRateModule} from '../../lib/components/rate/rate.module';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import {FzBackTopModule} from '../../lib/components/back-top/back-top.module';
         FzMessageModule,
         FzNotificationModule,
         FzTimelineModule,
-        FzBackTopModule
+        FzBackTopModule,
+        FzRateModule
     ],
     declarations: [
         HeaderComponent,
@@ -121,6 +123,7 @@ import {FzBackTopModule} from '../../lib/components/back-top/back-top.module';
         FzNotificationModule,
         FzTimelineModule,
         FzBackTopModule,
+        FzRateModule,
         ImageListSelectComponent,
         AgeInputComponent,
         ChipsListComponent,
