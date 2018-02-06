@@ -44,6 +44,7 @@ import {FzTimelineModule} from '../../lib/components/timeline/timeline.module';
 import {FzBackTopModule} from '../../lib/components/back-top/back-top.module';
 import {FzRateModule} from '../../lib/components/rate/rate.module';
 import {FzCodeBoxModule} from '../../lib/components/code-box/code-box.module';
+import {FzAlertModule} from '../../lib/components/alert/alert.module';
 
 
 @NgModule({
@@ -80,6 +81,7 @@ import {FzCodeBoxModule} from '../../lib/components/code-box/code-box.module';
         FzBackTopModule,
         FzRateModule,
         FzCodeBoxModule,
+        FzAlertModule,
     ],
     declarations: [
         HeaderComponent,
@@ -127,6 +129,7 @@ import {FzCodeBoxModule} from '../../lib/components/code-box/code-box.module';
         FzBackTopModule,
         FzRateModule,
         FzCodeBoxModule,
+        FzAlertModule,
         ImageListSelectComponent,
         AgeInputComponent,
         ChipsListComponent,
