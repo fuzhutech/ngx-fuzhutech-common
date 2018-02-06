@@ -39,6 +39,7 @@ import {ChipsListComponent} from './chips-list/chips-list.component';
 import {IdentityInputComponent} from './identity-input/identity-input.component';
 import {AreaListComponent} from './area-list/area-list.component';
 import {FzMessageModule} from '../../lib/components/message/message.module';
+import {FzNotificationModule} from '../../lib/components/notification/notification.module';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import {FzMessageModule} from '../../lib/components/message/message.module';
         MatChipsModule,
         MarkdownModule,
         FzMessageModule,
+        FzNotificationModule,
     ],
     declarations: [
         HeaderComponent,
@@ -112,6 +114,7 @@ import {FzMessageModule} from '../../lib/components/message/message.module';
         MatChipsModule,
         MarkdownModule,
         FzMessageModule,
+        FzNotificationModule,
         ImageListSelectComponent,
         AgeInputComponent,
         ChipsListComponent,

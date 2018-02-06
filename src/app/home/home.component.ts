@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MessageService} from '../../lib/components/message/message.service';
+import {NotificationService} from '../../lib/components/notification/notification.service';
 
 @Component({
     selector: 'fz-home',
@@ -80,7 +81,7 @@ export class HomeComponent implements OnInit {
         '\n' +
         '> 点击图标复制代码。';
 
-    constructor(private _message: MessageService) {
+    constructor(private _message: MessageService, private _notification: NotificationService) {
     }
 
     ngOnInit() {
@@ -88,6 +89,10 @@ export class HomeComponent implements OnInit {
 
     createBasicMessage() {
         this._message.info('这是一条普通的提醒');
+    }
+
+    createBasicNotification() {
+        this._notification.blank('这是标题', '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案');
     }
 
 }

@@ -58,9 +58,9 @@ import { NzUtilModule } from './util/nz-util.module';*/
 
 // Services
 import {MessageService} from './components/message/message.service';
+import {NotificationService} from './components/notification/notification.service';
 /*import { NzModalSubject } from './modal/nz-modal-subject.service';
-import { NzModalService } from './modal/nz-modal.service';
-import { NzNotificationService } from './notification/nz-notification.service';*/
+import { NzModalService } from './modal/nz-modal.service';*/
 
 // Tokens (eg. global services' config)
 // import { NzRootConfig, NZ_ROOT_CONFIG } from './root/nz-root-config';
@@ -307,7 +307,7 @@ export class NgxFuzhutechCommonModule {
       ngModule: NgxFuzhutechCommonModule,
       providers: [
         // Services
-        // NzNotificationService,
+        NotificationService,
         MessageService,
         // { provide: NZ_ROOT_CONFIG, useValue: options },
       ]
