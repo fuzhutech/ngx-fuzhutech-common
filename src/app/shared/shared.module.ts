@@ -52,6 +52,7 @@ import {FzBadgeModule} from '../../lib/components/badge/badge.module';
 import {FzCarouselModule} from '../../lib/components/carousel/carousel.module';
 import {FzCascaderModule} from '../../lib/components/cascader/cascader.module';
 import {FzAnchorModule} from '../../lib/components/anchor/anchor.module';
+import {FzPopoverModule} from '../../lib/components/popover/popover.module';
 
 
 @NgModule({
@@ -96,6 +97,7 @@ import {FzAnchorModule} from '../../lib/components/anchor/anchor.module';
         FzCarouselModule,
         FzCascaderModule,
         FzAnchorModule,
+        FzPopoverModule,
     ],
     declarations: [
         HeaderComponent,
@@ -151,6 +153,7 @@ import {FzAnchorModule} from '../../lib/components/anchor/anchor.module';
         FzCarouselModule,
         FzCascaderModule,
         FzAnchorModule,
+        FzPopoverModule,
         ImageListSelectComponent,
         AgeInputComponent,
         ChipsListComponent,
