@@ -1,0 +1,3 @@
+<i class="anticon anticon-{{nzIcon}}" *ngIf="nzIcon && _hasIcon"></i>
+<img [src]="nzSrc" *ngIf="nzSrc && _isSrcExist" (error)="_imgError($event)"/>
+<span class="ant-avatar-string" #textEl [ngStyle]="_textStyles" *ngIf="nzText && _hasText">{{ nzText }}</span>

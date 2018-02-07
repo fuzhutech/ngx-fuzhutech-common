@@ -91,5 +91,23 @@
         (nzChange)="change($event)">
     </fz-transfer>
 
+
+    <div>
+        <fz-avatar nzSize="large" nzIcon="user"></fz-avatar>
+        <fz-avatar nzIcon="user"></fz-avatar>
+        <fz-avatar nzSize="small" nzIcon="user"></fz-avatar>
+    </div>
+    <div>
+        <fz-avatar [nzShape]="'square'" [nzSize]="'large'" [nzIcon]="'user'"></fz-avatar>
+        <fz-avatar [nzShape]="'square'" [nzIcon]="'user'"></fz-avatar>
+        <fz-avatar [nzShape]="'square'" [nzSize]="'small'" [nzIcon]="'user'"></fz-avatar>
+    </div>
+    <div>
+        <fz-avatar [nzText]="'U'" nzSize="large" [ngStyle]="{'background-color':'#f56a00'}"></fz-avatar>
+        <fz-avatar [nzText]="'Lucy'" nzSize="large" [ngStyle]="{'background-color':'#7265e6'}"></fz-avatar>
+        <fz-avatar [nzText]="'Tom'" nzSize="large" [ngStyle]="{'background-color':'#ffbf00'}"></fz-avatar>
+        <fz-avatar [nzText]="'Edward'" nzSize="large" [ngStyle]="{'background-color':'#00a2ae'}"></fz-avatar>
+    </div>
+
 </div>
 
