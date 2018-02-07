@@ -48,6 +48,7 @@ import {FzAlertModule} from '../../lib/components/alert/alert.module';
 import {FzAffixModule} from '../../lib/components/affix/affix.module';
 import {FzTransferModule} from '../../lib/components/transfer/transfer.module';
 import {FzAvatarModule} from '../../lib/components/avatar/avatar.module';
+import {FzBadgeModule} from '../../lib/components/badge/badge.module';
 
 
 @NgModule({
@@ -88,6 +89,7 @@ import {FzAvatarModule} from '../../lib/components/avatar/avatar.module';
         FzAffixModule,
         FzTransferModule,
         FzAvatarModule,
+        FzBadgeModule,
     ],
     declarations: [
         HeaderComponent,
@@ -139,6 +141,7 @@ import {FzAvatarModule} from '../../lib/components/avatar/avatar.module';
         FzAffixModule,
         FzTransferModule,
         FzAvatarModule,
+        FzBadgeModule,
         ImageListSelectComponent,
         AgeInputComponent,
         ChipsListComponent,
