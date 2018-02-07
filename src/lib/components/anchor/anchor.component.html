@@ -1,3 +1,8 @@
-<p>
-  anchor works!
-</p>
+<div class="ant-anchor-wrapper" #container>
+    <div class="ant-anchor">
+        <div class="ant-anchor-ink">
+            <div class="ant-anchor-ink-ball" [class.visible]="_visible" #ball></div>
+        </div>
+        <ng-content></ng-content>
+    </div>
+</div>
