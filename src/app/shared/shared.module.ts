@@ -50,6 +50,7 @@ import {FzTransferModule} from '../../lib/components/transfer/transfer.module';
 import {FzAvatarModule} from '../../lib/components/avatar/avatar.module';
 import {FzBadgeModule} from '../../lib/components/badge/badge.module';
 import {FzCarouselModule} from '../../lib/components/carousel/carousel.module';
+import {FzCascaderModule} from '../../lib/components/cascader/cascader.module';
 
 
 @NgModule({
@@ -92,6 +93,7 @@ import {FzCarouselModule} from '../../lib/components/carousel/carousel.module';
         FzAvatarModule,
         FzBadgeModule,
         FzCarouselModule,
+        FzCascaderModule,
     ],
     declarations: [
         HeaderComponent,
@@ -145,6 +147,7 @@ import {FzCarouselModule} from '../../lib/components/carousel/carousel.module';
         FzAvatarModule,
         FzBadgeModule,
         FzCarouselModule,
+        FzCascaderModule,
         ImageListSelectComponent,
         AgeInputComponent,
         ChipsListComponent,

@@ -131,5 +131,18 @@
         </fz-carousel>
     </div>
 
+    <div>
+        <fz-cascader
+            [class.class123]="true"
+            [nzOptions]="_options"
+            [(ngModel)]="_value"
+            (ngModelChange)="_console($event)"
+            (nzChange)="_console($event)">
+        </fz-cascader>
+        <a href="javascript:;" (click)="_changeNzOptions()" class="change-options">
+            Change Options
+        </a>
+    </div>
+
 </div>
 

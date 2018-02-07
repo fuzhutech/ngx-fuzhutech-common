@@ -1,3 +1,63 @@
-<p>
-  cascader works!
-</p>
+<div cdkOverlayOrigin
+     #origin="cdkOverlayOrigin"
+     #trigger>
+    <div *ngIf="nzShowInput">
+        <input #input
+               matInput
+               [attr.autoComplete]="'off'"
+               [attr.placeholder]="_hasInput() || _hasSelection() ? null : nzPlaceHolder"
+               [readonly]="!nzShowSearch"
+               [disabled]="nzDisabled"
+               [ngClass]="_inputCls"
+               [(ngModel)]="_inputValue"
+               (blur)="_handleInputBlur($event)"
+               (focus)="_handleInputFocus($event)"
+               (keydown)="_handleInputKeyDown($event)"
+               (change)="_handlerInputChange($event)"
+        >
+        <i *ngIf="_showClearIcon"
+           [class]="'anticon anticon-cross-circle'"
+           [ngClass]="_clearCls"
+           [attr.title]="nzClearText"
+           (click)="_clearSelection($event)"></i>
+        <i *ngIf="nzShowArrow"
+           class="anticon anticon-down"
+           [ngClass]="_arrowCls"></i>
+        <span [ngClass]="_pickerLabelCls">
+          <ng-container *ngIf="_displayLabelIsTemplate">
+            <ng-container *ngTemplateOutlet="_displayLabel; context: _displayLabelContext"></ng-container>
+          </ng-container>
+          <ng-container *ngIf="!_displayLabelIsTemplate">{{ _displayLabel }}</ng-container>
+        </span>
+    </div>
+    <ng-content></ng-content>
+</div>
+<ng-template
+    cdkConnectedOverlay
+    cdkConnectedOverlayHasBackdrop
+    [cdkConnectedOverlayOrigin]="origin"
+    (backdropClick)="_closeMenu()"
+    (detach)="_closeMenu()"
+    (positionChange)="onPositionChange($event)"
+    [cdkConnectedOverlayOpen]="_popupVisible"
+>
+    <div #menu
+         [ngClass]="_menuCls"
+         [@dropDownAnimation]="_dropDownPosition"
+    >
+        <ul *ngFor="let options of _nzColumns; let i = index;"
+            [ngClass]="_columnCls"
+            [attr.data-key]="i">
+            <li *ngFor="let option of options"
+                [attr.data-key]="_getOptionValue(option)"
+                [attr.title]="option.title || _getOptionLabel(option)"
+                [ngClass]="_getOptionCls(option, i)"
+                (mouseenter)="_onOptionMouseEnter(option, i, $event)"
+                (mouseleave)="_onOptionMouseLeave(option, i, $event)"
+                (click)="_onOptionClick(option, i, $event)"
+            >
+                {{ _getOptionLabel(option) }}
+            </li>
+        </ul>
+    </div>
+</ng-template>
