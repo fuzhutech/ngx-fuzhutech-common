@@ -13,7 +13,7 @@ const routes: Routes = [
     {path: 'news', component: NewsComponent, data: {title: '新闻管理', module: 'news', power: 'SHOW'}},
     {path: 'contact', component: ContactComponent, data: {title: '联系我们', module: 'contact', power: 'SHOW'}},
     {path: 'about', component: AboutComponent, data: {title: '关于我们', module: 'about', power: 'SHOW'}},
-    {path: 'login', loadChildren: './login/login.module#LoginModule'}
+    {path: 'login', loadChildren: './login/login.module#LoginModule', data: {title: '登录', module: 'login', power: 'SHOW'}}
 ];
 
 @NgModule({

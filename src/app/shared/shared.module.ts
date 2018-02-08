@@ -54,7 +54,6 @@ import {FzCascaderModule} from '../../lib/components/cascader/cascader.module';
 import {FzAnchorModule} from '../../lib/components/anchor/anchor.module';
 import {FzPopoverModule} from '../../lib/components/popover/popover.module';
 
-
 @NgModule({
     imports: [
         CommonModule,

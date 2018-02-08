@@ -56,7 +56,7 @@ export class PrismService {
     }
 
     loadScript(path: string): Promise<any> {
-        console.log('11111111');
+        console.log('PrismService load script: ', path);
         return new Promise((resolve, reject) => {
 
             // 检测是否已经加载，返回加载成功

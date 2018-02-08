@@ -25,9 +25,10 @@ import {FzHighlightModule} from './ngx-fuzhutech-common';
 import {FzPrismModule} from '../lib/core/prism/prism.module';
 import {NgxFuzhutechCommonModule} from '../lib/ngx-fuzhutech-common.module';
 import {AboutComponent} from './about/about.component';
-import {SimpleReuseStrategy} from './domain/simple-reuse-strategy';
+// import {SimpleReuseStrategy} from './domain/simple-reuse-strategy';
 import {NewsComponent} from './news/news.component';
 import {ContactComponent} from './contact/contact.component';
+import {FzReuseTabModule} from './reuse-tab/reuse-tab.module';
 
 
 @NgModule({
@@ -96,7 +97,8 @@ import {ContactComponent} from './contact/contact.component';
             }
         }),
         FzHighlightModule,
-        NgxFuzhutechCommonModule.forRoot()
+        NgxFuzhutechCommonModule.forRoot(),
+        FzReuseTabModule.forRoot(),
     ],
     providers: [
         /**
@@ -106,7 +108,7 @@ import {ContactComponent} from './contact/contact.component';
          */
         {provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
         // 最后将策略注册到模块当中
-        {provide: RouteReuseStrategy, useClass: SimpleReuseStrategy}
+        // {provide: RouteReuseStrategy, useClass: SimpleReuseStrategy}
     ],
     bootstrap: [AppComponent]
 })

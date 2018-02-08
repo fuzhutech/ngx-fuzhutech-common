@@ -8,6 +8,8 @@
             <fz-header (toggle)="sidenav.toggle()" (toggleDarkTheme)="switchTheme($event)"></fz-header>
         </header>
         <main>
+            <fz-reuse-tab></fz-reuse-tab>
+            <!--router-outlet></router-outlet-->
             <div class="row">
                 <div class="col-md-4">
                     <ul>
@@ -40,6 +42,7 @@
                 </div>
             </div>
             <!--router-outlet></router-outlet-->
+
         </main>
         <footer>
             <fz-footer></fz-footer>

@@ -7,6 +7,10 @@ import {
 
 export class SimpleReuseStrategy implements RouteReuseStrategy {
 
+    constructor() {
+        console.log('SimpleReuseStrategy create...');
+    }
+
     // _cacheRouters: { [key: string]: any } = {};
     public static handlers: { [key: string]: DetachedRouteHandle } = {};
 
@@ -46,7 +50,6 @@ export class SimpleReuseStrategy implements RouteReuseStrategy {
     //  获取存储路由
     /** 从缓存中获取快照，若无则返回nul */
     public retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle {
-        console.log(route);
         if (!route.routeConfig) {
             return null;
         }
@@ -65,7 +68,8 @@ export class SimpleReuseStrategy implements RouteReuseStrategy {
 
     // 获取路由的从主路由开始的路径，相当于location.pathname，然后把其中的  "/"字符换成了下划线。存储路由和判断路由都是用的这个方法的返回值来判断。
     private getRouteUrl(route: ActivatedRouteSnapshot) {
-        return route['_routerState'].url.replace(/\//g, '_');
+        // return route['_routerState'].url.replace(/\//g, '_');
+        return route.routeConfig.path;
     }
 
     public deleteRouteSnapshot(name: string): void {

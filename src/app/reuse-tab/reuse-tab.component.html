@@ -1,0 +1,43 @@
+<!--div class="demo-nav-bar">
+    <nav mat-tab-nav-bar aria-label="weather navigation links" [backgroundColor]="tabNavBackground">
+        <a mat-tab-link
+           *ngFor="let tabLink of tabLinks; let i = index"
+           [routerLink]="tabLink.link"
+           routerLinkActive #rla="routerLinkActive"
+           [active]="rla.isActive">
+            {{tabLink.label}}
+        </a>
+        <a mat-tab-link disabled>Disabled Link</a>
+    </nav>
+    <!--router-outlet></router-outlet-->
+<!--/div-->
+
+
+<mat-tab-group #tabView [(selectedIndex)]="_pos" dynamicHeight (selectedTabChange)="to($event)">
+
+    <mat-tab *ngFor="let tab of _list; let index = index">
+        <ng-template mat-tab-label>
+
+            <div (dblclick)="remove(index)" (contextmenu)="onNodeRightClick($event,tab,cm)" style="width: 100%">
+                {{index}}{{tab.title}}
+                <!--i *ngIf="allowClose" class="anticon anticon-close op" (click)="remove(index)"></i-->
+            </div>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>
+
+<!--nz-tabset [(nzSelectedIndex)]="_pos" [nzAnimated]="false" (nzSelectedIndexChange)="to($event)" [nzTabBarExtraTemplate]="opsContent">
+    <nz-tab *ngFor="let i of _list; let index = index">
+        <ng-template #nzTabHeading>
+            {{i.title}}
+            <i *ngIf="allowClose" class="anticon anticon-close op" (click)="remove(index)"></i>
+        </ng-template>
+    </nz-tab>
+    <ng-template #opsContent>
+        <nz-popconfirm *ngIf="allowClose && srv.count" [nzTitle]="'确定清空吗？'" (nzOnConfirm)="clear()">
+            <button nz-popconfirm nz-button [nzType]="'dashed'" [nzShape]="'circle'">
+                <i class="anticon anticon-delete"></i>
+            </button>
+        </nz-popconfirm>
+    </ng-template>
+</nz-tabset-->
