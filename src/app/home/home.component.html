@@ -119,16 +119,25 @@
     </div>
 
     <div>
-        <p>---------------</p>
-        <span>sssssssssssssss</span>
-        <fz-badge [nzCount]="5" style="margin-right: 16px;">
-            <ng-template #content>
-                <a style="width: 42px;
-      height: 42px;
-      border-radius: 6px;
-      background: #eee;
-      display: inline-block;"></a>
-            </ng-template>
+        <fz-badge [text]="'new'" status="warning">
+            <button>回复</button>
+        </fz-badge>
+        &nbsp;&nbsp;&nbsp;
+        <fz-badge [count]="'9'" status="error">
+            <mat-icon>menu</mat-icon>
+        </fz-badge>
+        &nbsp;&nbsp;&nbsp;
+        <fz-badge [count]="'9'" status="success">
+            <!--mat-icon>menu</mat-icon-->
+        </fz-badge>
+        &nbsp;&nbsp;&nbsp;
+        <fz-badge [showDot]="true" [status]="'error'">
+            <mat-icon>menu</mat-icon>
+        </fz-badge>
+
+        &nbsp;&nbsp;&nbsp;
+        <fz-badge [showDot]="true" [status]="'info'">
+            消息
         </fz-badge>
     </div>
 

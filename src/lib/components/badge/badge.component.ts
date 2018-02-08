@@ -34,65 +34,74 @@ import {toBoolean} from '../../util/convert';
     ],
     templateUrl: './badge.component.html',
     styleUrls: ['./badge.component.scss'],
-    host: {
-        '[class.ant-badge]': 'true'
-    }
 })
 export class BadgeComponent implements OnInit {
     private _showDot = false;
     private _showZero = false;
-    count: number;
-    maxNumberArray;
-    countArray = [];
-    countSingleArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    _count: number;
     @ContentChild('content') content: TemplateRef<void>;
 
-    @HostBinding('class.ant-badge-not-a-wrapper')
-    get setNoWrapper(): boolean {
-        return !this.content;
-    }
+    /**
+     * 展示封顶的数字值
+     * @type {number}
+     */
+    @Input() overflowCount = 99;
 
-    // @HostBinding('class.ant-badge') badgeStyle = true;
-
-    @Input() nzOverflowCount = 99;
-
+    /**
+     * 当添加该属性时，当数值为 0 时，展示 Badge
+     * @param {boolean} value
+     */
     @Input()
-    set nzShowZero(value: boolean) {
+    set showZero(value: boolean) {
         this._showZero = toBoolean(value);
     }
 
-    get nzShowZero(): boolean {
+    get showZero(): boolean {
         return this._showZero;
     }
 
+    /**
+     * 不展示数字，只有一个小红点
+     * @param {boolean} value
+     */
     @Input()
-    set nzDot(value: boolean) {
+    set showDot(value: boolean) {
         this._showDot = toBoolean(value);
     }
 
-    get nzDot(): boolean {
+    get showDot(): boolean {
         return this._showDot;
     }
 
-    @Input() nzText: string;
-    @Input() nzStyle;
-    @Input() @HostBinding('class.ant-badge-status') nzStatus: string;
+    /**
+     * 在设置了 nzStatus的前提下有效，设置状态点的文本
+     */
+    @Input() text: string;
 
+    /**
+     * 设置 Badge 为状态点  'success', 'processing, 'default', 'error', 'warning'
+     */
+    @Input() status: 'info' | 'warning' | 'error' | 'success' = 'info';
+
+    /**
+     * 展示的数字，大于 nzOverflowCount 时显示为 nzOverflowCount+为 0 时隐藏
+     * @param {number} value
+     */
     @Input()
-    set nzCount(value: number) {
+    set count(value: number) {
         if (value < 0) {
-            this.count = 0;
+            this._count = 0;
         } else {
-            this.count = value;
+            this._count = value;
         }
-        this.countArray = this.count.toString().split('');
     }
 
-    get nzCount(): number {
-        return this.count;
+    get count(): number {
+        return this._count;
     }
+
 
     ngOnInit(): void {
-        this.maxNumberArray = this.nzOverflowCount.toString().split('');
+
     }
 }

@@ -1,22 +1,20 @@
-<ng-template *ngIf="content" [ngTemplateOutlet]="content"></ng-template>
-<span class="ant-badge-status-dot ant-badge-status-{{nzStatus}}" *ngIf="nzStatus"></span>
-<span class="ant-badge-status-text" *ngIf="nzText">{{ nzText }}</span>
-<sup [@enterLeave]
-     [ngStyle]="nzStyle"
-     *ngIf="(nzDot)||(nzCount>0)||((nzCount==0)&&nzShowZero)"
-     data-show="true"
-     class="ant-scroll-number"
-     [class.ant-badge-count]="!nzDot"
-     [class.ant-badge-dot]="nzDot">
-    <ng-template ngFor
-                 [ngForOf]="maxNumberArray"
-                 let-number
-                 let-i="index"><span *ngIf="nzCount<=nzOverflowCount"
-                                     class="ant-scroll-number-only"
-                                     [style.transform]="'translateY('+((-countArray[i]*100))+'%)'">
-        <ng-template [ngIf]="(!nzDot)&&(countArray[i]!=null)">
-          <p *ngFor="let p of countSingleArray" [class.current]="p==countArray[i]">{{ p }}</p>
-        </ng-template>
-        </span></ng-template>
-    <ng-template [ngIf]="nzCount>nzOverflowCount">{{ nzOverflowCount }}+</ng-template>
-</sup>
+<span class="fz-badge fz-badge-status-{{status}}">
+    <span #content>
+        <ng-content></ng-content>
+    </span>
+    <span *ngIf="!showDot"
+          [class.at-badge-corner]="(content.innerText.length > 0 || content.children.length >0)"
+          [class.at-badge-alone]="(content.innerText.length == 0 && content.children.length == 0 )">
+        <sup [@enterLeave] class="at-badge-sup" *ngIf="(count>0)||((count==0)&&showZero)">
+            {{count > overflowCount ? overflowCount + '+' : count}}
+        </sup>
+        <sup [@enterLeave] class="at-badge-sup" *ngIf="text">
+            {{text}}
+        </sup>
+    </span>
+    <sup [@enterLeave] *ngIf="showDot" class="at-badge-sup at-badge-dot"
+         [class.at-badge-corner]="(content.innerText.length > 0 || content.children.length >0)"
+         [class.at-badge-alone]="(content.innerText.length == 0 && content.children.length == 0 )">
+        {{''}}
+    </sup>
+</span>
