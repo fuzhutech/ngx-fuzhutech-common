@@ -14,22 +14,30 @@ import {reducers, metaReducers, CustomRouterStateSerializer} from './reducers';
 import {environment} from '../environments/environment';
 
 import {AppComponent} from './app.component';
-import {AppRoutingModule} from './app-routing.module';
+import {AppRoutingModule, ComponentList} from './app-routing.module';
 import {CoreModule} from './core/core.module';
 import {SharedModule} from './shared/shared.module';
-import {RouterModule} from '@angular/router';
+import {RouteReuseStrategy, RouterModule} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import {HomeComponent} from './home/home.component';
 import {FzHighlightModule} from './ngx-fuzhutech-common';
 import {FzPrismModule} from '../lib/core/prism/prism.module';
 import {NgxFuzhutechCommonModule} from '../lib/ngx-fuzhutech-common.module';
+import {AboutComponent} from './about/about.component';
+import {SimpleReuseStrategy} from './domain/simple-reuse-strategy';
+import {NewsComponent} from './news/news.component';
+import {ContactComponent} from './contact/contact.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
-        HomeComponent
+        HomeComponent,
+        AboutComponent,
+        NewsComponent,
+        ContactComponent,
+        ComponentList
     ],
     imports: [
         BrowserModule,
@@ -97,6 +105,8 @@ import {NgxFuzhutechCommonModule} from '../lib/ngx-fuzhutech-common.module';
          * by `@ngrx/router-store` to include only the desired pieces of the snapshot.
          */
         {provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
+        // 最后将策略注册到模块当中
+        {provide: RouteReuseStrategy, useClass: SimpleReuseStrategy}
     ],
     bootstrap: [AppComponent]
 })
