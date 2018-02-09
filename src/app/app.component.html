@@ -1,46 +1,25 @@
-<mat-sidenav-container [class.myapp-dark-theme]="darkTheme">
+<div class="site">
+    <header>
+        <fz-header (toggle)="sidenav.toggle()" (toggleDarkTheme)="switchTheme($event)"></fz-header>
+    </header>
+    <main>
 
-    <!--Mode of the drawer; one of 'over', 'push' or 'side'.-->
-    <mat-sidenav #sidenav mode="side" opened="true" position="start">
-        <fz-sidebar (navClick)="sidenav.toggle()"></fz-sidebar>
-    </mat-sidenav>
-    <div class="site">
-        <header>
-            <fz-header (toggle)="sidenav.toggle()" (toggleDarkTheme)="switchTheme($event)"></fz-header>
-        </header>
-        <main>
+        <mat-sidenav-container [class.myapp-dark-theme]="darkTheme">
+
+            <!--Mode of the drawer; one of 'over', 'push' or 'side'.-->
+            <mat-sidenav #sidenav mode="side" opened="true" position="start">
+                <fz-sidebar (navClick)="sidenav.toggle()"></fz-sidebar>
+            </mat-sidenav>
+
             <fz-reuse-tab></fz-reuse-tab>
             <router-outlet></router-outlet>
 
+        </mat-sidenav-container>
 
-            <ul>
-                <li><a routerLinkActive="active" routerLink="/home">首页</a></li>
-                <li><a routerLinkActive="active" routerLink="/about">关于我们</a></li>
-                <li><a routerLinkActive="active" routerLink="/news">新闻中心</a></li>
-                <li><a routerLinkActive="active" routerLink="/contact">联系我们</a></li>
-            </ul>
+    </main>
+    <footer>
+        <fz-footer></fz-footer>
+    </footer>
+</div>
 
-            <ul>
-                <ng-container *ngFor="let menu of menuList">
-                    <ng-container *ngIf="menu.isSelect">
-                        <li class="isSelect">
-                            <a routerLink="/{{ menu.module }}">{{ menu.title }}</a>
-                            <span (click)="closeUrl(menu.module,menu.isSelect)">X</span>
-                        </li>
-                    </ng-container>
-                    <ng-container *ngIf="!menu.isSelect">
-                        <li>
-                            <a routerLink="/{{ menu.module }}">{{ menu.title }}</a>
-                            <span (click)="closeUrl(menu.module,menu.isSelect)">X</span>
-                        </li>
-                    </ng-container>
-                </ng-container>
-            </ul>
-
-        </main>
-        <footer>
-            <fz-footer></fz-footer>
-        </footer>
-    </div>
-</mat-sidenav-container>
 
