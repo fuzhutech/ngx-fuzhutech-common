@@ -7,10 +7,15 @@
         <mat-sidenav-container [class.myapp-dark-theme]="darkTheme">
 
             <!--Mode of the drawer; one of 'over', 'push' or 'side'.-->
-            <mat-sidenav #sidenav mode="side" opened="true" position="start">
+            <mat-sidenav #sidenav mode="side" opened="true" position="start" class="test1">
+                <div style="width: 70%;margin: 0 auto;">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="" value="搜索">
+                    </mat-form-field>
+                </div>
+
                 <fz-sidebar (navClick)="sidenav.toggle()"></fz-sidebar>
             </mat-sidenav>
-
             <fz-reuse-tab></fz-reuse-tab>
             <router-outlet></router-outlet>
 

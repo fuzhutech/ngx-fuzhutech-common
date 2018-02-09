@@ -53,6 +53,14 @@ import {FzCarouselModule} from '../../lib/components/carousel/carousel.module';
 import {FzCascaderModule} from '../../lib/components/cascader/cascader.module';
 import {FzAnchorModule} from '../../lib/components/anchor/anchor.module';
 import {FzPopoverModule} from '../../lib/components/popover/popover.module';
+import {HeaderThemeComponent} from './header/theme.component';
+import {HeaderSearchComponent} from './header/search.component';
+import {HeaderIconComponent} from './header/icon.component';
+import {HeaderNotifyComponent} from './header/notify.component';
+import {HeaderTaskComponent} from './header/task.component';
+import {HeaderUserComponent} from './header/user.component';
+import {HeaderFullScreenComponent} from './header/fullscreen.component';
+import {HeaderStorageComponent} from './header/storage.component';
 
 @NgModule({
     imports: [
@@ -100,6 +108,14 @@ import {FzPopoverModule} from '../../lib/components/popover/popover.module';
     ],
     declarations: [
         HeaderComponent,
+        HeaderThemeComponent,
+        HeaderSearchComponent,
+        HeaderIconComponent,
+        HeaderNotifyComponent,
+        HeaderTaskComponent,
+        HeaderUserComponent,
+        HeaderFullScreenComponent,
+        HeaderStorageComponent,
         FooterComponent,
         SidebarComponent,
         ConfirmDialogComponent,

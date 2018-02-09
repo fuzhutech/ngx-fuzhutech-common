@@ -29,6 +29,24 @@ main {
     flex-direction: row;
 }
 
+.mat-drawer::-webkit-scrollbar {
+    //height: 4px;
+    //width: 4px;
+    height: 0;
+    width: 0;
+}
+
+.mat-drawer::-webkit-scrollbar-track {
+    //-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 0 transparent;
+}
+
+.mat-drawer::-webkit-scrollbar-thumb {
+    //background-color: #6e6e6e;
+    //outline: 1px solid #333;
+    background-color: transparent;
+}
+
 @media (min-width: 768px) {
     .main-container {
         width: 750px;
@@ -62,7 +80,7 @@ main {
         font-size: xx-small;
     }
 
-    .mat-paginator-page-size{
+    .mat-paginator-page-size {
         display: none;
     }
 }

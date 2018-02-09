@@ -12,6 +12,9 @@ import {NavigationEnd, Router} from '@angular/router';
     selector: 'fz-sidebar',
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.scss'],
+    /*host: {
+        '[class.aside]': 'true'
+    },*/
     // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarComponent implements OnInit, OnDestroy {

@@ -121,14 +121,14 @@ const appData = {
                             'text': '新闻中心',
                             'link': '/news',
                             'translate': 'relation',
-                            'shortcut': true,
+                            // 'shortcut': true,
                             'reuse': true
                         },
                         {
                             'text': '关于我们',
                             'link': '/about',
                             'translate': 'relation',
-                            'shortcut': true,
+                            // 'shortcut': true,
                             'reuse': true
                         }
                     ]

@@ -1,5 +1,5 @@
-.aside {
-    position: fixed;
+.aside, :host {
+    // position: fixed;
     top: 0;
     bottom: 0;
     margin-top: 64px;
