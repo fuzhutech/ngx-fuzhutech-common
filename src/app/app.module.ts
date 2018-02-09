@@ -28,7 +28,7 @@ import {AboutComponent} from './about/about.component';
 // import {SimpleReuseStrategy} from './domain/simple-reuse-strategy';
 import {NewsComponent} from './news/news.component';
 import {ContactComponent} from './contact/contact.component';
-import {FzReuseTabModule} from './reuse-tab/reuse-tab.module';
+import {FzReuseTabModule} from '../lib/components/reuse-tab/reuse-tab.module';
 
 
 @NgModule({

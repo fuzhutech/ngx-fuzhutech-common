@@ -7,7 +7,7 @@ import {SimpleReuseStrategy} from './domain/simple-reuse-strategy';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
-import {Menu, MenuService} from './reuse-tab/menu.service';
+import {Menu, MenuService} from '../lib/components/reuse-tab/menu.service';
 
 @Component({
     selector: 'fz-root',
@@ -107,7 +107,7 @@ const appData = {
         'email': 'cipchk@qq.com'
     },
     'menu': [
-        {
+        /*{
             'text': '首页',
             'translate': 'forms',
             'link': '/home',
@@ -134,7 +134,7 @@ const appData = {
             'link': '/login',
             'icon': 'icon-note',
             'acl': 'user1',
-        },
+        },*/
         {
             'text': '主导航',
             'translate': 'main_navigation',
@@ -589,6 +589,62 @@ const appData = {
                     'translate': 'poi'
                 }]
             }]
-        }]
+        }, {
+            'text': '测试',
+            'translate': 'test',
+            'group': true,
+            'children': [
+                {
+                    'text': '首页',
+                    'translate': 'home',
+                    'link': '/home',
+                    'icon': 'icon-compass',
+                    'children': []
+                },
+                {
+                    'text': '页面-2',
+                    'translate': 'report',
+                    'icon': 'anticon anticon-cloud-o',
+                    'children': [
+                        {
+                            'text': '新闻中心',
+                            'link': '/news',
+                            'translate': 'relation',
+                            'shortcut': true,
+                            'reuse': false
+                        },
+                        {
+                            'text': '关于我们',
+                            'link': '/about',
+                            'translate': 'relation',
+                            'shortcut': true,
+                            'reuse': false
+                        }
+                    ]
+                },
+                {
+                    'text': '登录页面',
+                    'translate': 'pages',
+                    'link': '/',
+                    'icon': 'icon-doc',
+                    'acl': 'admin',
+                    'children': [
+                        {
+                            'text': '登陆',
+                            'link': '/login',
+                            'translate': 'm-login',
+                            'reuse': false
+                        },
+                        {
+                            'text': '注册',
+                            'link': '/login/register',
+                            'translate': 'm-register',
+                            'reuse': false
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 };
 
