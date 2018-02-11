@@ -1,0 +1,64 @@
+<fz-dropdown nzTrigger="click" nzPlacement="bottomRight" (nzVisibleChange)="change()">
+    <div class="item" fzDropdown>
+        <fz-badge [showDot]="true">
+            <i class="anticon anticon-bell"></i>
+        </fz-badge>
+    </div>
+    <div nz-menu class="wd-lg">
+        <!--nz-card nzTitle="Notifications" [nzLoading]="loading" class="ant-card__body-nopadding"-->
+        <mat-card>
+            <ng-template #extra><i class="anticon anticon-plus"></i></ng-template>
+            <!--div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point"-->
+            <div nz-row class="ant-row-flex ant-row-flex-center ant-row-flex-middle py-sm bg-grey-lighter-h point">
+                <div nz-col class="text-center">
+                    <fz-avatar [nzSrc]="'./assets/img/1.png'" [nzSize]="'large'"></fz-avatar>
+                </div>
+                <div nz-col>
+                    <strong>cipchk</strong>
+                    <p>Please tell me what happened in a few words, don't go into details.</p>
+                </div>
+            </div>
+            <div nz-row class="py-sm bg-grey-lighter-h point">
+                <div nz-col class="text-center">
+                    <fz-avatar [nzSrc]="'./assets/img/2.png'" [nzSize]="'large'"></fz-avatar>
+                </div>
+                <div nz-col>
+                    <strong>はなさき</strong>
+                    <p>ハルカソラトキヘダツヒカリ </p>
+                </div>
+            </div>
+            <div nz-row class="py-sm bg-grey-lighter-h point">
+                <div nz-col class="text-center">
+                    <fz-avatar [nzSrc]="'./assets/img/3.png'" [nzSize]="'large'"></fz-avatar>
+                </div>
+                <div nz-col>
+                    <strong>苏先生</strong>
+                    <p>请告诉我，我应该说点什么好？</p>
+                </div>
+            </div>
+            <div nz-row class="py-sm bg-grey-lighter-h point">
+                <div nz-col class="text-center">
+                    <fz-avatar [nzSrc]="'./assets/img/4.png'" [nzSize]="'large'"></fz-avatar>
+                </div>
+                <div nz-col>
+                    <strong>Kent</strong>
+                    <p>Please tell me what happened in a few words, don't go into details.</p>
+                </div>
+            </div>
+            <div nz-row class="py-sm bg-grey-lighter-h point">
+                <div nz-col class="text-center">
+                    <fz-avatar [nzSrc]="'./assets/img/5.png'" [nzSize]="'large'"></fz-avatar>
+                </div>
+                <div nz-col>
+                    <strong>Jefferson</strong>
+                    <p>Please tell me what happened in a few words, don't go into details.</p>
+                </div>
+            </div>
+            <div nz-row class="pt-lg pb-lg">
+                <div nz-col class="text-center text-grey point">
+                    See All
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</fz-dropdown>

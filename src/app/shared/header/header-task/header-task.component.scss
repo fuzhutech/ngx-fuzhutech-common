@@ -1,0 +1,42 @@
+/**nz-row*/
+.ant-row-flex-middle {
+    align-items: center;
+}
+
+.ant-row-flex-center {
+    justify-content: center;
+}
+
+.ant-row-flex {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.point {
+    cursor: pointer;
+}
+
+.ant-col-4 {
+    display: block;
+    width: 16.66666667%;
+
+    float: left;
+    flex: 0 0 auto;
+}
+
+.text-center {
+    text-align: center!important;
+}
+
+.ant-col-20 {
+    display: block;
+    width: 83.33333333%;
+
+    float: left;
+    flex: 0 0 auto;
+}
+
+.py-sm {
+    padding-top: 8px!important;
+    padding-bottom: 8px!important;
+}

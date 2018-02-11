@@ -57,10 +57,11 @@ import {HeaderThemeComponent} from './header/theme.component';
 import {HeaderSearchComponent} from './header/search.component';
 import {HeaderIconComponent} from './header/icon.component';
 import {HeaderNotifyComponent} from './header/notify.component';
-import {HeaderTaskComponent} from './header/task.component';
+import {HeaderTaskComponent} from './header/header-task/header-task.component';
 import {HeaderUserComponent} from './header/user.component';
 import {HeaderFullScreenComponent} from './header/fullscreen.component';
 import {HeaderStorageComponent} from './header/storage.component';
+import {FzDropDownModule} from '../../lib/components/dropdown/dropdown.module';
 
 @NgModule({
     imports: [
@@ -105,6 +106,7 @@ import {HeaderStorageComponent} from './header/storage.component';
         FzCascaderModule,
         FzAnchorModule,
         FzPopoverModule,
+        FzDropDownModule,
     ],
     declarations: [
         HeaderComponent,
@@ -169,6 +171,7 @@ import {HeaderStorageComponent} from './header/storage.component';
         FzCascaderModule,
         FzAnchorModule,
         FzPopoverModule,
+        FzDropDownModule,
         ImageListSelectComponent,
         AgeInputComponent,
         ChipsListComponent,

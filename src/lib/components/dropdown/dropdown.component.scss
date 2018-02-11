@@ -1,0 +1,289 @@
+
+
+.ant-dropdown {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    //z-index: @zindex-dropdown;
+    z-index: 1050;
+    display: block;
+    //font-size: @font-size-base;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.5;
+
+    &-wrap {
+        position: relative;
+
+        .ant-btn > .anticon-down {
+            /*display: inline-block;
+            @font-scale: unit(@size / 12px);
+            font-size: 12px;
+            // ie8-9
+            font-size: 10px; // lesshint duplicateProperty: false
+            transform: scale(@font-scale) rotate(0deg);
+            .ie-rotate-via-degrees(@rotate);
+            :root & {
+                font-size: 12px; // reset ie9 and above
+            }*/
+        }
+
+        .anticon-down:before {
+            transition: transform 0.2s ease;
+        }
+    }
+
+    &-wrap-open {
+        .anticon-down:before {
+            transform: rotate(180deg);
+        }
+    }
+
+    &-hidden,
+    &-menu-hidden {
+        display: none;
+    }
+
+    &-menu {
+        outline: none;
+        position: relative;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+        //background-color: @component-background;
+        background-color: #fff;
+        //border-radius: @border-radius-base;
+        border-radius: 4px;
+        //box-shadow: @box-shadow-base;
+        box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
+        background-clip: padding-box;
+
+        &-item-group-title {
+            //color: @text-color-secondary;
+            color: rgba(0, 0, 0, .43);
+            padding: 6px 8px;
+            transition: all .3s;
+        }
+
+        &-item,
+        &-submenu-title {
+            padding: 7px 8px;
+            margin: 0;
+            clear: both;
+            //font-size: @font-size-base;
+            font-size: 12px;
+            font-weight: normal;
+            //color: @text-color;
+            color: rgba(0, 0, 0, .65);
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all .3s;
+
+            > a {
+                //color: @text-color;
+                color: rgba(0, 0, 0, .65);
+                display: block;
+                padding: 7px 8px;
+                margin: -7px -8px;
+                transition: all .3s;
+                &:focus {
+                    text-decoration: none;
+                }
+            }
+
+            &-selected,
+            &-selected > a {
+                //color: @primary-color;
+                color: #108ee9;;
+                //background-color: @item-active-bg;
+            }
+
+            &:hover {
+                //background-color: @item-hover-bg;
+            }
+
+            &-disabled {
+                //color: @disabled-color;
+                color: rgba(0, 0, 0, .25);
+                cursor: not-allowed;
+
+                &:hover {
+                    //color: @disabled-color;
+                    color: rgba(0, 0, 0, .25);
+                    //background-color: @component-background;
+                    background-color: #fff;
+                    cursor: not-allowed;
+                }
+            }
+
+            &:first-child,
+            &:first-child > a {
+                //border-radius: @border-radius-base @border-radius-base 0 0;
+                border-radius: 4px 4px 0 0;
+            }
+
+            &:last-child,
+            &:last-child > a {
+                //border-radius: 0 0 @border-radius-base @border-radius-base;
+                border-radius: 0 0 4px 4px;
+            }
+
+            &:only-child,
+            &:only-child > a {
+                //border-radius: @border-radius-base;
+                border-radius: 4px;
+            }
+
+            &-divider {
+                height: 1px;
+                overflow: hidden;
+                //background-color: @border-color-split;
+                background-color: #e9e9e9;
+                line-height: 0;
+            }
+        }
+
+        &-submenu-title:after {
+            font-family: "anticon" !important;
+            position: absolute;
+            content: "\e61f";
+            right: 8px;
+            //color: @text-color-secondary;
+            color: rgba(0, 0, 0, .43);
+            // .iconfont-size-under-12px (10 px);
+        }
+
+        &-submenu-vertical {
+            position: relative;
+        }
+
+        &-submenu-vertical > & {
+            top: 0;
+            left: 100%;
+            position: absolute;
+            min-width: 100%;
+            margin-left: 4px;
+            transform-origin: 0 0;
+        }
+
+        &-submenu &-submenu-disabled .ant-dropdown-menu-submenu-title {
+            &,
+            &:after {
+                //color: @disabled-color;
+                color: rgba(0, 0, 0, .25);
+            }
+        }
+        &-submenu:first-child &-submenu-title {
+            //border-radius: @border-radius-base @border-radius-base 0 0;
+            border-radius: 4px 4px 0 0;
+        }
+
+        &-submenu:last-child &-submenu-title {
+            //border-radius: 0 0 @border-radius-base @border-radius-base;
+            border-radius: 0 0 4px 4px;
+        }
+    }
+
+    &.slide-down-enter.slide-down-enter-active &-placement-bottomLeft,
+    &.slide-down-appear.slide-down-appear-active &-placement-bottomLeft,
+    &.slide-down-enter.slide-down-enter-active &-placement-bottomCenter,
+    &.slide-down-appear.slide-down-appear-active &-placement-bottomCenter,
+    &.slide-down-enter.slide-down-enter-active &-placement-bottomRight,
+    &.slide-down-appear.slide-down-appear-active &-placement-bottomRight {
+        animation-name: antSlideUpIn;
+    }
+
+    &.slide-up-enter.slide-up-enter-active &-placement-topLeft,
+    &.slide-up-appear.slide-up-appear-active &-placement-topLeft,
+    &.slide-up-enter.slide-up-enter-active &-placement-topCenter,
+    &.slide-up-appear.slide-up-appear-active &-placement-topCenter,
+    &.slide-up-enter.slide-up-enter-active &-placement-topRight,
+    &.slide-up-appear.slide-up-appear-active &-placement-topRight {
+        animation-name: antSlideDownIn;
+    }
+
+    &.slide-down-leave.slide-down-leave-active &-placement-bottomLeft,
+    &.slide-down-leave.slide-down-leave-active &-placement-bottomCenter,
+    &.slide-down-leave.slide-down-leave-active &-placement-bottomRight {
+        animation-name: antSlideUpOut;
+    }
+
+    &.slide-up-leave.slide-up-leave-active &-placement-topLeft,
+    &.slide-up-leave.slide-up-leave-active &-placement-topCenter,
+    &.slide-up-leave.slide-up-leave-active &-placement-topRight {
+        animation-name: antSlideDownOut;
+    }
+}
+
+.ant-dropdown-trigger,
+.ant-dropdown-link {
+    .anticon-down {
+        //.iconfont-size-under-12px (10 px);
+    }
+}
+
+.ant-dropdown-button {
+    white-space: nowrap;
+
+    &.ant-btn-group > .ant-btn:last-child:not(:first-child) {
+        padding-right: 8px;
+    }
+    .anticon-down {
+        //.iconfont-size-under-12px (10 px);
+    }
+}
+
+// https://github.com/ant-design/ant-design/issues/4903
+.ant-dropdown-menu-dark {
+    &,
+    .ant-dropdown-menu {
+        //background: @menu-dark-bg;
+        background: #404040;
+    }
+    .ant-dropdown-menu-item,
+    .ant-dropdown-menu-submenu-title,
+    .ant-dropdown-menu-item > a {
+        //color: @text-color-secondary-dark;
+        color: rgba(255, 255, 255, .67);
+        &:after {
+            //color: @text-color-secondary-dark;
+            color: rgba(255, 255, 255, .67);
+        }
+        &:hover {
+            color: #fff;
+            background: transparent;
+        }
+    }
+    .ant-dropdown-menu-item-selected {
+        &,
+        &:hover,
+        > a {
+            //background: @primary-color;
+            background: #108ee9;
+            color: #fff;
+        }
+    }
+}
+
+
+fz-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+fz-dropdown-button {
+    position: relative;
+    display: inline-block;
+}
+
+//
+.ant-dropdown {
+    top: 100%;
+    left: 0;
+    position: relative;
+    width: 100%;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
