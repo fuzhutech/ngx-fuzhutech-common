@@ -29,7 +29,6 @@ import {
 
 import {MarkdownModule} from '../../lib/components/markdown/markdown.module';
 
-import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
@@ -53,16 +52,9 @@ import {FzCarouselModule} from '../../lib/components/carousel/carousel.module';
 import {FzCascaderModule} from '../../lib/components/cascader/cascader.module';
 import {FzAnchorModule} from '../../lib/components/anchor/anchor.module';
 import {FzPopoverModule} from '../../lib/components/popover/popover.module';
-import {HeaderThemeComponent} from './header/theme.component';
-import {HeaderSearchComponent} from './header/search.component';
-import {HeaderIconComponent} from './header/icon.component';
-import {HeaderNotifyComponent} from './header/notify.component';
-import {HeaderTaskComponent} from './header/header-task/header-task.component';
-import {HeaderUserComponent} from './header/user.component';
-import {HeaderFullScreenComponent} from './header/fullscreen.component';
-import {HeaderStorageComponent} from './header/storage.component';
 import {FzDropDownModule} from '../../lib/components/dropdown/dropdown.module';
 import {FzNoticeIconModule} from '../../lib/components/notice-icon/notice-icon.module';
+import {FzHeaderModule} from './header/header.module';
 
 @NgModule({
     imports: [
@@ -92,6 +84,7 @@ import {FzNoticeIconModule} from '../../lib/components/notice-icon/notice-icon.m
         MatTabsModule,
         MatChipsModule,
         MarkdownModule,
+        FzHeaderModule,
         FzMessageModule,
         FzNotificationModule,
         FzTimelineModule,
@@ -111,15 +104,6 @@ import {FzNoticeIconModule} from '../../lib/components/notice-icon/notice-icon.m
         FzNoticeIconModule,
     ],
     declarations: [
-        HeaderComponent,
-        HeaderThemeComponent,
-        HeaderSearchComponent,
-        HeaderIconComponent,
-        HeaderNotifyComponent,
-        HeaderTaskComponent,
-        HeaderUserComponent,
-        HeaderFullScreenComponent,
-        HeaderStorageComponent,
         FooterComponent,
         SidebarComponent,
         ConfirmDialogComponent,
@@ -130,7 +114,6 @@ import {FzNoticeIconModule} from '../../lib/components/notice-icon/notice-icon.m
         AreaListComponent,
     ],
     exports: [
-        HeaderComponent,
         FooterComponent,
         SidebarComponent,
         CommonModule,
@@ -158,6 +141,7 @@ import {FzNoticeIconModule} from '../../lib/components/notice-icon/notice-icon.m
         MatTabsModule,
         MatChipsModule,
         MarkdownModule,
+        FzHeaderModule,
         FzMessageModule,
         FzNotificationModule,
         FzTimelineModule,

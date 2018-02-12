@@ -82,7 +82,7 @@
         </li>
     </ul>
 
-    <span class="fill-remaining-space"></span>
+    <!--span class="fill-remaining-space"></span-->
     <mat-slide-toggle (change)="onChage($event.checked)">黑夜模式</mat-slide-toggle>
     <span><a mat-button *ngIf="(auth$ | async)?.user" (click)="logout()">退出</a></span>
 </mat-toolbar>

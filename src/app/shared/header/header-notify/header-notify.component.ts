@@ -3,7 +3,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ArrayObservable} from 'rxjs/observable/ArrayObservable';
 import {map, groupBy, concatMap, mergeMap, flatMap, delay, tap, toArray} from 'rxjs/operators';
-import {MessageService} from '../../../lib/components/message/message.service';
+import {MessageService} from '../../../../lib/components/message/message.service';
 // import * as moment from 'moment';
 // import { NoticeItem } from '@delon/abc';
 // import { SettingsService } from '@delon/theme';
