@@ -14,13 +14,13 @@ import {MessageService} from '../../../lib/components/message/message.service';
 @Component({
     selector: 'fz-header-notify',
     template: `
-        <!--notice-icon
+        <fz-notice-icon
             [data]="data"
             [count]="count"
             [loading]="loading"
             (select)="select($event)"
             (clear)="clear($event)"
-            (popupVisibleChange)="loadData($event)"></notice-icon-->
+            (popupVisibleChange)="loadData($event)"></fz-notice-icon>
     `
 })
 export class HeaderNotifyComponent implements OnInit {

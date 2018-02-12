@@ -1,0 +1,37 @@
+<fz-badge *ngIf="data?.length <= 0" [count]="count" [showDot]="dot">
+    <ng-template #content>
+        <i class="anticon anticon-bell"></i>
+    </ng-template>
+</fz-badge>
+<fz-popover *ngIf="data?.length > 0" [nzVisible]="popoverVisible" (nzVisibleChange)="onVisibleChange($event)"
+            nzTrigger="click" nzPlacement="bottomRight" nzOverlayClassName="notice-icon-popover">
+    <div fzPopover class="item">
+        <!--fz-badge [count]="count" [showDot]="dot">
+            <ng-template #content>
+                <i class="anticon anticon-bell"></i>
+            </ng-template>
+        </fz-badge-->
+        <fz-badge [count]="count" [showDot]="dot">
+            <i class="anticon anticon-bell"></i>
+        </fz-badge>
+    </div>
+    <ng-template #nzTemplate>
+        <!--nz-spin [nzSpinning]="loading">
+            <nz-tabset>
+                <nz-tab *ngFor="let i of data">
+                    <ng-template #nzTabHeading>{{i.title}}</ng-template>
+                    <notice-list [data]="i"
+                                 (select)="onSelect($event)"
+                                 (clear)="onClear($event)"></notice-list>
+                </nz-tab>
+            </nz-tabset>
+        </nz-spin-->
+        <mat-tab-group>
+            <mat-tab *ngFor="let i of data" [label]="i.title">
+                <fz-notice-list [data]="i"
+                                (select)="onSelect($event)"
+                                (clear)="onClear($event)"></fz-notice-list>
+            </mat-tab>
+        </mat-tab-group>
+    </ng-template>
+</fz-popover>

@@ -1,0 +1,28 @@
+<div *ngIf="data.list?.length === 0; else listTpl" class="not-found">
+    <img *ngIf="data.emptyImage" src="{{data.emptyImage}}" alt="not found"/>
+    <p>{{data.emptyText}}</p>
+</div>
+<ng-template #listTpl>
+    <mat-list>
+        <mat-list-item *ngFor="let item of data.list" class="ant-list-item" (click)="onSelect(item)">
+            <!--mat-icon [svgIcon]="avatar" mat-list-avatar class="avatar"></mat-icon-->
+            <fz-avatar nzSize="large" [nzSrc]="item.avatar" mat-list-avatar></fz-avatar>
+
+            <h4 matLine class="list-item-title">
+                {{item.title}}
+                <div class="extra" *ngIf="item.extra">
+                    <!--nz-tag [nzColor]="item.color">{{item.extra}}</nz-tag-->
+                </div>
+            </h4>
+
+            <div matLine class="list-item-description">
+                {{item.description}}
+            </div>
+            <div matLine class="list-item-description datetime">
+                {{item.datetime}}
+            </div>
+        </mat-list-item>
+    </mat-list>
+
+    <div class="clear" (click)="onClear()">清空{{data.title}}</div>
+</ng-template>

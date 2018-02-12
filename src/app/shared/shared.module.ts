@@ -62,6 +62,7 @@ import {HeaderUserComponent} from './header/user.component';
 import {HeaderFullScreenComponent} from './header/fullscreen.component';
 import {HeaderStorageComponent} from './header/storage.component';
 import {FzDropDownModule} from '../../lib/components/dropdown/dropdown.module';
+import {FzNoticeIconModule} from '../../lib/components/notice-icon/notice-icon.module';
 
 @NgModule({
     imports: [
@@ -107,6 +108,7 @@ import {FzDropDownModule} from '../../lib/components/dropdown/dropdown.module';
         FzAnchorModule,
         FzPopoverModule,
         FzDropDownModule,
+        FzNoticeIconModule,
     ],
     declarations: [
         HeaderComponent,
@@ -172,6 +174,7 @@ import {FzDropDownModule} from '../../lib/components/dropdown/dropdown.module';
         FzAnchorModule,
         FzPopoverModule,
         FzDropDownModule,
+        FzNoticeIconModule,
         ImageListSelectComponent,
         AgeInputComponent,
         ChipsListComponent,

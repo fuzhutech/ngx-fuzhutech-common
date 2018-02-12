@@ -4,57 +4,72 @@
             <i class="anticon anticon-bell"></i>
         </fz-badge>
     </div>
+    <!--todo: [nz-menu] 属性补充，需要改造-->
     <div nz-menu class="wd-lg">
         <!--nz-card nzTitle="Notifications" [nzLoading]="loading" class="ant-card__body-nopadding"-->
         <mat-card>
-            <ng-template #extra><i class="anticon anticon-plus"></i></ng-template>
+            <!--mat-card-header>
+                <mat-card-title-->
+                    <div class="ant-card-head ng-star-inserted">
+                        <div class="ant-card-head-wrapper">
+                            <div class="ant-card-head-title ng-star-inserted">
+                                Notifications
+                            </div>
+                            <div class="ant-card-extra ng-star-inserted">
+                                <i class="anticon anticon-plus ng-star-inserted"></i>
+                            </div>
+                        </div>
+                    </div>
+                <!--/mat-card-title>
+            </mat-card-header-->
+
             <!--div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point"-->
             <div nz-row class="ant-row-flex ant-row-flex-center ant-row-flex-middle py-sm bg-grey-lighter-h point">
-                <div nz-col class="text-center">
-                    <fz-avatar [nzSrc]="'./assets/img/1.png'" [nzSize]="'large'"></fz-avatar>
+                <div nz-col class="ant-col-4 text-center">
+                    <fz-avatar [nzSrc]="'./assets/img/covers/1.jpg'" [nzSize]="'large'"></fz-avatar>
                 </div>
-                <div nz-col>
+                <div nz-col class="ant-col-20">
                     <strong>cipchk</strong>
                     <p>Please tell me what happened in a few words, don't go into details.</p>
                 </div>
             </div>
-            <div nz-row class="py-sm bg-grey-lighter-h point">
-                <div nz-col class="text-center">
-                    <fz-avatar [nzSrc]="'./assets/img/2.png'" [nzSize]="'large'"></fz-avatar>
+            <div nz-row class="ant-row-flex ant-row-flex-center ant-row-flex-middle py-sm bg-grey-lighter-h point">
+                <div nz-col class="ant-col-4 text-center">
+                    <fz-avatar [nzSrc]="'./assets/img/covers/2.jpg'" [nzSize]="'large'"></fz-avatar>
                 </div>
-                <div nz-col>
+                <div nz-col class="ant-col-20">
                     <strong>はなさき</strong>
                     <p>ハルカソラトキヘダツヒカリ </p>
                 </div>
             </div>
-            <div nz-row class="py-sm bg-grey-lighter-h point">
-                <div nz-col class="text-center">
-                    <fz-avatar [nzSrc]="'./assets/img/3.png'" [nzSize]="'large'"></fz-avatar>
+            <div nz-row class="ant-row-flex ant-row-flex-center ant-row-flex-middle py-sm bg-grey-lighter-h point">
+                <div nz-col class="ant-col-4 text-center">
+                    <fz-avatar [nzSrc]="'./assets/img/covers/3.jpg'" [nzSize]="'large'"></fz-avatar>
                 </div>
-                <div nz-col>
+                <div nz-col class="ant-col-20">
                     <strong>苏先生</strong>
                     <p>请告诉我，我应该说点什么好？</p>
                 </div>
             </div>
-            <div nz-row class="py-sm bg-grey-lighter-h point">
-                <div nz-col class="text-center">
-                    <fz-avatar [nzSrc]="'./assets/img/4.png'" [nzSize]="'large'"></fz-avatar>
+            <div nz-row class="ant-row-flex ant-row-flex-center ant-row-flex-middle py-sm bg-grey-lighter-h point">
+                <div nz-col class="ant-col-4 text-center">
+                    <fz-avatar [nzSrc]="'./assets/img/covers/4.jpg'" [nzSize]="'large'"></fz-avatar>
                 </div>
-                <div nz-col>
+                <div nz-col class="ant-col-20">
                     <strong>Kent</strong>
                     <p>Please tell me what happened in a few words, don't go into details.</p>
                 </div>
             </div>
-            <div nz-row class="py-sm bg-grey-lighter-h point">
-                <div nz-col class="text-center">
-                    <fz-avatar [nzSrc]="'./assets/img/5.png'" [nzSize]="'large'"></fz-avatar>
+            <div nz-row class="ant-row-flex ant-row-flex-center ant-row-flex-middle py-sm bg-grey-lighter-h point">
+                <div nz-col class="ant-col-4 text-center">
+                    <fz-avatar [nzSrc]="'./assets/img/covers/5.jpg'" [nzSize]="'large'"></fz-avatar>
                 </div>
-                <div nz-col>
+                <div nz-col class="ant-col-20">
                     <strong>Jefferson</strong>
                     <p>Please tell me what happened in a few words, don't go into details.</p>
                 </div>
             </div>
-            <div nz-row class="pt-lg pb-lg">
+            <div nz-row class="ant-row pt-lg pb-lg">
                 <div nz-col class="text-center text-grey point">
                     See All
                 </div>
