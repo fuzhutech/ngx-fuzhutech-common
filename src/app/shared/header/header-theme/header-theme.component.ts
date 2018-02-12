@@ -4,18 +4,8 @@ import {Component} from '@angular/core';
 
 @Component({
     selector: 'fz-header-theme',
-    template: `
-        <!--strong>{{ 'theme-switch' | translate}}</strong-->
-        <div class="theme-icons">
-            <label *ngFor="let item of themes" (click)="changeTheme(item.l)" [style.background]="item.bg">
-                <!--i class="anticon anticon-check" *ngIf="item.l == settings.layout.theme"></i-->
-                <div class="areas">
-                    <span class="nav" [style.background]="item.nav"></span>
-                    <span class="con" [style.background]="item.con"></span>
-                </div>
-            </label>
-        </div>
-    `
+    templateUrl: './header-theme.component.html',
+    styleUrls: ['./header-theme.component.scss'],
 })
 export class HeaderThemeComponent {
 

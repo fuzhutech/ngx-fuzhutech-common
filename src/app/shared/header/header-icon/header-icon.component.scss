@@ -2913,6 +2913,20 @@
     animation-fill-mode: both;
 }
 
+/*.top-nav*/ .item {
+    display: block;
+    color: #fff!important;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 100%;
+    padding: 8px 2px;
+    min-width: 50px;
+    -webkit-transition: background-color .3s;
+    transition: background-color .3s;
+    cursor: pointer;
+    outline: none;
+}
+
 
 
 

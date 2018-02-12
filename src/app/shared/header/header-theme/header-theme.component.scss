@@ -1,0 +1,32 @@
+.theme-icons {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    vertical-align: middle;
+    padding-left: 4px;
+}
+
+.theme-icons label {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    border-radius: 50%;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    margin-top: 6px;
+    margin-right: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-icons .areas {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 15px;
+    margin-top: 50%;
+}

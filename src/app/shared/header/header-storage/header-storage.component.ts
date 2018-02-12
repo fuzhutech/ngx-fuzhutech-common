@@ -6,12 +6,13 @@ import {Component, HostListener} from '@angular/core';
     selector: 'fz-header-storage',
     template: `
         <i class="anticon anticon-tool"></i>
+        清理本地缓存
         <!--{{ 'clear-local-storage' | translate}}-->`
 })
 export class HeaderStorageComponent {
 
     constructor(// private confirmServ: NzModalService,
-                // private messageServ: NzMessageService
+        // private messageServ: NzMessageService
     ) {
     }
 

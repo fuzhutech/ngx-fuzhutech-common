@@ -9,7 +9,10 @@ import {HeaderNotifyComponent} from './header-notify/header-notify.component';
 import {HeaderIconComponent} from './header-icon/header-icon.component';
 import {HeaderSearchComponent} from './header-search/header-search.component';
 import {HeaderThemeComponent} from './header-theme/header-theme.component';
-import {MatButtonModule, MatSlideToggleModule, MatIconModule, MatToolbarModule, MatInputModule, MatCardModule} from '@angular/material';
+import {
+    MatButtonModule, MatSlideToggleModule, MatIconModule, MatToolbarModule, MatInputModule, MatCardModule,
+    MatMenuModule
+} from '@angular/material';
 import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FzNoticeIconModule} from '../../../lib/components/notice-icon/notice-icon.module';
@@ -27,6 +30,7 @@ import {FzDropDownModule} from '../../../lib/components/dropdown/dropdown.module
         MatCardModule,
         MatIconModule,
         MatInputModule,
+        MatMenuModule,
         MatSlideToggleModule,
         MatToolbarModule,
         FzAvatarModule,
