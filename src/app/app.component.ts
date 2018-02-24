@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {OverlayContainer} from '@angular/cdk/overlay';
 import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
 import {Title} from '@angular/platform-browser';
@@ -19,6 +19,8 @@ import {filter} from 'rxjs/operator/filter';
 export class AppComponent implements OnInit {
     darkTheme = false;
 
+    @HostBinding('class') componentCssClass = 'myapp-light-theme';
+
     constructor(private overlayContainer: OverlayContainer,
                 private router: Router,
                 private activatedRoute: ActivatedRoute,
@@ -26,6 +28,7 @@ export class AppComponent implements OnInit {
                 private menuService: MenuService) {
 
         // this.menuService.add(appData.menu as Menu[]);
+        this.switchTheme(false);
     }
 
     ngOnInit() {
@@ -36,9 +39,17 @@ export class AppComponent implements OnInit {
     switchTheme(dark: boolean) {
         this.darkTheme = dark;
         if (dark) {
+            this.componentCssClass = 'myapp-dark-theme';
+            /**
+             * 由于某些组件（如菜单、选择、对话框等）在一个全局覆盖容器中，这些组件需要受主题CSS类选择器的影响,
+             * 需要额外的步骤将全局样式类添加到全局覆盖容器中。
+             */
+            this.overlayContainer.getContainerElement().classList.remove('myapp-light-theme');
             this.overlayContainer.getContainerElement().classList.add('myapp-dark-theme');
         } else {
+            this.componentCssClass = 'myapp-light-theme';
             this.overlayContainer.getContainerElement().classList.remove('myapp-dark-theme');
+            this.overlayContainer.getContainerElement().classList.add('myapp-light-theme');
         }
     }
 }
