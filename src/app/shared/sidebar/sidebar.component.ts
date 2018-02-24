@@ -149,7 +149,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
 
     toggleOpen(item: Menu) {
-        console.log('toggleOpen', item);
+        // console.log('toggleOpen', item);
         this.menuSrv.visit((i, p) => {
             if (i !== item) {
                 i._open = false;

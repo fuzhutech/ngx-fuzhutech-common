@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
@@ -29,7 +29,13 @@ import {AboutComponent} from './about/about.component';
 import {NewsComponent} from './news/news.component';
 import {ContactComponent} from './contact/contact.component';
 import {FzReuseTabModule} from '../lib/components/reuse-tab/reuse-tab.module';
+import {StartupService} from '../lib/core/theme/startup.service';
+import {FzThemeModule} from '../lib/core/theme/theme.module';
 
+
+export function StartupServiceFactory(startupService: StartupService): Function {
+    return () => startupService.load();
+}
 
 @NgModule({
     declarations: [
@@ -99,6 +105,7 @@ import {FzReuseTabModule} from '../lib/components/reuse-tab/reuse-tab.module';
         FzHighlightModule,
         NgxFuzhutechCommonModule.forRoot(),
         FzReuseTabModule.forRoot(),
+        FzThemeModule,
     ],
     providers: [
         /**
@@ -109,6 +116,13 @@ import {FzReuseTabModule} from '../lib/components/reuse-tab/reuse-tab.module';
         {provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
         // 最后将策略注册到模块当中
         // {provide: RouteReuseStrategy, useClass: SimpleReuseStrategy}
+        StartupService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: StartupServiceFactory,
+            deps: [StartupService],
+            multi: true
+        }
     ],
     bootstrap: [AppComponent]
 })
