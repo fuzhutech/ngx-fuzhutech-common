@@ -343,7 +343,7 @@ const appMenuData = {
                         },
                         {
                             'text': 'BackTop 回到顶部',
-                            'link': '/backTop'
+                            'link': '/back-top'
                         }
                     ]
                 }

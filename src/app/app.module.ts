@@ -17,17 +17,11 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule, ComponentList} from './app-routing.module';
 import {CoreModule} from './core/core.module';
 import {SharedModule} from './shared/shared.module';
-import {RouteReuseStrategy, RouterModule} from '@angular/router';
-import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
-import {HomeComponent} from './home/home.component';
 import {FzHighlightModule} from './ngx-fuzhutech-common';
 import {FzPrismModule} from '../lib/core/prism/prism.module';
 import {NgxFuzhutechCommonModule} from '../lib/ngx-fuzhutech-common.module';
-import {AboutComponent} from './about/about.component';
 // import {SimpleReuseStrategy} from './domain/simple-reuse-strategy';
-import {NewsComponent} from './news/news.component';
-import {ContactComponent} from './contact/contact.component';
 import {FzReuseTabModule} from '../lib/components/reuse-tab/reuse-tab.module';
 import {StartupService} from '../lib/core/theme/startup.service';
 import {FzThemeModule} from '../lib/core/theme/theme.module';
@@ -40,10 +34,6 @@ export function StartupServiceFactory(startupService: StartupService): Function 
 @NgModule({
     declarations: [
         AppComponent,
-        HomeComponent,
-        AboutComponent,
-        NewsComponent,
-        ContactComponent,
         ComponentList
     ],
     imports: [
