@@ -27,7 +27,7 @@ import {
     MatChipsModule,
 } from '@angular/material';
 
-import {MarkdownModule} from '../../lib/components/markdown/markdown.module';
+import {FzMarkdownModule} from '../../lib';
 
 import {FooterComponent} from './footer/footer.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
@@ -37,23 +37,23 @@ import {AgeInputComponent} from './age-input/age-input.component';
 import {ChipsListComponent} from './chips-list/chips-list.component';
 import {IdentityInputComponent} from './identity-input/identity-input.component';
 import {AreaListComponent} from './area-list/area-list.component';
-import {FzMessageModule} from '../../lib/components/message/message.module';
-import {FzNotificationModule} from '../../lib/components/notification/notification.module';
-import {FzTimelineModule} from '../../lib/components/timeline/timeline.module';
-import {FzBackTopModule} from '../../lib/components/back-top/back-top.module';
-import {FzRateModule} from '../../lib/components/rate/rate.module';
-import {FzCodeBoxModule} from '../../lib/components/code-box/code-box.module';
-import {FzAlertModule} from '../../lib/components/alert/alert.module';
-import {FzAffixModule} from '../../lib/components/affix/affix.module';
-import {FzTransferModule} from '../../lib/components/transfer/transfer.module';
-import {FzAvatarModule} from '../../lib/components/avatar/avatar.module';
+import {FzMessageModule} from '../../lib';
+import {FzNotificationModule} from '../../lib';
+import {FzTimelineModule} from '../../lib';
+import {FzBackTopModule} from '../../lib';
+import {FzRateModule} from '../../lib';
+import {FzCodeBoxModule} from '../../lib';
+import {FzAlertModule} from '../../lib';
+import {FzAffixModule} from '../../lib';
+import {FzTransferModule} from '../../lib';
+import {FzAvatarModule} from '../../lib';
 import {FzBadgeModule} from '../../lib/components/badge/badge.module';
-import {FzCarouselModule} from '../../lib/components/carousel/carousel.module';
-import {FzCascaderModule} from '../../lib/components/cascader/cascader.module';
-import {FzAnchorModule} from '../../lib/components/anchor/anchor.module';
-import {FzPopoverModule} from '../../lib/components/popover/popover.module';
-import {FzDropDownModule} from '../../lib/components/dropdown/dropdown.module';
-import {FzNoticeIconModule} from '../../lib/components/notice-icon/notice-icon.module';
+import {FzCarouselModule} from '../../lib';
+import {FzCascaderModule} from '../../lib';
+import {FzAnchorModule} from '../../lib';
+import {FzPopoverModule} from '../../lib';
+import {FzDropDownModule} from '../../lib';
+import {FzNoticeIconModule} from '../../lib';
 import {FzHeaderModule} from './header/header.module';
 
 @NgModule({
@@ -83,7 +83,7 @@ import {FzHeaderModule} from './header/header.module';
         MatButtonToggleModule,
         MatTabsModule,
         MatChipsModule,
-        MarkdownModule,
+        FzMarkdownModule,
         FzHeaderModule,
         FzMessageModule,
         FzNotificationModule,
@@ -140,7 +140,7 @@ import {FzHeaderModule} from './header/header.module';
         MatButtonToggleModule,
         MatTabsModule,
         MatChipsModule,
-        MarkdownModule,
+        FzMarkdownModule,
         FzHeaderModule,
         FzMessageModule,
         FzNotificationModule,

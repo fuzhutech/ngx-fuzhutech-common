@@ -1,0 +1,10 @@
+<p>
+    fz-demo-transfer works!
+</p>
+
+<fz-transfer
+    [nzDataSource]="list"
+    [nzTitles]="['Source', 'Target']"
+    (nzSelectChange)="select($event)"
+    (nzChange)="change($event)">
+</fz-transfer>

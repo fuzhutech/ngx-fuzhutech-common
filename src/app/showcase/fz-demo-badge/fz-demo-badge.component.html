@@ -1,0 +1,32 @@
+<p>
+    fz-demo-badge works!
+</p>
+
+<fz-badge [showDot]="true">
+    <!--ng-template #content-->
+    <i class="anticon anticon-bell"></i>
+    <!--/ng-template-->
+</fz-badge>
+
+<div>
+    <fz-badge [text]="'new'" status="warning">
+        <button>回复</button>
+    </fz-badge>
+    &nbsp;&nbsp;&nbsp;
+    <fz-badge [count]="'9'" status="error">
+        <mat-icon>menu</mat-icon>
+    </fz-badge>
+    &nbsp;&nbsp;&nbsp;
+    <fz-badge [count]="'9'" status="success">
+        <!--mat-icon>menu</mat-icon-->
+    </fz-badge>
+    &nbsp;&nbsp;&nbsp;
+    <fz-badge [showDot]="true" [status]="'error'">
+        <mat-icon>menu</mat-icon>
+    </fz-badge>
+
+    &nbsp;&nbsp;&nbsp;
+    <fz-badge [showDot]="true" [status]="'info'">
+        消息
+    </fz-badge>
+</div>

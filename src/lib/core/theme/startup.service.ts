@@ -119,13 +119,13 @@ export class StartupService {
 
 const appMenuData = {
     'app': {
-        'name': 'Alain',
-        'description': 'Ng-zorro admin panel front-end framework'
+        'name': 'ngx-fuzhutech-common',
+        'description': 'ngx-fuzhutech-common admin panel front-end framework'
     },
     'user': {
         'name': 'Admin',
         'avatar': './assets/img/zorro.svg',
-        'email': 'cipchk@qq.com'
+        'email': 'fuzhutech@163.com'
     },
     'menu': [
         {
@@ -138,11 +138,12 @@ const appMenuData = {
                     'translate': 'dashboard',
                     'link': '/dashboard',
                     'icon': 'icon-speedometer',
-                    'children': [{
-                        'text': '仪表盘V1',
-                        'link': '/dashboard/v1',
-                        'translate': 'dashboard_v1'
-                    },
+                    'children': [
+                        {
+                            'text': '仪表盘V1',
+                            'link': '/dashboard/v1',
+                            'translate': 'dashboard_v1'
+                        },
                         {
                             'text': '分析页',
                             'link': '/dashboard/analysis',
@@ -167,13 +168,13 @@ const appMenuData = {
                     'shortcut_root': true,
                     'children': []
                 },
-                {
+                /*{
                     'text': '小部件',
                     'translate': 'widgets',
                     'link': '/widgets',
                     'icon': 'icon-grid',
                     'badge': 2
-                }
+                }*/
             ]
         },
         {
@@ -238,206 +239,111 @@ const appMenuData = {
             'group': true,
             'children': [
                 {
-                    'text': '基础元素',
-                    'translate': 'elements',
-                    'link': '/elements',
-                    'icon': 'icon-chemistry',
+                    'text': 'Navigation',
+                    'translate': 'Navigation',
+                    'link': '/Navigation',
+                    'icon': 'icon-magic-wand',
                     'acl': 'user1',
                     'children': [
                         {
-                            'text': '按钮',
-                            'link': '/elements/buttons',
-                            'translate': 'buttons',
-                            'shortcut': true
+                            'text': 'Affix 固钉',
+                            'link': '/affix',
+                            'translate': 'affix'
                         },
                         {
-                            'text': 'Notification',
-                            'link': '/elements/notification',
-                            'translate': 'notification',
-                            'shortcut': true
-                        },
-                        {
-                            'text': 'Modal',
-                            'link': '/elements/modal',
-                            'translate': 'modal'
-                        },
-                        {
-                            'text': 'SweetAlert',
-                            'link': '/elements/sweetalert',
-                            'translate': 'sweetalert'
-                        },
-                        {
-                            'text': 'Tree Antd',
-                            'link': '/elements/tree-antd',
-                            'translate': 'tree-antd'
-                        },
-                        {
-                            'text': 'Sortable',
-                            'link': '/elements/sortable',
-                            'translate': 'sortable'
-                        },
-                        {
-                            'text': 'Spin',
-                            'link': '/elements/spin',
-                            'translate': 'spin'
-                        },
-                        {
-                            'text': 'Dropdown',
-                            'link': '/elements/dropdown',
+                            'text': 'Dropdown 下拉菜单',
+                            'link': '/dropdown',
                             'translate': 'dropdown'
-                        },
-                        {
-                            'text': 'Grid',
-                            'link': '/elements/grid',
-                            'translate': 'grid'
-                        },
-                        {
-                            'text': 'Grid Masonry',
-                            'link': '/elements/gridmasonry',
-                            'translate': 'gridmasonry'
-                        },
-                        {
-                            'text': 'Typography',
-                            'link': '/elements/typography',
-                            'translate': 'typography'
-                        },
-                        {
-                            'text': 'Font Icons',
-                            'link': '/elements/iconsfont',
-                            'translate': 'iconsfont'
-                        },
-                        {
-                            'text': 'Colors',
-                            'link': '/elements/colors',
-                            'translate': 'colors'
                         }
                     ]
                 },
                 {
-                    'text': 'Other',
-                    'translate': 'other',
-                    'link': '/other',
-                    'icon': 'icon-magic-wand',
-                    'children': [
-                        {
-                            'text': 'Split',
-                            'link': '/other/split',
-                            'translate': 'split'
-                        },
-                        {
-                            'text': 'Clipboard',
-                            'link': '/other/clipboard',
-                            'translate': 'clipboard'
-                        }
-                    ]
-                },
-                {
-                    'text': '表单',
+                    'text': 'Data Entry',
                     'translate': 'forms',
                     'link': '/forms',
                     'icon': 'icon-note',
                     'acl': 'user1',
                     'children': [
                         {
-                            'text': '标准',
-                            'link': '/forms/standard',
-                            'translate': 'standard'
+                            'text': 'Cascader 级联选择',
+                            'link': '/cascader',
+                            'translate': 'cascader'
                         },
                         {
-                            'text': '扩展',
-                            'link': '/forms/extended',
-                            'translate': 'extended'
+                            'text': 'Rate 评分',
+                            'link': '/rate',
+                            'translate': 'rate'
                         },
                         {
-                            'text': '校验',
-                            'link': '/forms/validation',
-                            'translate': 'validation'
-                        },
-                        {
-                            'text': '上传',
-                            'link': '/forms/upload',
-                            'translate': 'upload',
-                            'shortcut': true
-                        },
-                        {
-                            'text': '图片裁剪',
-                            'link': '/forms/cropper',
-                            'translate': 'cropper'
+                            'text': 'Transfer 穿梭框',
+                            'link': '/transfer',
+                            'translate': 'transfer'
                         }
                     ]
                 },
                 {
-                    'text': '编辑器',
+                    'text': 'Data Display',
                     'translate': 'editor',
                     'link': '/editor',
                     'icon': 'icon-pencil',
                     'children': [
                         {
-                            'text': 'UEditor',
-                            'link': '/editor/ueditor'
+                            'text': 'Avatar 头像',
+                            'link': '/avatar'
                         },
                         {
-                            'text': 'Tinymce',
-                            'link': '/editor/tinymce'
+                            'text': 'Badge 徽标数',
+                            'link': '/badge'
+                        },
+                        {
+                            'text': 'Carousel 走马灯',
+                            'link': '/carousel'
+                        },
+                        {
+                            'text': 'Popover 气泡卡片',
+                            'link': '/popover'
+                        },
+                        {
+                            'text': 'Timeline 时间轴',
+                            'link': '/timeline'
                         }
                     ]
                 },
                 {
-                    'text': 'Charts',
+                    'text': 'FeedBack',
                     'translate': 'charts',
                     'link': '/charts',
                     'icon': 'icon-graph',
                     'acl': 'user1',
-                    'children': [{
-                        'text': 'G2',
-                        'link': '/charts/g2'
-                    }
-                    ]
-                },
-                {
-                    'text': '表格',
-                    'translate': 'tables',
-                    'link': '/tables',
-                    'icon': 'icon-grid',
-                    'acl': 'user2',
                     'children': [
                         {
-                            'text': '标准',
-                            'link': '/tables/standard',
-                            'translate': 'standard'
+                            'text': 'Alert 警告提示',
+                            'link': '/alert'
                         },
                         {
-                            'text': 'Full',
-                            'link': '/tables/full',
-                            'translate': 'full'
+                            'text': 'Message 全局提示',
+                            'link': '/message'
                         },
                         {
-                            'text': 'Simple Table',
-                            'link': '/tables/simple-table'
-                        },
-                        {
-                            'text': 'Fullscreen Table',
-                            'link': '/tables/fs-table',
-                            'translate': 'fs-table'
+                            'text': 'Notification 通知提醒框',
+                            'link': '/notification'
                         }
                     ]
                 },
                 {
-                    'text': '地图',
-                    'translate': 'maps',
-                    'link': '/maps',
-                    'icon': 'icon-map',
-                    'acl': 'user2',
+                    'text': 'Other',
+                    'translate': 'charts',
+                    'link': '/charts',
+                    'icon': 'icon-graph',
+                    'acl': 'user1',
                     'children': [
                         {
-                            'text': 'QQ',
-                            'link': '/maps/qq',
-                            'translate': 'qq'
+                            'text': 'Anchor 锚点',
+                            'link': '/anchor'
                         },
                         {
-                            'text': 'Baidu',
-                            'link': '/maps/baidu',
-                            'translate': 'baidu'
+                            'text': 'BackTop 回到顶部',
+                            'link': '/backTop'
                         }
                     ]
                 }

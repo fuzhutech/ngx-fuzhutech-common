@@ -9,5 +9,5 @@ import {MarkdownComponent} from './markdown.component';
     declarations: [MarkdownComponent],
     exports: [MarkdownComponent]
 })
-export class MarkdownModule {
+export class FzMarkdownModule {
 }
