@@ -158,6 +158,48 @@ const appMenuData = {
                             'text': 'Workplace',
                             'link': '/dashboard/workplace',
                             'translate': 'dashboard_workplace'
+                        },
+                        {
+                            'text': '测试',
+                            'translate': 'pages',
+                            'link': '/',
+                            'icon': 'icon-doc',
+                            'acl': 'admin',
+                            'children': [
+                                {
+                                    'text': '测试1',
+                                    'link': '/login',
+                                    'translate': 'm-login',
+                                    'reuse': true
+                                },
+                                {
+                                    'text': '测试2',
+                                    'link': '/login/register',
+                                    'translate': 'm-register',
+                                    'reuse': true
+                                },
+                                {
+                                    'text': '测试3',
+                                    'translate': 'pages',
+                                    'link': '/',
+                                    'icon': 'icon-doc',
+                                    'acl': 'admin',
+                                    'children': [
+                                        {
+                                            'text': '测试3-1',
+                                            'link': '/login',
+                                            'translate': 'm-login',
+                                            'reuse': true
+                                        },
+                                        {
+                                            'text': '测试3-2',
+                                            'link': '/login/register',
+                                            'translate': 'm-register',
+                                            'reuse': true
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
                 },
@@ -184,31 +226,9 @@ const appMenuData = {
             'children': [
                 {
                     'text': '首页',
-                    'translate': 'home',
-                    'link': '/home',
-                    'icon': 'icon-compass',
-                    'children': []
-                },
-                {
-                    'text': '页面-2',
-                    'translate': 'report',
-                    'icon': 'anticon anticon-cloud-o',
-                    'children': [
-                        {
-                            'text': '新闻中心',
-                            'link': '/news',
-                            'translate': 'relation',
-                            // 'shortcut': true,
-                            'reuse': true
-                        },
-                        {
-                            'text': '关于我们',
-                            'link': '/about',
-                            'translate': 'relation',
-                            // 'shortcut': true,
-                            'reuse': true
-                        }
-                    ]
+                    'translate': 'home1',
+                    'link': '/home1',
+                    'icon': 'icon-compass'
                 },
                 {
                     'text': '登录页面',
@@ -228,6 +248,48 @@ const appMenuData = {
                             'link': '/login/register',
                             'translate': 'm-register',
                             'reuse': true
+                        },
+                        {
+                            'text': '测试',
+                            'translate': 'pages',
+                            'link': '/',
+                            'icon': 'icon-doc',
+                            'acl': 'admin',
+                            'children': [
+                                {
+                                    'text': '测试1',
+                                    'link': '/login',
+                                    'translate': 'm-login',
+                                    'reuse': true
+                                },
+                                {
+                                    'text': '测试2',
+                                    'link': '/login/register',
+                                    'translate': 'm-register',
+                                    'reuse': true
+                                },
+                                {
+                                    'text': '测试3',
+                                    'translate': 'pages',
+                                    'link': '/',
+                                    'icon': 'icon-doc',
+                                    'acl': 'admin',
+                                    'children': [
+                                        {
+                                            'text': '测试3-1',
+                                            'link': '/login',
+                                            'translate': 'm-login',
+                                            'reuse': true
+                                        },
+                                        {
+                                            'text': '测试3-2',
+                                            'link': '/login/register',
+                                            'translate': 'm-register',
+                                            'reuse': true
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
                 }

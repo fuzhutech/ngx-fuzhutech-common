@@ -25,6 +25,7 @@ import {NgxFuzhutechCommonModule} from '../lib/ngx-fuzhutech-common.module';
 import {FzReuseTabModule} from '../lib/components/reuse-tab/reuse-tab.module';
 import {StartupService} from '../lib/core/theme/startup.service';
 import {FzThemeModule} from '../lib/core/theme/theme.module';
+import {FzSidebarModule} from '../lib/components/sidebar/sidebar.module';
 
 
 export function StartupServiceFactory(startupService: StartupService): Function {
@@ -96,6 +97,7 @@ export function StartupServiceFactory(startupService: StartupService): Function 
         NgxFuzhutechCommonModule.forRoot(),
         FzReuseTabModule.forRoot(),
         FzThemeModule,
+        FzSidebarModule
     ],
     providers: [
         /**

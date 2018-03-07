@@ -31,7 +31,7 @@
         //     overflow-y: scroll;
         // }
 
-        /*IE10,IE11*/
+        //IE10,IE11
         -ms-scroll-chaining: chained;
         -ms-overflow-style: none;
         -ms-content-zooming: zoom;
@@ -53,6 +53,11 @@
             background-color: transparent;
         }
     }
+}
+
+nav {
+    display: block;
+    font-size: 14px;
 }
 
 // Main Nav
@@ -304,3 +309,48 @@
 ul, ol {
     list-style: none;
 }
+
+
+
+//todo
+
+
+.nav-bar {
+    // position: relative;
+    // min-height: 50px;
+    // margin-bottom: 20px;
+    // border: 1px solid transparent;
+
+    // display: block;
+    font-size: 14px;
+
+    ul {
+        list-style: none;
+    }
+}
+
+/*.navbar-default {
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+}
+
+.navbar-default .navbar-nav> li > a {
+    color: #777;
+}
+.navbar-default .navbar-nav> li >a:hover,
+.navbar-default .navbar-nav> li >a:focus {
+    color: #333;
+    background-color: transparent;
+}
+.navbar-default .navbar-nav> .active > a,
+.navbar-default .navbar-nav> .active >a:hover,
+.navbar-default .navbar-nav> .active >a:focus {
+    color: #555;
+    background-color: #e7e7e7;
+}
+.navbar-default .navbar-nav> .disabled > a,
+.navbar-default .navbar-nav> .disabled >a:hover,
+.navbar-default .navbar-nav> .disabled >a:focus {
+    color: #ccc;
+    background-color: transparent;
+}*/

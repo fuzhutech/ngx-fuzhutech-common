@@ -103,13 +103,15 @@ export class MenuService implements OnDestroy {
 
     add(items: Menu[]) {
         this.data.push(...items);
+        console.log(this.data);
         this.resume();
     }
 
     /**
      * 重置菜单，可能I18N、用户权限变动时需要调用刷新
      */
-    resume(callback?: (item: Menu, parentMenum: Menu, depth?: number) => void) {
+
+    /*resume(callback?: (item: Menu, parentMenum: Menu, depth?: number) => void) {
         let i = 1;
         this.removeShortcut();
         const shortcuts: Menu[] = [];
@@ -154,9 +156,9 @@ export class MenuService implements OnDestroy {
 
             // todo:aclService item._hidden
             // acl
-            /*if (item.acl && this.aclService) {
+            if (item.acl && this.aclService) {
                 item._hidden = !this.aclService.can(item.acl);
-            }*/
+            }
 
             if (callback) {
                 callback(item, parent, depth);
@@ -165,6 +167,73 @@ export class MenuService implements OnDestroy {
 
         this.loadShortcut(shortcuts);
         this._change$.next(this.data);
+        console.log(this.data);
+    }*/
+
+
+    inFn1(list: Menu[], parentMenu: Menu, depth: number, shortcuts) {
+        for (const item of list) {
+            item.__parent = parentMenu;
+            item._depth = depth;
+
+            if (!item.link) {
+                item.link = '';
+            }
+            if (!item.externalLink) {
+                item.externalLink = '';
+            }
+
+            // badge
+            if (item.badge) {
+                if (item.badge_dot !== true) {
+                    item.badge_dot = false;
+                }
+                if (!item.badge_status) {
+                    item.badge_status = 'error';
+                }
+            }
+
+            item._type = item.externalLink ? 2 : 1;
+            if (item.children && item.children.length > 0) {
+                item._type = 3;
+            }
+
+            // shortcut
+            if (item.shortcut === true && (item.link || item.externalLink)) {
+                shortcuts.push(item);
+            }
+
+            const i18n = item.i18n || item.translate;
+            // todo:i18nService item.text
+            // item.text = this.i18nService && i18n ? this.i18nService.fanyi(i18n) : item.text;
+
+            // hidden
+            item._hidden = typeof item.hide === 'undefined' ? false : item.hide;
+
+            // todo:aclService item._hidden
+            // acl
+            /*if (item.acl && this.aclService) {
+                item._hidden = !this.aclService.can(item.acl);
+            }*/
+
+            if (item.children && item.children.length > 0) {
+                this.inFn1(item.children, item, depth + 1, shortcuts);
+            } else {
+                item.children = [];
+            }
+        }
+    }
+
+
+    resume() {
+        this.removeShortcut();
+        const shortcuts: Menu[] = [];
+
+        this.inFn1(this.data, null, 0, shortcuts);
+
+        this.loadShortcut(shortcuts);
+        this._change$.next(this.data);
+        console.log(this.data);
     }
 
     /**
@@ -195,7 +264,7 @@ export class MenuService implements OnDestroy {
         _data = Object.assign(_data, {
             shortcut_root: true,
             _type: 3,
-            __id: -1,
+            // __id: -1,
             _depth: 1
         });
         _data.children = shortcuts.map(i => {

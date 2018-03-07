@@ -3,7 +3,7 @@ import {
     Renderer2, Inject, HostListener, OnDestroy
 } from '@angular/core';
 import {getDate} from 'date-fns';
-import {Menu, MenuService} from '../../../lib/components/reuse-tab/menu.service';
+import {Menu, MenuService} from '../reuse-tab/menu.service';
 import {Subscription} from 'rxjs/Subscription';
 import {DOCUMENT} from '@angular/common';
 import {NavigationEnd, Router} from '@angular/router';
@@ -26,6 +26,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
     // private floatingEl: HTMLDivElement;
     // private bodyEl: HTMLBodyElement;
     list: Menu[] = [];
+    selectedMenu: Menu = null;
+    selectedMenu2: Menu = null;
+    selectedMenu3: Menu = null;
     private change$: Subscription;
 
     @Input() autoCloseUnderPad = true;
@@ -55,6 +58,17 @@ export class SidebarComponent implements OnInit, OnDestroy {
         this.change$ = <any>this.menuSrv.change.subscribe(res => {
             this.list = res;
             this.cd.detectChanges();
+
+
+            this.list.forEach((item: Menu) => {
+                if (item.children) {
+                    item.children.forEach((child1: Menu) => {
+                            console.log(child1.text, child1.children, child1.children.length, child1._type);
+                        }
+                    );
+                }
+                // console.log(item.children);
+            });
         });
         this.installUnderPad();
     }
@@ -162,6 +176,22 @@ export class SidebarComponent implements OnInit, OnDestroy {
         }
         item._open = !item._open;
         this.cd.markForCheck();
+    }
+
+
+    toggleOpen1(item: Menu) {
+        this.selectedMenu = item;
+        // this.cd.markForCheck();
+    }
+
+    toggleOpen2(item: Menu) {
+        this.selectedMenu2 = item;
+        // this.cd.markForCheck();
+    }
+
+    toggleOpen3(item: Menu) {
+        this.selectedMenu3 = item;
+        // this.cd.markForCheck();
     }
 
     @HostListener('document:click', ['$event.target'])

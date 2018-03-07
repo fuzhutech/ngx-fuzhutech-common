@@ -30,7 +30,6 @@ import {
 import {FzMarkdownModule} from '../../lib';
 
 import {FooterComponent} from './footer/footer.component';
-import {SidebarComponent} from './sidebar/sidebar.component';
 import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 import {ImageListSelectComponent} from './image-list-select/image-list-select.component';
 import {AgeInputComponent} from './age-input/age-input.component';
@@ -105,7 +104,6 @@ import {FzHeaderModule} from './header/header.module';
     ],
     declarations: [
         FooterComponent,
-        SidebarComponent,
         ConfirmDialogComponent,
         ImageListSelectComponent,
         AgeInputComponent,
@@ -115,7 +113,6 @@ import {FzHeaderModule} from './header/header.module';
     ],
     exports: [
         FooterComponent,
-        SidebarComponent,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
