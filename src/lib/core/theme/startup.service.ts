@@ -589,7 +589,21 @@ const appMenuData = {
                             'text': 'Down File',
                             'link': '/logics/downfile',
                             'translate': 'downfile',
-                            'shortcut': true
+                            'shortcut': true,
+                            'children': [
+                                {
+                                    'text': 'Relation1',
+                                    'link': '/data-v/relation',
+                                    'translate': 'relation',
+                                    'reuse': false
+                                },
+                                {
+                                    'text': 'Relation2',
+                                    'link': '/data-v/relation',
+                                    'translate': 'relation',
+                                    'reuse': false
+                                }
+                            ]
                         },
                         {
                             'text': 'Xlsx',

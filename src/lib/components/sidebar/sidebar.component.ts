@@ -29,6 +29,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     selectedMenu: Menu = null;
     selectedMenu2: Menu = null;
     selectedMenu3: Menu = null;
+    selected: Menu = null;
     private change$: Subscription;
 
     @Input() autoCloseUnderPad = true;
@@ -53,7 +54,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
         this.today = `day${getDate(new Date())}`;
 
         // this.bodyEl = this.doc.querySelector('body');
-        this.menuSrv.openedByUrl(this.router.url);
+        // this.menuSrv.openedByUrl(this.router.url);
         this.genFloatingContainer();
         this.change$ = <any>this.menuSrv.change.subscribe(res => {
             this.list = res;
@@ -63,7 +64,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
             this.list.forEach((item: Menu) => {
                 if (item.children) {
                     item.children.forEach((child1: Menu) => {
-                            console.log(child1.text, child1.children, child1.children.length, child1._type);
+                            // console.log(child1.text, child1.children, child1.children.length, child1._type);
                         }
                     );
                 }
@@ -233,5 +234,14 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
 
     // endregion
+
+    onselect(event) {
+        if (this.selected !== event) {
+            if (this.selected) {
+                this.selected._selected = false;
+            }
+            this.selected = event;
+        }
+    }
 }
 

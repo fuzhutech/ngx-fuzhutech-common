@@ -5,6 +5,44 @@ import {share} from 'rxjs/operators';
 // import { ALAIN_I18N_TOKEN, AlainI18NService } from '../i18n/i18n';
 // import { ACLService } from '@delon/acl';
 
+export interface MenuData {
+    /** 文本 */
+    text: string;
+    /** i18n主键 */
+    i18n?: string;
+    /** 是否菜单组 */
+    group?: boolean;
+    /** angular 路由 */
+    link?: string;
+    /** 外部链接 */
+    externalLink?: string;
+    /** 链接 target */
+    target?: '_blank' | '_self' | '_parent' | '_top';
+    /** 图标 */
+    icon?: string;
+    /** 徽标数，展示的数字。（注：`group:true` 无效） */
+    badge?: number;
+    /** 徽标数，显示小红点 */
+    badge_dot?: boolean;
+    /** 徽标数，设置 Badge 颜色 （默认：error， 所有颜色值见：https://github.com/cipchk/ng-alain/blob/master/_documents/utils.md#色彩） */
+    badge_status?: string;
+    /** 是否隐藏 */
+    hide?: boolean;
+    /** ACL配置，若导入 `@delon/acl` 时自动有效 */
+    acl?: any;
+    /** 是否快捷菜单项 */
+    shortcut?: boolean;
+    /** 快捷菜单根节点 */
+    shortcut_root?: boolean;
+    /** 是否允许复用，需配合 `reuse-tab` 组件 */
+    reuse?: boolean;
+    /** 二级菜单 */
+    children?: Menu[];
+
+    [key: string]: any;
+}
+
+
 export interface Menu {
     /** 文本 */
     text: string;
@@ -73,8 +111,12 @@ export interface Menu {
 export class MenuService implements OnDestroy {
 
     private _change$: BehaviorSubject<Menu[]> = new BehaviorSubject<Menu[]>([]);
+    private _root: Menu = {text: 'root', children: [], _depth: -1};
+    private _shortcut: Menu = {text: '快捷菜单1', _depth: 0, children: []};
 
-    private data: Menu[] = [];
+    private data: MenuData[] = [];
+    // private root: Menu = {text: 'root', _depth: -1};
+    // private shortcut: Menu = {text: '快捷菜单', _depth: 0, children: []};
 
     constructor(// @Optional() @Inject(ALAIN_I18N_TOKEN) private i18nService: AlainI18NService,
         // @Optional() private aclService: ACLService
@@ -103,7 +145,6 @@ export class MenuService implements OnDestroy {
 
     add(items: Menu[]) {
         this.data.push(...items);
-        console.log(this.data);
         this.resume();
     }
 
@@ -171,44 +212,32 @@ export class MenuService implements OnDestroy {
     }*/
 
 
-    inFn1(list: Menu[], parentMenu: Menu, depth: number, shortcuts) {
+    inFn1(list: MenuData[], parentMenu: Menu, depth: number) {
         for (const item of list) {
-            item.__parent = parentMenu;
-            item._depth = depth;
+            const menuItem: Menu = {
+                text: item.text,
+                group: item.group ? item.group : false,
+                link: item.link ? item.link : '',
+                externalLink: item.externalLink ? item.externalLink : '',
+                target: item.target,
+                icon: item.icon,
+                acl: item.acl,
+                shortcut: item.shortcut,
+                shortcut_root: item.shortcut_root ? item.shortcut_root : false,
+                reuse: item.reuse,
+                _type: item.externalLink ? 2 : 1,
+                _selected: false,
+                _hidden: typeof item.hide === 'undefined' ? false : item.hide,
+                _open: false,
+                _depth: depth,
+                badge_dot: item.badge ? item.badge_dot : false,
+                badge_status: item.badge && item.badge_status ? item.badge_status : 'error',
+                children: []
+            };
 
-            if (!item.link) {
-                item.link = '';
-            }
-            if (!item.externalLink) {
-                item.externalLink = '';
-            }
-
-            // badge
-            if (item.badge) {
-                if (item.badge_dot !== true) {
-                    item.badge_dot = false;
-                }
-                if (!item.badge_status) {
-                    item.badge_status = 'error';
-                }
-            }
-
-            item._type = item.externalLink ? 2 : 1;
             if (item.children && item.children.length > 0) {
-                item._type = 3;
+                menuItem._type = 3;
             }
-
-            // shortcut
-            if (item.shortcut === true && (item.link || item.externalLink)) {
-                shortcuts.push(item);
-            }
-
-            const i18n = item.i18n || item.translate;
-            // todo:i18nService item.text
-            // item.text = this.i18nService && i18n ? this.i18nService.fanyi(i18n) : item.text;
-
-            // hidden
-            item._hidden = typeof item.hide === 'undefined' ? false : item.hide;
 
             // todo:aclService item._hidden
             // acl
@@ -216,24 +245,52 @@ export class MenuService implements OnDestroy {
                 item._hidden = !this.aclService.can(item.acl);
             }*/
 
+            // shortcut_root
+            if (item.shortcut_root) {
+                menuItem._type = 3;
+                const temp = this._root.children.shift();
+                /*menuItem.children.push(...shortcut.children);
+                shortcut.children.forEach((child: Menu) => {
+                    child.__parent = menuItem;
+                });*/
+                this._shortcut = menuItem;
+            }
+
+            // shortcut
+            parentMenu.children.push(menuItem);
+            menuItem.__parent = parentMenu;
+
+            if (item.shortcut === true && (item.link || item.externalLink)) {
+                this._shortcut.children.push(menuItem);
+            }
+
             if (item.children && item.children.length > 0) {
-                this.inFn1(item.children, item, depth + 1, shortcuts);
-            } else {
-                item.children = [];
+                this.inFn1(item.children, menuItem, depth + 1);
             }
         }
     }
 
 
     resume() {
-        this.removeShortcut();
-        const shortcuts: Menu[] = [];
+        // this.removeShortcut();
+        this._root = {text: 'root', children: [], _depth: -1};
+        this._shortcut = {text: '快捷菜单1', _depth: 0, children: []};
+        this._root.children.push(this._shortcut);
+        this.inFn1(this.data, this._root, 0);
 
-        this.inFn1(this.data, null, 0, shortcuts);
+        // 快捷菜单的深度序号重排
+        const shortcutChilds = [];
+        this._shortcut.children.forEach((item: Menu) => {
+                const temp = Object.assign({}, item);
+                shortcutChilds.push(temp);
+                temp.__parent = this._shortcut;
+            }
+        );
+        this._shortcut.children = shortcutChilds;
 
-        this.loadShortcut(shortcuts);
-        this._change$.next(this.data);
-        console.log(this.data);
+        // this.loadShortcut(shortcuts);
+        // this._change$.next(this.data);
+        this._change$.next(this._root.children);
     }
 
     /**
@@ -244,7 +301,7 @@ export class MenuService implements OnDestroy {
      *      3、否则放在0节点位置
      */
     private loadShortcut(shortcuts: Menu[]) {
-        if (shortcuts.length === 0 || this.data.length === 0) {
+        /*if (shortcuts.length === 0 || this.data.length === 0) {
             return;
         }
 
@@ -270,20 +327,20 @@ export class MenuService implements OnDestroy {
         _data.children = shortcuts.map(i => {
             i._depth = 2;
             return i;
-        });
+        });*/
     }
 
     private removeShortcut() {
-        const ls = this.data && this.data.length && this.data[0].children || [];
+        /*const ls = this.data && this.data.length && this.data[0].children || [];
         const pos = ls.findIndex(w => w.shortcut_root === true);
         if (pos !== -1) {
             ls.splice(pos, 1);
-        }
+        }*/
     }
 
-    get menus() {
+    /*get menus() {
         return this.data;
-    }
+    }*/
 
     /**
      * 清空菜单
@@ -297,7 +354,8 @@ export class MenuService implements OnDestroy {
      * 根据URL设置菜单 `_open` 属性
      * @param url URL地址
      */
-    openedByUrl(url: string) {
+
+    /*openedByUrl(url: string) {
         if (!url) {
             return;
         }
@@ -321,7 +379,7 @@ export class MenuService implements OnDestroy {
             findItem._open = true;
             findItem = findItem.__parent;
         } while (findItem);
-    }
+    }*/
 
     /**
      * 根据url获取菜单列表

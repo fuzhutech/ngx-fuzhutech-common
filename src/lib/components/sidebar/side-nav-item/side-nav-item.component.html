@@ -1,0 +1,18 @@
+<span *ngIf="item.children && (item.children.length > 0)" (click)="onItemClick(item)"
+      [class.nav-submenu-open]="item._open" [class.nav-sub-title]="!item._open">
+    <i class="{{ item.icon }}"></i>
+    {{ item.text }}
+</span>
+
+<a *ngIf="item._type === 1" [routerLink]="item.link" [target]="item.target" class="nav-link" (click)="onSelectClick(item)">
+    <span>{{ item.text }}</span>
+</a>
+
+<a *ngIf="!item.children && item._type === 2" href="{{ item.externalLink }}" target="{{item.target}}">
+    <span>{{ item.text }}</span>
+</a>
+<ul *ngIf="item.children && (item.children.length > 0) && item._open">
+    <li *ngFor="let child of item.children" [class.nav-item-selected]="child._selected">
+        <fz-side-nav-item [item]="child" (select)="onSelectClick($event)"></fz-side-nav-item>
+    </li>
+</ul>

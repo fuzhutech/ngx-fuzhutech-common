@@ -310,10 +310,7 @@ ul, ol {
     list-style: none;
 }
 
-
-
 //todo
-
 
 .nav-bar {
     // position: relative;
@@ -327,6 +324,57 @@ ul, ol {
     ul {
         list-style: none;
     }
+
+    li {
+        position: relative;
+        border-left: 3px solid transparent;
+        transition: border-left-color .4s ease;
+        padding-top: 8px;
+        padding-bottom: 8px;
+
+        > a {
+            color: rgba(0, 0, 0, .65);
+            text-decoration: none;
+            padding: 8px 16px;
+            white-space: nowrap;
+            position: relative;
+            display: block;
+            user-select: none;
+            i {
+                min-width: 14px;
+                display: inline-block;
+                margin-right: 8px;
+                transition: font-size .15s cubic-bezier(0.215, 0.61, 0.355, 1), margin .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+            }
+            > span {
+                transition: opacity .3s cubic-bezier(0.645, 0.045, 0.355, 1), width .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+                opacity: 1;
+            }
+            &:hover {
+                color: #108ee9;
+            }
+        }
+    }
+
+    // Selected
+    .nav-item-selected {
+        border-left-color: #108ee9;
+        background-color: #fcfcfc;
+        > a {
+            color: #108ee9;
+        }
+    }
+
+    .nav-menu-open{
+        background-color: #fcfcfc;
+    }
+}
+
+.nav-group-title {
+    color: rgba(0, 0, 0, .43);
+    //padding: 8px 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 /*.navbar-default {

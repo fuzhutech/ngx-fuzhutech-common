@@ -1,0 +1,95 @@
+ul {
+    list-style: none;
+}
+
+li {
+    position: relative;
+    border-left: 3px solid transparent;
+    transition: border-left-color .4s ease;
+    //color: rgba(0, 0, 0, 0.65);
+
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.nav-item {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.nav-link {
+    color: rgba(0, 0, 0, .65);
+    text-decoration: none;
+    //padding: 8px 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    white-space: nowrap;
+    position: relative;
+    display: block;
+    user-select: none;
+    i {
+        min-width: 14px;
+        display: inline-block;
+        margin-right: 8px;
+        transition: font-size .15s cubic-bezier(0.215, 0.61, 0.355, 1), margin .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+    > span {
+        transition: opacity .3s cubic-bezier(0.645, 0.045, 0.355, 1), width .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        opacity: 1;
+    }
+    &:hover {
+        color: #108ee9;
+    }
+}
+
+.nav-submenu-open {
+    &:after {
+        content: "\E61D";
+        font-family: anticon !important;
+        font-style: normal;
+        vertical-align: baseline;
+        text-align: center;
+        text-transform: none;
+        text-rendering: auto;
+        position: absolute;
+        right: 16px;
+        top: 9px;
+        display: inline-block;
+        font-size: 12px;
+        transform: scale(.66666667) rotate(0deg);
+        transition: transform .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        zoom: 1;
+        transform: rotate(180deg) scale(.75);
+    }
+}
+
+.nav-sub-title {
+    &:after {
+        content: "\E61D";
+        font-family: anticon !important;
+        font-style: normal;
+        vertical-align: baseline;
+        text-align: center;
+        text-transform: none;
+        text-rendering: auto;
+        position: absolute;
+        right: 16px;
+        top: 9px;
+        display: inline-block;
+        font-size: 12px;
+        transform: scale(.66666667) rotate(0deg);
+        transition: transform .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        zoom: 1;
+    }
+}
+
+// Selected
+.nav-item-selected {
+    // border-right-color: #108ee9;
+    background-color: #fcfcfc;
+    border-right: 3px solid #108ee9;
+    // background-color: #7265e6;
+    a {
+        color: #108ee9;
+    }
+}
