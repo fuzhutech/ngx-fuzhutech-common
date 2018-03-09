@@ -1,42 +1,32 @@
-ul {
-    list-style: none;
-}
-
-li {
+.nav-item, :host {
+    display: block;
     position: relative;
-    border-left: 3px solid transparent;
-    transition: border-left-color .4s ease;
-    //color: rgba(0, 0, 0, 0.65);
-
+    //border-left: 3px solid transparent;
+    //transition: border-left-color .4s ease;
     padding-top: 8px;
     padding-bottom: 8px;
 }
 
-.nav-item {
-    padding-top: 8px;
-    padding-bottom: 8px;
+.nav-item-open {
+    background-color: #fcfcfc;
 }
 
 .nav-link {
     color: rgba(0, 0, 0, .65);
     text-decoration: none;
     //padding: 8px 16px;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding: 5px 0;
     white-space: nowrap;
     position: relative;
     display: block;
     user-select: none;
-    i {
-        min-width: 14px;
-        display: inline-block;
-        margin-right: 8px;
-        transition: font-size .15s cubic-bezier(0.215, 0.61, 0.355, 1), margin .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    &:hover {
+        color: #108ee9;
     }
-    > span {
-        transition: opacity .3s cubic-bezier(0.645, 0.045, 0.355, 1), width .3s cubic-bezier(0.645, 0.045, 0.355, 1);
-        opacity: 1;
-    }
+}
+
+.nav-group {
+    padding: 5px 0;
     &:hover {
         color: #108ee9;
     }
@@ -55,11 +45,14 @@ li {
         right: 16px;
         top: 9px;
         display: inline-block;
-        font-size: 12px;
-        transform: scale(.66666667) rotate(0deg);
+        //font-size: 12px;
+        transform: rotate(180deg) scale(.75);
         transition: transform .3s cubic-bezier(0.645, 0.045, 0.355, 1);
         zoom: 1;
-        transform: rotate(180deg) scale(.75);
+
+    }
+    &:hover {
+        color: #108ee9;
     }
 }
 
@@ -76,20 +69,29 @@ li {
         right: 16px;
         top: 9px;
         display: inline-block;
-        font-size: 12px;
+        //font-size: 12px;
         transform: scale(.66666667) rotate(0deg);
         transition: transform .3s cubic-bezier(0.645, 0.045, 0.355, 1);
         zoom: 1;
+    }
+    &:hover {
+        color: #108ee9;
     }
 }
 
 // Selected
 .nav-item-selected {
-    // border-right-color: #108ee9;
-    background-color: #fcfcfc;
     border-right: 3px solid #108ee9;
-    // background-color: #7265e6;
+    background: rgba(0, 0, 0, .04);
     a {
         color: #108ee9;
     }
+}
+
+.nav-link:focus:not([disabled]), .nav-link:hover:not([disabled]) {
+    background: rgba(0, 0, 0, .04)
+}
+
+.nav-group:focus:not([disabled]), .nav-group:hover:not([disabled]) {
+    background: rgba(0, 0, 0, .04)
 }

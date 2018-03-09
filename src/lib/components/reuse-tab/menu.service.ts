@@ -225,7 +225,6 @@ export class MenuService implements OnDestroy {
                 shortcut: item.shortcut,
                 shortcut_root: item.shortcut_root ? item.shortcut_root : false,
                 reuse: item.reuse,
-                _type: item.externalLink ? 2 : 1,
                 _selected: false,
                 _hidden: typeof item.hide === 'undefined' ? false : item.hide,
                 _open: false,
@@ -235,8 +234,19 @@ export class MenuService implements OnDestroy {
                 children: []
             };
 
-            if (item.children && item.children.length > 0) {
+            /**
+             * 菜单类型，无须指定由 Service 自动识别
+             * 0：主菜单组
+             * 1：内部链接
+             * 2：外部链接
+             * 3：链接（子菜单）
+             */
+            if (item.group) {
+                menuItem._type = 0;
+            } else if (item.children && item.children.length > 0) {
                 menuItem._type = 3;
+            } else {
+                menuItem._type = item.externalLink ? 2 : 1;
             }
 
             // todo:aclService item._hidden
