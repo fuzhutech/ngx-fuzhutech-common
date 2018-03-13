@@ -17,13 +17,34 @@
 
     <mat-tab *ngFor="let tab of _list; let index = index">
         <ng-template mat-tab-label>
-            {{tab.title}}
-            <!--div (dblclick)="remove(index)" (contextmenu)="onNodeRightClick($event,tab,cm)" style="width: 100%">
-                {{index}}{{tab.title}}
-                <i *ngIf="allowClose" class="anticon anticon-close op" (click)="remove(index)"></i>
-            </div-->
+            <fz-dropdown nzTrigger="contextmenu" nzPlacement="bottomRight">
+                <div class="item" fzDropdown>
+                    <!--div (dblclick)="remove(index)" (contextmenu)="onNodeRightClick($event,tab)" style="width: 100%"-->
+                    <div (dblclick)="remove(index)" style="width: 100%">
+                        {{tab.title}}
+                        <i *ngIf="allowClose" class="anticon anticon-close op" (click)="remove(index)"></i>
+                    </div>
+                </div>
+                <div nz-menu class="wd-xl animated jello">
+                    <!--nz-spin [nzSpinning]="loading" [nzTip]="'正在读取数据...'"-->
+                    <!--div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="app-icons"-->
+                    <div nz-row class="ant-row-flex ant-row-flex-center ant-row-flex-middle app-icons">
+                        <div nz-col class="ant-col-6">
+                            <i class="anticon anticon-calendar bg-error text-white"></i>
+                            <small>Calendar</small>
+                        </div>
+                        <div nz-col class="ant-col-6">
+                            <i class="anticon anticon-file bg-teal text-white"></i>
+                            <small>Files</small>
+                        </div>
+                    </div>
+                    <!--/nz-spin-->
+                </div>
+            </fz-dropdown>
         </ng-template>
     </mat-tab>
+
+    <div>test</div>
 </mat-tab-group>
 
 <!--nz-tabset [(nzSelectedIndex)]="_pos" [nzAnimated]="false" (nzSelectedIndexChange)="to($event)" [nzTabBarExtraTemplate]="opsContent">

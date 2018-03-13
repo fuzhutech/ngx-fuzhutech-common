@@ -31,15 +31,6 @@ import {ReuseTabCached, ReuseTabNotify, ReuseTabMatchMode} from './interface';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
-
-    tabLinks = [
-        {label: 'home', link: 'home'},
-        {label: 'news', link: 'news'},
-        {label: 'contact', link: 'contact'},
-        {label: 'about', link: 'about'},
-        {label: 'login', link: 'login'},
-    ];
-
     private sub$: Subscription;
     _list: { url: string, title: string, [key: string]: any }[] = [];
     _pos = 0;
@@ -204,6 +195,10 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
         if (this._pos === idx) {
             this.to(this._pos);
         }
+    }
+
+    onNodeRightClick(event, tab) {
+        console.log(event, tab);
     }
 
     clear() {

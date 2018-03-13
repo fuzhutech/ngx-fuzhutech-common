@@ -1,4 +1,4 @@
-import { CdkConnectedOverlay, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
+import {CdkConnectedOverlay, ConnectedOverlayPositionChange, ConnectionPositionPair} from '@angular/cdk/overlay';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
@@ -14,25 +14,25 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { debounceTime } from 'rxjs/operators/debounceTime';
-import { mapTo } from 'rxjs/operators/mapTo';
-import { merge } from 'rxjs/operators/merge';
-import { dropDownAnimation } from '../../core/animation/dropdown-animations';
-import { DEFAULT_DROPDOWN_POSITIONS, POSITION_MAP } from '../../core/overlay/overlay-position-map';
+import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
+import {Subscription} from 'rxjs/Subscription';
+import {fromEvent} from 'rxjs/observable/fromEvent';
+import {debounceTime} from 'rxjs/operators/debounceTime';
+import {mapTo} from 'rxjs/operators/mapTo';
+import {merge} from 'rxjs/operators/merge';
+import {dropDownAnimation} from '../../core/animation/dropdown-animations';
+import {DEFAULT_DROPDOWN_POSITIONS, POSITION_MAP} from '../../core/overlay/overlay-position-map';
 // import { NzMenuComponent } from '../menu/nz-menu.component';
-import { toBoolean } from '../../util/convert';
-import { DropDownDirective } from './dropdown.directive';
+import {toBoolean} from '../../util/convert';
+import {DropDownDirective} from './dropdown.directive';
 
 export type NzPlacement = 'bottomLeft' | 'bottomCenter' | 'bottomRight' | 'topLeft' | 'topCenter' | 'topRight';
 
 @Component({
-    selector       : 'fz-dropdown',
-    encapsulation  : ViewEncapsulation.None,
-    animations     : [
+    selector: 'fz-dropdown',
+    encapsulation: ViewEncapsulation.None,
+    animations: [
         dropDownAnimation
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -47,11 +47,11 @@ export class DropDownComponent implements OnInit, OnDestroy, AfterViewInit {
     _triggerWidth = 0;
     _placement: NzPlacement = 'bottomLeft';
     _dropDownPosition: 'top' | 'center' | 'bottom' = 'bottom';
-    _positions: ConnectionPositionPair[] = [ ...DEFAULT_DROPDOWN_POSITIONS ];
+    _positions: ConnectionPositionPair[] = [...DEFAULT_DROPDOWN_POSITIONS];
     _subscription: Subscription;
     @ContentChild(DropDownDirective) _nzOrigin;
     // @ContentChild(MenuComponent) _nzMenu;
-    @Input() nzTrigger: 'click' | 'hover' = 'hover';
+    @Input() nzTrigger: 'click' | 'hover' | 'contextmenu' = 'hover';
     @Output() _visibleChange = new Subject<boolean>();
     @Output() nzVisibleChange: EventEmitter<boolean> = new EventEmitter();
     @ViewChild(CdkConnectedOverlay) _cdkOverlay: CdkConnectedOverlay;
@@ -78,7 +78,7 @@ export class DropDownComponent implements OnInit, OnDestroy, AfterViewInit {
     set nzPlacement(value: NzPlacement) {
         this._placement = value;
         this._dropDownPosition = (this.nzPlacement.indexOf('top') !== -1) ? 'top' : 'bottom';
-        this._positions.unshift(POSITION_MAP[ this._placement ] as ConnectionPositionPair);
+        this._positions.unshift(POSITION_MAP[this._placement] as ConnectionPositionPair);
     }
 
     get nzPlacement(): NzPlacement {
@@ -116,6 +116,7 @@ export class DropDownComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     _clickDropDown($event: MouseEvent): void {
+        console.log('_clickDropDown');
         $event.stopPropagation();
         if (this.nzClickHide) {
             this._hide();
@@ -170,6 +171,12 @@ export class DropDownComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.nzTrigger === 'click') {
             mouse$ = fromEvent(this._nzOrigin.elementRef.nativeElement, 'click').pipe(mapTo(true));
             this._renderer.listen(this._nzOrigin.elementRef.nativeElement, 'click', (e) => {
+                e.preventDefault();
+            });
+        }
+        if (this.nzTrigger === 'contextmenu') {
+            mouse$ = fromEvent(this._nzOrigin.elementRef.nativeElement, 'contextmenu').pipe(mapTo(true));
+            this._renderer.listen(this._nzOrigin.elementRef.nativeElement, 'contextmenu', (e) => {
                 e.preventDefault();
             });
         }

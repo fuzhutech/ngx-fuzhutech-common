@@ -9,16 +9,17 @@ import {ReuseTabStrategy} from './reuse-tab.strategy';
 const COMPONENTS = [ReuseTabComponent];
 
 // region: material modules
-import {MatTabsModule} from '@angular/material';
+import {MatIconModule, MatTabsModule} from '@angular/material';
 import {MenuService} from './menu.service';
 import {TitleService} from './title.service';
+import {FzDropDownModule} from '../../';
 
 const MATERIALMODULES = [MatTabsModule];
 
 // endregion
 
 @NgModule({
-    imports: [CommonModule, RouterModule, ...MATERIALMODULES],
+    imports: [CommonModule, RouterModule, MatIconModule, FzDropDownModule, ...MATERIALMODULES],
     declarations: [...COMPONENTS],
     exports: [...COMPONENTS]
 })
