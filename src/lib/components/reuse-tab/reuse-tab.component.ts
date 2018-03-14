@@ -155,9 +155,7 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     to(event) {
-        console.log('to :', event, this._list);
         const item = this._list[event.index];
-        console.log(item);
         if (!item || !item.url) {
             return;
         }
@@ -197,8 +195,16 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
         }
     }
 
-    onNodeRightClick(event, tab) {
-        console.log(event, tab);
+    removeOther(idx: number) {
+        this._list = [this._list.find(w => w.url === this.router.url)];
+        this.srv.clear();
+        this.close.emit(null);
+    }
+
+    removeAll(idx: number) {
+        this._list = [];
+        this.srv.clear();
+        this.close.emit(null);
     }
 
     clear() {

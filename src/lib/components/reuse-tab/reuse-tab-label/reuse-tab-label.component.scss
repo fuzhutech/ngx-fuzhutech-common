@@ -1,0 +1,19 @@
+.reuse-tab-label {
+    height: 48px;
+    padding: 0 24px;
+    cursor: pointer;
+    box-sizing: border-box;
+    opacity: .6;
+    min-width: 160px;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    position: relative;
+}
+
+.reuse-tab-menu-panel {
+    background: #fff;
+    //background: rgba(255, 255, 255, .12)
+}
