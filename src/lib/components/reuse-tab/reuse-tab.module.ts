@@ -16,6 +16,7 @@ import {FzDropDownModule} from '../../';
 import {ReuseTabLabelComponent} from './reuse-tab-label/reuse-tab-label.component';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {ReuseTabMenuItemComponent} from './reuse-tab-menu-item/reuse-tab-menu-item.component';
+import {ReuseTabMenuComponent} from './reuse-tab-menu/reuse-tab-menu.component';
 
 const MATERIALMODULES = [MatTabsModule];
 
@@ -23,8 +24,8 @@ const MATERIALMODULES = [MatTabsModule];
 
 @NgModule({
     imports: [CommonModule, RouterModule, OverlayModule, MatIconModule, MatOptionModule, MatMenuModule, MatSelectModule, FzDropDownModule, ...MATERIALMODULES],
-    declarations: [ReuseTabLabelComponent, ReuseTabMenuItemComponent, ...COMPONENTS],
-    exports: [...COMPONENTS]
+    declarations: [ReuseTabLabelComponent, ReuseTabMenuComponent, ReuseTabMenuItemComponent, ...COMPONENTS],
+    exports: [ReuseTabLabelComponent, ReuseTabMenuComponent, ReuseTabMenuItemComponent, ...COMPONENTS]
 })
 export class FzReuseTabModule {
     static forRoot(): ModuleWithProviders {

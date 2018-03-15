@@ -1,0 +1,53 @@
+@import '../../core/theming/theming';
+
+$mat-tab-bar-height: 48px !default;
+
+@mixin fz-reuse-tab-theme($theme) {
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+
+    .fz-reuse-tab-label {
+        color: mat-color($foreground, text);
+
+        &.mat-tab-disabled {
+            color: mat-color($foreground, disabled-text);
+        }
+    }
+
+    .fz-reuse-tab-menu-panel {
+        //background: #fff;
+        background: mat-color($background, 'card');
+    }
+
+    .fz-reuse-tab-menu-item {
+        background: transparent;
+        color: mat-color($foreground, 'text');
+
+        &[disabled] {
+            color: mat-color($foreground, 'disabled');
+        }
+    }
+
+    .fz-reuse-tab-menu-item .mat-icon:not([color]),
+    .fz-reuse-tab-menu-item-submenu-trigger::after {
+        color: mat-color($foreground, 'icon');
+    }
+
+    .fz-reuse-tab-menu-item:hover,
+    .fz-reuse-tab-menu-item:focus,
+    .fz-reuse-tab-menu-item-highlighted {
+        &:not([disabled]) {
+            background: mat-color($background, 'hover');
+        }
+    }
+}
+
+@mixin fz-reuse-tab-typography($config) {
+    .fz-reuse-tab-menu-item {
+        font: {
+            family: mat-font-family($config, subheading-2);
+            size: mat-font-size($config, subheading-2);
+            weight: mat-font-weight($config, subheading-2);
+        }
+    }
+}

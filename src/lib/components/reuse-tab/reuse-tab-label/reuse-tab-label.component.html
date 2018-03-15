@@ -21,7 +21,7 @@
 
 
 <div cdk-overlay-origin
-     class="reuse-tab-label"
+     class="fz-reuse-tab-label"
      aria-hidden="true"
      (dblclick)="closeLabelPageClick()"
      (contextmenu)="toggle($event)"
@@ -43,7 +43,7 @@
     (backdropClick)="close()"
     (attach)="_onAttached()"
     (detach)="close()">
-    <div #panel class="reuse-tab-menu-panel">
+    <div #panel class="fz-reuse-tab-menu-panel">
         <fz-reuse-tab-menu-item (click)="closeLabelPageClick()">关闭标签页</fz-reuse-tab-menu-item>
         <fz-reuse-tab-menu-item (click)="closeOtherLabelPageClick()">关闭其他标签页</fz-reuse-tab-menu-item>
         <fz-reuse-tab-menu-item (click)="closeAllLabelPageClick()">关闭所有标签页</fz-reuse-tab-menu-item>

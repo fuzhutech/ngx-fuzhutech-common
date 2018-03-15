@@ -1,5 +1,6 @@
 // 引入angular material主题支持
 @import '~@angular/material/theming';
+@import 'lib/core/theming/all-theme';
 
 // 引入Material 公用的主体风格,请确保只在此处包含一次，其他地方不要再include
 @include mat-core();
@@ -19,11 +20,11 @@
     }
 
     @media (max-width: 480px) {
-        .mat-paginator-page-size{
+        .mat-paginator-page-size {
             display: none;
         }
 
-        .mat-paginator-range-label{
+        .mat-paginator-range-label {
             display: none;
         }
     }
@@ -62,6 +63,7 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 
 .myapp-light-theme {
     @include angular-material-theme($my-app-theme);
+    @include fz-common-theme($my-app-theme);
     @include fz-site-theme($my-app-theme);
     @include fz-toolbar-theme($my-app-theme);
     @include fz-menu-theme($my-app-theme);
@@ -77,6 +79,7 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
     $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
     @include angular-material-theme($dark-theme);
+    @include fz-common-theme($dark-theme);
     @include fz-site-theme($dark-theme);
     @include fz-menu-theme($dark-theme);
 

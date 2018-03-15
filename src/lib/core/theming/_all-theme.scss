@@ -1,0 +1,7 @@
+// Import all the theming functionality.
+@import '../../components/reuse-tab/reuse-tab-theme';
+
+// Create a theme.
+@mixin fz-common-theme($theme) {
+    @include fz-reuse-tab-theme($theme);
+}

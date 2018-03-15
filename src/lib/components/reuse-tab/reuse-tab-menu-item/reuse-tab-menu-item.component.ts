@@ -8,7 +8,7 @@ import {Subject} from 'rxjs/Subject';
     styleUrls: ['./reuse-tab-menu-item.component.scss'],
     host: {
         'role': 'menuitem',
-        'class': 'mat-menu-item',
+        'class': 'fz-reuse-tab-menu-item',
         '(click)': '_checkDisabled($event)',
         '(mouseenter)': '_emitHoverEvent()'
     }

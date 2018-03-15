@@ -1,0 +1,31 @@
+//@import '../core/style/variables';
+
+$mat-tab-bar-height: 48px !default;
+
+@mixin reuse-tab-label {
+    height: $mat-tab-bar-height;
+    padding: 0 24px;
+    cursor: pointer;
+    box-sizing: border-box;
+    opacity: 0.6;
+    min-width: 160px;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+
+    //position: relative;
+
+    /*&:focus {
+        outline: none;
+
+        &:not(.mat-tab-disabled) {
+            opacity: 1;
+        }
+    }
+
+    &.mat-tab-disabled {
+        cursor: default;
+    }*/
+}
