@@ -43,9 +43,14 @@
     (backdropClick)="close()"
     (attach)="_onAttached()"
     (detach)="close()">
-    <div #panel class="fz-reuse-tab-menu-panel">
+    <fz-reuse-tab-menu>
         <fz-reuse-tab-menu-item (click)="closeLabelPageClick()">关闭标签页</fz-reuse-tab-menu-item>
         <fz-reuse-tab-menu-item (click)="closeOtherLabelPageClick()">关闭其他标签页</fz-reuse-tab-menu-item>
         <fz-reuse-tab-menu-item (click)="closeAllLabelPageClick()">关闭所有标签页</fz-reuse-tab-menu-item>
-    </div>
+    </fz-reuse-tab-menu>
+    <!--div-- #panel class="fz-reuse-tab-menu-panel">
+        <fz-reuse-tab-menu-item (click)="closeLabelPageClick()">关闭标签页</fz-reuse-tab-menu-item>
+        <fz-reuse-tab-menu-item (click)="closeOtherLabelPageClick()">关闭其他标签页</fz-reuse-tab-menu-item>
+        <fz-reuse-tab-menu-item (click)="closeAllLabelPageClick()">关闭所有标签页</fz-reuse-tab-menu-item>
+    </div-->
 </ng-template>

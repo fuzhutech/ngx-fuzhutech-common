@@ -1,6 +1,6 @@
 <!--ng-template>
     <div
-        class="mat-menu-panel"
+        class="fz-reuse-tab-menu-panel"
         [ngClass]="_classList"
         (keydown)="_handleKeydown($event)"
         (click)="closed.emit('click')"
@@ -8,8 +8,24 @@
         (@transformMenu.done)="_onAnimationDone($event)"
         tabindex="-1"
         role="menu">
-        <div class="mat-menu-content" [@fadeInItems]="'showing'">
+        <div class="fz-reuse-tab-menu-content" [@fadeInItems]="'showing'">
             <ng-content></ng-content>
         </div>
     </div>
 </ng-template-->
+
+
+<div
+    class="fz-reuse-tab-menu-panel"
+    [ngClass]="_classList"
+    (keydown)="_handleKeydown($event)"
+    (click)="closed.emit('click')"
+    [@transformMenu]="'enter'"
+    (@transformMenu.done)="_onAnimationDone($event)"
+    tabindex="-1"
+    role="menu">
+    <div class="fz-reuse-tab-menu-content" [@fadeInItems]="'showing'">
+        <ng-content></ng-content>
+    </div>
+</div>
+

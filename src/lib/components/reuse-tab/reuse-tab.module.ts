@@ -16,16 +16,36 @@ import {FzDropDownModule} from '../../';
 import {ReuseTabLabelComponent} from './reuse-tab-label/reuse-tab-label.component';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {ReuseTabMenuItemComponent} from './reuse-tab-menu-item/reuse-tab-menu-item.component';
-import {ReuseTabMenuComponent} from './reuse-tab-menu/reuse-tab-menu.component';
+import {MAT_MENU_DEFAULT_OPTIONS, ReuseTabMenuComponent} from './reuse-tab-menu/reuse-tab-menu.component';
 
 const MATERIALMODULES = [MatTabsModule];
 
 // endregion
 
 @NgModule({
-    imports: [CommonModule, RouterModule, OverlayModule, MatIconModule, MatOptionModule, MatMenuModule, MatSelectModule, FzDropDownModule, ...MATERIALMODULES],
+    imports: [
+        CommonModule,
+        RouterModule,
+        OverlayModule,
+        MatIconModule,
+        MatOptionModule,
+        MatMenuModule,
+        MatSelectModule,
+        FzDropDownModule,
+        ...MATERIALMODULES],
     declarations: [ReuseTabLabelComponent, ReuseTabMenuComponent, ReuseTabMenuItemComponent, ...COMPONENTS],
-    exports: [ReuseTabLabelComponent, ReuseTabMenuComponent, ReuseTabMenuItemComponent, ...COMPONENTS]
+    exports: [ReuseTabLabelComponent, ReuseTabMenuComponent, ReuseTabMenuItemComponent, ...COMPONENTS],
+    providers: [
+        // MAT_MENU_SCROLL_STRATEGY_PROVIDER,
+        {
+            provide: MAT_MENU_DEFAULT_OPTIONS,
+            useValue: {
+                overlapTrigger: true,
+                xPosition: 'after',
+                yPosition: 'below',
+            },
+        }
+    ],
 })
 export class FzReuseTabModule {
     static forRoot(): ModuleWithProviders {

@@ -5,6 +5,7 @@ import {
 import {Subject} from 'rxjs/Subject';
 import {CdkConnectedOverlay} from '@angular/cdk/overlay';
 import {NgControl} from '@angular/forms';
+import {ReuseTabMenuComponent} from '../reuse-tab-menu/reuse-tab-menu.component';
 
 @Component({
     selector: 'fz-reuse-tab-label',
@@ -52,7 +53,7 @@ export class ReuseTabLabelComponent implements OnInit, OnDestroy {
     @ViewChild('trigger') trigger: ElementRef;
 
     /** Panel containing the reuse-tab-menu-items. */
-    @ViewChild('panel') panel: ElementRef;
+    // @ViewChild('panel') panel: ElementRef;
 
     /** Overlay pane containing the reuse-tab-menu-items. */
     @ViewChild(CdkConnectedOverlay) overlayDir: CdkConnectedOverlay;
@@ -114,6 +115,7 @@ export class ReuseTabLabelComponent implements OnInit, OnDestroy {
     }
 
     closeLabelPageClick() {
+        console.log('closeLabelPageClick');
         this._panelOpen = false;
         this.closeLabelPage.emit(this.index);
     }
