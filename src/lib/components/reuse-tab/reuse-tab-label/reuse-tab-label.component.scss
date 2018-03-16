@@ -9,4 +9,11 @@ $mat-menu-submenu-indicator-size: 10px !default;
 .fz-reuse-tab-label {
     @include reuse-tab-label;
     position: relative;
+
+    .mat-icon {
+        padding-left: 5px;
+        height: 12px;
+        width: 12px;
+        font-size: 14px;
+    }
 }

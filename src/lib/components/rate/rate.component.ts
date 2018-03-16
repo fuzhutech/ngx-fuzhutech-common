@@ -4,166 +4,116 @@ import {
     Input,
     OnInit,
     ViewEncapsulation,
+    Output,
+    EventEmitter,
+    ChangeDetectorRef
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {toBoolean} from '../../util/convert';
+
+export const RATING_VALUE_ACCESSOR: any = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => RateComponent),
+    multi: true
+};
 
 @Component({
     selector: 'fz-rate',
     encapsulation: ViewEncapsulation.None,
     templateUrl: './rate.component.html',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => RateComponent),
-            multi: true
-        }
-    ],
+    providers: [RATING_VALUE_ACCESSOR],
     styleUrls: ['./rate.component.scss']
 })
 export class RateComponent implements OnInit, ControlValueAccessor {
-    private _hasHalf = false;
-    private _allowHalf = false;
-    private _disabled = false;
 
-    _prefixCls = 'ant-rate';
-    _innerPrefixCls = `${this._prefixCls}-star`;
-    _classMap;
-    _starArray: number[] = [];
-    _count = 5;
-    _value = 0;
-    _hoverValue = 0; // 鼠标悬浮时的星数，为正整数，和_hasHalf配合使用
-    // TODO: What's this for? It will match all number values
-    _floatReg: RegExp = /^\d+(\.\d+)?$/;
+    @Input() disabled: boolean;
 
-    // ngModel Access
-    onChange: (value: number) => void = () => null;
-    onTouched: () => void = () => null;
+    @Input() readonly: boolean;
 
-    @Input()
-    set nzCount(value: number) {
-        this._count = value;
+    @Input() stars = 5;
+
+    @Input() cancel = true;
+
+    @Input() iconOnName = 'star';
+
+    @Input() iconOnClass = 'star-icon-on';
+
+    @Input() iconOnStyle: any;
+
+    @Input() iconOffName = 'star_border';
+
+    @Input() iconOffClass = 'star-icon-off';
+
+    @Input() iconOffStyle: any;
+
+    @Input() iconCancelName = 'cancel';
+
+    @Input() iconCancelClass = 'star-icon-cancel';
+
+    @Input() iconCancelStyle: any;
+
+    @Output() rateClick: EventEmitter<any> = new EventEmitter();
+
+    @Output() cancelClick: EventEmitter<any> = new EventEmitter();
+
+    public starsArray: number[];
+
+    value: number;
+
+    onModelChange: Function = () => {};
+
+    onModelTouched: Function = () => {};
+
+    constructor(private cd: ChangeDetectorRef) {
     }
 
-    @Input()
-    set nzAllowHalf(value: boolean) {
-        this._allowHalf = toBoolean(value);
-    }
 
-    @Input()
-    set nzDefaultValue(input: number) {
-        let value = input;
-        this._value = value;
-        if (this._floatReg.test(value.toString())) {
-            value += 0.5;
-            this._hasHalf = true;
-        }
-        this._hoverValue = value;
-    }
-
-    get nzValue(): number {
-        return this._value;
-    }
-
-    set nzValue(input: number) {
-        let value = input;
-        if (this._value === value) {
-            return;
-        }
-        this._value = value;
-        if (this._floatReg.test(value.toString())) {
-            value += 0.5;
-            this._hasHalf = true;
-        }
-        this._hoverValue = value;
-    }
-
-    @Input()
-    set nzDisabled(value: boolean) {
-        this._disabled = toBoolean(value);
-        this.setClassMap();
-    }
-
-    setClassMap(): void {
-        this._classMap = {
-            [this._prefixCls]: true,
-            [`${this._prefixCls}-disabled`]: this._disabled
-        };
-    }
-
-    setChildrenClassMap(): void {
-        let index = 0;
-        while (index < this._count) {
-            this._starArray.push(index++);
-        }
-    }
-
-    _clickRate(e: MouseEvent, index: number, isFull: boolean): void {
-        e.stopPropagation();
-        if (this._disabled) {
-            return;
-        }
-        this._hoverValue = this._value = index + 1;
-        this._hasHalf = !isFull && this._allowHalf;
-        if (this._hasHalf) {
-            this._value -= 0.5;
-        }
-        this.onChange(this._value);
-    }
-
-    _hoverRate(e: MouseEvent, index: number, isFull: boolean): void {
-        e.stopPropagation();
-        if (this._disabled) {
-            return;
-        }
-        const isHalf: boolean = !isFull && this._allowHalf;
-        // 如果星数一致，则不作操作，用于提高性能
-        if (this._hoverValue === index + 1 && isHalf === this._hasHalf) {
-            return;
+    ngOnInit() {
+        this.starsArray = [];
+        for (let i = 0; i < this.stars; i++) {
+            this.starsArray[i] = i;
         }
 
-        this._hoverValue = index + 1;
-        this._hasHalf = isHalf;
+        console.log(this.value);
     }
 
-    _leaveRate(e: MouseEvent): void {
-        e.stopPropagation();
-        let oldVal = this._value;
-        if (this._floatReg.test(oldVal.toString())) {
-            oldVal += 0.5;
-            this._hasHalf = true;
+    rate(event, i: number): void {
+        if (!this.readonly && !this.disabled) {
+            this.value = (i + 1);
+            this.onModelChange(this.value);
+            this.onModelTouched();
+            this.rateClick.emit({
+                originalEvent: event,
+                value: (i + 1)
+            });
         }
-        this._hoverValue = oldVal;
+        event.preventDefault();
     }
 
-    setClasses(i: number): object {
-        return {
-            [this._innerPrefixCls]: true,
-            [`${this._innerPrefixCls}-full`]: (i + 1 < this._hoverValue) || (!this._hasHalf) && (i + 1 === this._hoverValue),
-            [`${this._innerPrefixCls}-half`]: (this._hasHalf) && (i + 1 === this._hoverValue),
-            [`${this._innerPrefixCls}-active`]: (this._hasHalf) && (i + 1 === this._hoverValue),
-            [`${this._innerPrefixCls}-zero`]: (i + 1 > this._hoverValue)
-        };
+    clear(event): void {
+        if (!this.readonly && !this.disabled) {
+            this.value = null;
+            this.onModelChange(this.value);
+            this.onModelTouched();
+            this.cancelClick.emit(event);
+        }
+        event.preventDefault();
     }
 
-    writeValue(value: number | null): void {
-        this.nzValue = value || 0;
+    writeValue(value: any): void {
+        this.value = value;
+        this.cd.detectChanges();
     }
 
-    registerOnChange(fn: (_: number) => void): void {
-        this.onChange = fn;
+    registerOnChange(fn: Function): void {
+        this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: () => void): void {
-        this.onTouched = fn;
+    registerOnTouched(fn: Function): void {
+        this.onModelTouched = fn;
     }
 
-    setDisabledState(isDisabled: boolean): void {
-        this.nzDisabled = isDisabled;
-    }
-
-    ngOnInit(): void {
-        this.setClassMap();
-        this.setChildrenClassMap();
+    setDisabledState(val: boolean): void {
+        this.disabled = val;
     }
 }

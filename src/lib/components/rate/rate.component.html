@@ -1,12 +1,13 @@
-<ul [ngClass]="_classMap" (mouseleave)="_leaveRate($event)">
-    <li *ngFor="let star of _starArray; let i = index"
-        [ngClass]="setClasses(i)"
-        (mouseover)="_hoverRate($event, i, true)"
-        (click)="_clickRate($event, i, true)">
-        <div class="ant-rate-star-first" (mouseover)="_hoverRate($event, i)" (click)="_clickRate($event, i)">
-            <i class="anticon anticon-star"></i></div>
-        <div class="ant-rate-star-second" (mouseover)="_hoverRate($event, i, true)"
-             (click)="_clickRate($event, i, true)">
-            <i class="anticon anticon-star"></i></div>
-    </li>
-</ul>
+<div>
+    <mat-icon class="mat-18" *ngIf="cancel" (click)="clear($event)"
+              [ngClass]="iconCancelClass"
+              [ngStyle]="iconCancelStyle">
+        {{iconCancelName}}
+    </mat-icon>
+    <mat-icon *ngFor="let star of starsArray;let i=index" (click)="rate($event,i)"
+              [ngClass]="(!value || i >= value) ? iconOffClass : iconOnClass"
+              [ngStyle]="(!value || i >= value) ? iconOffStyle : iconOnStyle"
+              class="star-icon-on">
+        {{(!value || i >= value) ? iconOffName : iconOnName}}
+    </mat-icon>
+</div>
