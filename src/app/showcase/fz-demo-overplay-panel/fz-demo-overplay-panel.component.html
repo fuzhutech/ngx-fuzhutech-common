@@ -1,0 +1,19 @@
+<p>
+    fz-demo-overplay-panel works!
+</p>
+
+<h3>Customized</h3>
+<p>This OverlayPanel gets displayed on hover of the icon, is not dismissable and displays a close icon.</p>
+
+<button type="button" pButton (click)="op2.show($event)">test</button>
+
+<fz-overplay-panel #op2 [showCloseIcon]="true">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+</fz-overplay-panel>
+
+<h3>Customized</h3>
+<p>This OverlayPanel gets displayed on hover of the icon, is not dismissable and displays a close icon.</p>
+
+<div style="height: 300px"></div>

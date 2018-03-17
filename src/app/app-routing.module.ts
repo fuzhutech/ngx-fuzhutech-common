@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
+import {FzDemoOverplayPanelModule} from './showcase/fz-demo-overplay-panel/fz-demo-overplay-panel.module';
 
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -75,6 +76,11 @@ const routes: Routes = [
         path: 'notification',
         loadChildren: './showcase/fz-demo-notification/fz-demo-notification.module#FzDemoNotificationModule',
         data: {title: 'notification', module: 'notification', power: 'SHOW'}
+    },
+    {
+        path: 'overplay-panel',
+        loadChildren: './showcase/fz-demo-overplay-panel/fz-demo-overplay-panel.module#FzDemoOverplayPanelModule',
+        data: {title: 'overplay-panel', module: 'overplay-panel', power: 'SHOW'}
     },
     {
         path: 'popover',

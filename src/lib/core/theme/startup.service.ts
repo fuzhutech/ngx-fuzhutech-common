@@ -362,6 +362,10 @@ const appMenuData = {
                             'link': '/carousel'
                         },
                         {
+                            'text': 'overplay-panel',
+                            'link': '/overplay-panel'
+                        },
+                        {
                             'text': 'Popover 气泡卡片',
                             'link': '/popover'
                         },
