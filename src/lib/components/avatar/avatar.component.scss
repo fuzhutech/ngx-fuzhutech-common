@@ -1,64 +1,71 @@
-.ant-avatar {
+.fz-avatar {
     display: inline-block;
     text-align: center;
     background: #ccc;
-    //background: @avatar-bg;
-    //color: @avatar-color;
     color: #fff;
     white-space: nowrap;
     position: relative;
     overflow: hidden;
+}
 
-    .avatar-size {
-        width: 32px;
-        height: 32px;
+.fz-avatar-size-default {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 16px;
+
+    & > * {
         line-height: 32px;
-        border-radius: 16px;
-
-        & > * {
-            line-height: 32px;
-        }
-
-        &.ant-avatar-icon {
-            font-size: 18px;
-        }
     }
 
-    &-lg {
-        width: 40px;
-        height: 40px;
+    &.ant-avatar-icon {
+        font-size: 18px;
+    }
+}
+
+.fz-avatar-size-large {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 20px;
+
+    & > * {
         line-height: 40px;
-        border-radius: 20px;
-
-        & > * {
-            line-height: 40px;
-        }
-
-        &.ant-avatar-icon {
-            font-size: 24px;
-        }
     }
 
-    &-sm {
-        width: 24px;
-        height: 24px;
+    &.ant-avatar-icon {
+        font-size: 24px;
+    }
+}
+
+.fz-avatar-size-small {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 12px;
+
+    & > * {
         line-height: 24px;
-        border-radius: 12px;
-
-        & > * {
-            line-height: 24px;
-        }
-
-        &.ant-avatar-icon {
-            font-size: 14px;
-        }
     }
 
-    &-square {
-        //border-radius: @avatar-border-radius;
-        border-radius: 4px;
+    &.ant-avatar-icon {
+        font-size: 14px;
     }
+}
 
+.fz-avatar-shape-circle {
+    //border-radius: 4px;
+}
+
+.fz-avatar-shape-square {
+    border-radius: 4px;
+}
+
+.fz-avatar-shape-square {
+    border-radius: 4px;
+}
+
+.fz-avatar-image {
     & > img {
         width: 100%;
         height: 100%;

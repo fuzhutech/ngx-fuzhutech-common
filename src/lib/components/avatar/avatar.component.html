@@ -1,3 +1,14 @@
-<i class="anticon anticon-{{nzIcon}}" *ngIf="nzIcon && _hasIcon"></i>
+<!--i class="anticon anticon-{{nzIcon}}" *ngIf="nzIcon && _hasIcon"></i>
 <img [src]="nzSrc" *ngIf="nzSrc && _isSrcExist" (error)="_imgError($event)"/>
 <span class="ant-avatar-string" #textEl [ngStyle]="_textStyles" *ngIf="nzText && _hasText">{{ nzText }}</span>
+
+<div class="fz-avatar avatar-size-{{nzSize}}" [class.fz-avatar-shape]="nzShape=='square'">
+    <mat-icon *ngIf="nzIcon">{{nzIcon}}</mat-icon>
+    <span class="ant-avatar-string" #textEl [ngStyle]="_textStyles" *ngIf="nzText && _hasText">{{ nzText }}</span>
+</div-->
+
+
+<mat-icon *ngIf="_hasIcon">{{icon}}</mat-icon>
+<img [src]="src" *ngIf="src && _isSrcExist" (error)="_imgError($event)"/>
+<span *ngIf="_hasText" #textEl [ngStyle]="_textStyles">{{ text }}</span>
+

@@ -6,7 +6,7 @@
     <mat-list>
         <mat-list-item *ngFor="let item of data.list" class="ant-list-item" (click)="onSelect(item)">
             <!--mat-icon [svgIcon]="avatar" mat-list-avatar class="avatar"></mat-icon-->
-            <fz-avatar *ngIf="item.avatar" nzSize="large" [nzSrc]="item.avatar" mat-list-avatar></fz-avatar>
+            <fz-avatar *ngIf="item.avatar" nzSize="large" [icon]="item.avatar" mat-list-avatar></fz-avatar>
 
             <h4 matLine class="list-item-title">
                 {{item.title}}

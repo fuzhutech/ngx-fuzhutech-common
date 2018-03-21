@@ -83,6 +83,8 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
     @include fz-site-theme($dark-theme);
     @include fz-menu-theme($dark-theme);
 
+    @include fz-common-typography(null);
+
     // 改变字体,Typography
     /*$custom-typography: mat-typography-config(
         $font-family: Raleway,

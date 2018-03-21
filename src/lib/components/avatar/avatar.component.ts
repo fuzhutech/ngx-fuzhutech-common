@@ -9,9 +9,6 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 
-export type NzAvatarShape = 'square' | 'circle';
-export type NzAvatarSize = 'small' | 'large' | 'default';
-
 @Component({
     selector: 'fz-avatar',
     encapsulation: ViewEncapsulation.None,
@@ -21,37 +18,50 @@ export type NzAvatarSize = 'small' | 'large' | 'default';
 export class AvatarComponent implements OnChanges {
 
     private _el: HTMLElement;
-    private _prefixCls = 'ant-avatar';
+    private _prefixCls = 'fz-avatar';
     private _classList: string[] = [];
-    private _sizeMap = {large: 'lg', small: 'sm'};
 
     _hasText = false;
-    @ViewChild('textEl') _textEl: ElementRef;
+
     _textStyles: {};
 
     _isSrcExist = true;
 
     _hasIcon = false;
 
-    @Input() nzShape: NzAvatarShape = 'circle';
+    @Input() shape: 'square' | 'circle' = 'circle';
 
-    @Input() nzSize: NzAvatarSize = 'default';
+    @Input() size: 'small' | 'large' | 'default' = 'default';
 
-    @Input() nzText: string;
+    @Input() text: string;
 
-    @Input() nzSrc: string;
+    @Input() src: string;
 
-    @Input() nzIcon: string;
+    @Input() icon: string;
 
-    _setClassMap(): this {
+    @ViewChild('textEl') _textEl: ElementRef;
+
+    constructor(private _elementRef: ElementRef, private _renderer: Renderer2) {
+        this._el = _elementRef.nativeElement;
+        this._renderer.addClass(this._el, this._prefixCls);
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this._hasText = !this.src && !!this.text;
+        this._hasIcon = !this.src && !!this.icon;
+
+        this._setClassMap()._notifyCalc();
+    }
+
+    private _setClassMap(): this {
         this._classList.forEach(_className => {
             this._renderer.removeClass(this._el, _className);
         });
         this._classList = [
-            this._sizeMap[this.nzSize] && `${this._prefixCls}-${this._sizeMap[this.nzSize]}`,
-            this.nzShape && `${this._prefixCls}-${this.nzShape}`,
-            this.nzIcon && `${this._prefixCls}-icon`,
-            this.nzSrc && `${this._prefixCls}-image`
+            this.size && `${this._prefixCls}-size-${this.size}`,
+            this.shape && `${this._prefixCls}-shape-${this.shape}`,
+            this.icon && `${this._prefixCls}-icon`,
+            this.src && `${this._prefixCls}-image`
         ].filter((item) => {
             return !!item;
         });
@@ -66,9 +76,9 @@ export class AvatarComponent implements OnChanges {
         // TODO(i): need force remove [nzSrc] if broken image?
         this._hasIcon = false;
         this._hasText = false;
-        if (this.nzIcon) {
+        if (this.icon) {
             this._hasIcon = true;
-        } else if (this.nzText) {
+        } else if (this.text) {
             this._hasText = true;
         }
         this._setClassMap()._notifyCalc();
@@ -107,17 +117,6 @@ export class AvatarComponent implements OnChanges {
         return this;
     }
 
-    constructor(private _elementRef: ElementRef, private _renderer: Renderer2) {
-        this._el = _elementRef.nativeElement;
-        this._renderer.addClass(this._el, this._prefixCls);
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        this._hasText = !this.nzSrc && !!this.nzText;
-        this._hasIcon = !this.nzSrc && !!this.nzIcon;
-
-        this._setClassMap()._notifyCalc();
-    }
 
 }
 

@@ -1,0 +1,81 @@
+@import '../../core/theming/theming';
+
+@mixin fz-avatar-theme($theme) {
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+
+    .fz-avatar {
+        background-color: mat-color($accent);
+        color: mat-color($foreground, text);
+    }
+}
+
+@mixin fz-avatar-typography($config) {
+
+    .fz-avatar-size-default {
+
+        $line-height: mat-line-height($config, title);
+        $font-size: mat-font-size($config, title);
+
+        width: $line-height;
+        height: $line-height;
+        line-height: $line-height;
+        border-radius: $line-height / 2;
+
+        & > * {
+            line-height: $line-height;
+        }
+
+        &.ant-avatar-icon {
+            font-size: $font-size;
+        }
+    }
+
+    .fz-avatar-size-large {
+        $line-height: mat-line-height($config, display-1);
+        $font-size: mat-font-size($config, display-1);
+
+        width: $line-height;
+        height: $line-height;
+        line-height: mat-line-height($config, title);
+        border-radius: $line-height / 2;
+
+        & > * {
+            line-height: $line-height;
+        }
+
+        &.ant-avatar-icon {
+            font-size: $font-size;
+        }
+    }
+
+    .fz-avatar-size-small {
+        $line-height: mat-line-height($config, body-2);
+        $font-size: mat-font-size($config, body-2);
+
+        width: $line-height; //24px;
+        height: $line-height;
+        line-height: mat-line-height($config, title);
+        border-radius: $line-height / 2;
+
+        & > * {
+            line-height: $line-height;
+        }
+
+        &.ant-avatar-icon {
+            font-size: $font-size;
+        }
+    }
+
+    .fz-avatar-shape-circle {
+        //border-radius: 4px;
+    }
+
+    .fz-avatar-shape-square {
+        border-radius: 4px;
+    }
+
+}
