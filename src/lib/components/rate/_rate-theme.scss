@@ -1,0 +1,32 @@
+@import '../../core/theming/theming';
+
+@mixin fz-rate-theme($theme) {
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+    $primary: map-get($theme, primary);
+
+    .fz-rate {
+
+        .star-icon-cancel {
+            color: mat-color($foreground, icon);
+        }
+
+        .star-icon-on {
+            color: mat-color($foreground, text);
+
+            &:hover {
+                background-color: mat-color($background, hover);
+            }
+        }
+
+        .star-icon-off {
+            color: mat-color($foreground, text);
+        }
+    }
+}
+
+@mixin fz-rate-typography($config) {
+    .fz-rate {
+        font-family: mat-font-family($config);
+    }
+}

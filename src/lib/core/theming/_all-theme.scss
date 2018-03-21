@@ -1,7 +1,14 @@
 // Import all the theming functionality.
 @import '../../components/reuse-tab/reuse-tab-theme';
+@import '../../components/rate/rate-theme';
 
 // Create a theme.
 @mixin fz-common-theme($theme) {
+    @include fz-rate-theme($theme);
     @include fz-reuse-tab-theme($theme);
+}
+
+@mixin fz-common-typography($config: null) {
+    @include fz-rate-typography($config);
+    @include fz-reuse-tab-typography($config);
 }
