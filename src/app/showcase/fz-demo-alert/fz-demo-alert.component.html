@@ -2,7 +2,7 @@
     fz-demo-alert works!
 </p>
 
-<fz-alert [nzType]="'success'" [nzMessage]="'Success Text'"
+<!--fz-alert [nzShowIcon]="true" [nzType]="'success'" [nzMessage]="'Success Text'"
           [nzDescription]="'Success Description Success Description Success Description'">
 </fz-alert>
 
@@ -14,6 +14,47 @@
           [nzDescription]="'Warning Description Warning Description Warning Description Warning Description'">
 </fz-alert>
 
-<fz-alert [nzType]="'error'" [nzMessage]="'Error Text'"
+<fz-alert-- [nzType]="'error'" [nzMessage]="'Error Text'"
           [nzDescription]="'Error Description Error Description Error Description Error Description'">
-</fz-alert>
+</fz-alert-->
+
+<fz-alert [type]="'success'" [message]="'Success Text'"></fz-alert>
+<fz-alert [type]="'info'" [message]="'Info Text'"></fz-alert>
+<fz-alert [type]="'warn'" [message]="'Warning Text'" [closeable]="true"></fz-alert>
+<fz-alert [type]="'error'" [message]="'Error Text'" [closeText]="'Close Now'"></fz-alert>
+
+<fz-alert [type]="'success'" [showIcon]="true" [message]="'Success Text'"></fz-alert>
+<fz-alert [type]="'info'" [showIcon]="true" [message]="'Info Text'"></fz-alert>
+<fz-alert [type]="'warn'" [showIcon]="true" [message]="'Warning Text'" [closeable]="true"></fz-alert>
+<fz-alert [type]="'error'" [showIcon]="true" [message]="'Error Text'" [closeText]="'Close Now'"></fz-alert>
+
+
+
+<fz-alert [type]="'success'" [showIcon]="true" [message]="'Success Text'"
+          [description]="'Success Description Success Description Success Description'"></fz-alert>
+<fz-alert [type]="'info'" [showIcon]="true" [message]="'Info Text'"
+          [description]="'Info Description Info Description Info Description Info Description'"></fz-alert>
+<fz-alert [type]="'warn'" [showIcon]="true" [message]="'Warning Text'" [closeable]="true"
+          [description]="'Warning Description Warning Description Warning Description Warning Description'"></fz-alert>
+<fz-alert [type]="'error'" [showIcon]="true" [message]="'Error Text'" [closeText]="'Close Now'"
+          [description]="'Error Description Error Description Error Description Error Description'"></fz-alert>
+
+
+<fz-alert [type]="'success'" [message]="'Success Text'"
+          [description]="'Success Description Success Description Success Description'"></fz-alert>
+<fz-alert [type]="'info'" [message]="'Info Text'"
+          [description]="'Info Description Info Description Info Description Info Description'"></fz-alert>
+<fz-alert [type]="'warn'" [message]="'Warning Text'" [closeable]="true"
+          [description]="'Warning Description Warning Description Warning Description Warning Description'"></fz-alert>
+<fz-alert [type]="'error'" [message]="'Error Text'" [closeText]="'Close Now'"
+          [description]="'Error Description Error Description Error Description Error Description'"></fz-alert>
+
+
+<fz-alert [type]="'success'" [showIcon]="true"
+          [description]="'Success Description Success Description Success Description'"></fz-alert>
+<fz-alert [type]="'info'" [showIcon]="true"
+          [description]="'Info Description Info Description Info Description Info Description'"></fz-alert>
+<fz-alert [type]="'warn'" [showIcon]="true"  [closeable]="true"
+          [description]="'Warning Description Warning Description Warning Description Warning Description'"></fz-alert>
+<fz-alert [type]="'error'" [showIcon]="true"  [closeText]="'Close Now'"
+          [description]="'Error Description Error Description Error Description Error Description'"></fz-alert>

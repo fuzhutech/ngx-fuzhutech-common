@@ -1,34 +1,12 @@
-<div [ngClass]="_classMap" *ngIf="_display" [@fadeAnimation]>
-    <i
-        class="ant-alert-icon anticon"
-        [class.anticon-cross-circle-o]="nzType==='error'"
-        [class.anticon-check-circle-o]="nzType==='success'"
-        [class.anticon-info-circle-o]="nzType==='info'"
-        [class.anticon-exclamation-circle-o]="nzType==='warning'"
-        *ngIf="nzShowIcon&&nzDescription"></i>
-    <i
-        class="ant-alert-icon anticon"
-        [class.anticon-cross-circle]="nzType==='error'"
-        [class.anticon-check-circle]="nzType==='success'"
-        [class.anticon-info-circle]="nzType==='info'"
-        [class.anticon-exclamation-circle]="nzType==='warning'"
-        *ngIf="nzShowIcon&&!nzDescription"></i>
-    <ng-template [ngIf]="nzMessage">
-        <span class="ant-alert-message">{{ nzMessage }}</span>
-    </ng-template>
-    <ng-template [ngIf]="!nzMessage">
-        <ng-content select="[alert-body]"></ng-content>
-    </ng-template>
-    <ng-template [ngIf]="nzDescription">
-        <span class="ant-alert-description">{{ nzDescription }}</span>
-    </ng-template>
-    <ng-template [ngIf]="!nzDescription">
-        <ng-content select="[alert-description]"></ng-content>
-    </ng-template>
-    <ng-template [ngIf]="nzCloseable || nzCloseText">
-        <a *ngIf="nzCloseable" (click)="closeAlert($event)" class="ant-alert-close-icon">
-            <i class="anticon anticon-cross"></i>
+<div [ngClass]="_classMap" *ngIf="display" [@fadeAnimation]>
+    <mat-icon *ngIf="showIcon" class="fz-alert-icon">{{icon}}</mat-icon>
+    <span *ngIf="message" class="fz-alert-message">{{message}}</span>
+    <span *ngIf="closeable || closeText" class="fz-alert-close-icon">
+        <a *ngIf="closeable" (click)="closeAlert($event)">
+            <mat-icon>clear</mat-icon>
         </a>
-        <a *ngIf="nzCloseText" class="ant-alert-close-icon" (click)="closeAlert()">{{ nzCloseText }}</a>
-    </ng-template>
+        <a *ngIf="closeText" (click)="closeAlert()">{{ closeText }}</a>
+    </span>
+    <div *ngIf="description" class="fz-alert-description">{{description}}</div>
+
 </div>

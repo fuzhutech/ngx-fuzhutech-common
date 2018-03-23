@@ -1,201 +1,73 @@
-.ant-alert {
+.fz-alert {
     position: relative;
     padding: 8px 48px 8px 38px;
-    //border-radius: @border-radius-base;
+
     border-radius: 4px;
-    //color: @alert-text-color;
-    //color: fade(#000, 65%);
-    color: #000;
-    //font-size: @font-size-base;
+    color: rgba(0,0,0,.65);
     font-size: 12px;
-    //line-height: @line-height-base;
     line-height: 1.5;
+}
 
-    //&&-no-icon {
-    &-no-icon {
-        padding: 8px 48px 8px 16px;
-    }
+.fz-alert-icon {
+    font-size: 14px;
+    top: 10px;
+    left: 16px;
+    position: absolute;
+}
 
-    &-icon {
-        //font-size: @font-size-lg;
-        font-size: 14px;
-        //top: 8px + @font-size-base * @line-height-base / 2 - @font-size-lg / 2;
-        top: 8px + 12px * 1.5 / 2 - 14px / 2;
-        left: 16px;
-        position: absolute;
-    }
+.fz-alert-message {
 
-    &-description {
-        //font-size: @font-size-base;
-        font-size: 12px;
-        line-height: 21px;
-        display: none;
-    }
+}
 
-    &-success {
-        //border: @border-width-base @border-style-base @green-2;
-        border: 1px solid #00a2ae;
-        //background-color: @green-1;
-        background-color: #00a2ae;
-        .ant-alert-icon {
-            //color: @success-color;
-            color: #00a2ae;
-        }
-    }
+.fz-alert-close-icon {
+    font-size: 12px;
+    position: absolute;
+    right: 16px;
+    top: 10px;
+    //height: 12px;
+    //line-height: 12px;
+    overflow: hidden;
+    cursor: pointer;
+}
 
-    &-info {
-        //border: @border-width-base @border-style-base @primary-2;
-        border: 1px solid #108ee9;
-        //background-color: @primary-1;
-        background-color: #108ee9;
-        .ant-alert-icon {
-            //color: @info-color;
-            color: #108ee9;
-        }
-    }
 
-    &-warning {
-        //border: @border-width-base @border-style-base @yellow-2;
-        border: 1px solid #ffbf00;
-        //background-color: @yellow-1;
-        background-color: #ffbf00;
-        .ant-alert-icon {
-            //color: @warning-color;
-            color: #ffbf00;
-        }
-    }
+.fz-alert-description {
+    font-size: 12px;
+    line-height: 21px;
+}
 
-    &-error {
-        //border: @border-width-base @border-style-base @red-2;
-        border: 1px solid #f04134;
-        //background-color: @red-1;
-        background-color: #f04134;
-        .ant-alert-icon {
-            //color: @error-color;
-            color: #f04134;
-        }
-    }
+.fz-alert-success {
+    border: 1px solid #cfefdf;
+    background-color: #ebf8f2;
 
-    &-close-icon {
-        //font-size: @font-size-base;
-        font-size: 12px;
-        position: absolute;
-        right: 16px;
-        top: 10px;
-        height: 12px;
-        line-height: 12px;
-        overflow: hidden;
-        cursor: pointer;
-
-        .anticon-cross {
-            //color: @text-color-secondary;
-            color: #000;
-            transition: color .3s ease;
-            &:hover {
-                color: #404040;
-            }
-        }
-    }
-
-    &-close-text {
-        position: absolute;
-        right: 16px;
-    }
-
-    &-with-description {
-        padding: 16px 16px 16px 60px;
-        position: relative;
-        //border-radius: @border-radius-base;
-        border-radius: 4px;
-        //color: @text-color;
-        color: #000;
-        line-height: 1.5;
-    }
-
-    &-with-description, &-no-icon {
-        padding: 16px;
-    }
-
-    &-with-description &-icon {
-        position: absolute;
-        top: 16px;
-        left: 20px;
-        font-size: 24px;
-    }
-
-    &-with-description &-close-icon {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        cursor: pointer;
-        //font-size: @font-size-base;
-        font-size: 12px;
-    }
-
-    &-with-description &-message {
-        //font-size: @font-size-lg;
-        font-size: 14px;
-        //color: @alert-message-color;
-        //color: fade(#000, 85%);
-        color: #000;
-        display: block;
-        margin-bottom: 4px;
-    }
-
-    &-with-description &-description {
-        display: block;
-    }
-
-    //&&-close {
-    &-close {
-        height: 0 !important;
-        margin: 0;
-        padding-top: 0;
-        padding-bottom: 0;
-        //transition: all .3s @ease-in-out-circ;
-        transition: all .3s cubic-bezier(0.78, 0.14, 0.15, 0.86);;
-        transform-origin: 50% 0;
-    }
-
-    &-slide-up-leave {
-        //animation: antAlertSlideUpOut .3s @ease-in-out-circ;
-        animation: antAlertSlideUpOut .3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
-        animation-fill-mode: both;
-    }
-
-    &-banner {
-        border-radius: 0;
-        border: 0;
-        margin-bottom: 0;
+    .fz-alert-icon {
+        color: #00a854;
     }
 }
 
-@keyframes antAlertSlideUpIn {
-    0% {
-        opacity: 0;
-        transform-origin: 0% 0%;
-        transform: scaleY(0);
-    }
-    100% {
-        opacity: 1;
-        transform-origin: 0% 0%;
-        transform: scaleY(1);
+.fz-alert-info {
+    border: 1px solid #d2eafb;
+    background-color: #ecf6fd;
+
+    .fz-alert-icon {
+        color: #108ee9;
     }
 }
 
-@keyframes antAlertSlideUpOut {
-    0% {
-        opacity: 1;
-        transform-origin: 0% 0%;
-        transform: scaleY(1);
-    }
-    100% {
-        opacity: 0;
-        transform-origin: 0% 0%;
-        transform: scaleY(0);
+.fz-alert-warn {
+    border: 1px solid #fff3cf;
+    background-color: #fffaeb;
+
+    .fz-alert-icon {
+        color: #ffbf00;
     }
 }
 
-fz-alert {
-    display: block;
+.fz-alert-error {
+    border: 1px solid #fcdbd9;
+    background-color: #fef0ef;
+
+    .fz-alert-icon {
+        color: #f04134;
+    }
 }

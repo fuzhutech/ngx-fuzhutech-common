@@ -1,0 +1,81 @@
+@import '../../core/theming/theming';
+
+@mixin fz-alert-theme($theme) {
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+
+    .fz-alert {
+        color: mat-color($foreground, text);
+    }
+
+    .fz-alert-success {
+        border: 1px solid #cfefdf;
+        background-color: map_get($mat-green, 50);
+
+        .fz-alert-icon {
+            color: map_get($mat-green, 500);
+        }
+    }
+
+    .fz-alert-info {
+        border: 1px solid #d2eafb;
+        background-color: map_get($mat-blue, 50);
+
+        .fz-alert-icon {
+            color: map_get($mat-blue, 500);
+        }
+    }
+
+    .fz-alert-warn {
+        border: 1px solid #fff3cf;
+        background-color: mat-color($accent, 0.05);
+
+        .fz-alert-icon {
+            color: mat-color($accent, 0.5);
+        }
+    }
+
+    .fz-alert-error {
+        border: 1px solid #fcdbd9;
+        background-color: mat-color($accent, 0.12);
+
+        .fz-alert-icon {
+            color: map_get($mat-red, 500);
+        }
+    }
+
+}
+
+@mixin fz-alert-typography($config) {
+
+    .fz-alert {
+        //font-size: @font-size-base;
+        font-size: 12px;
+        //line-height: @line-height-base;
+        line-height: 1.5;
+    }
+
+    .fz-alert-icon {
+        font-size: 14px;
+        top: 10px;
+        left: 16px;
+    }
+
+    .fz-alert-close-icon {
+        font-size: 12px;
+        right: 16px;
+        top: 10px;
+        //height: 12px;
+        //line-height: 12px;
+    }
+
+
+    .fz-alert-description {
+        font-size: 12px;
+        line-height: 21px;
+    }
+
+}
