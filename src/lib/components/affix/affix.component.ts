@@ -40,24 +40,24 @@ export class AffixComponent implements OnChanges, OnInit, OnDestroy, AfterViewIn
     private orgOffset: { top: number, left: number };
 
     @Input()
-    nzTarget: Element;
+    fzTarget: Element;
 
-    @Input() nzOffsetTop = 0;
+    @Input() fzOffsetTop = 0;
 
-    @Input() nzOffsetBottom = 0;
+    @Input() fzOffsetBottom = 0;
 
-    @Output() nzChange: EventEmitter<boolean> = new EventEmitter();
+    @Output() fzChange: EventEmitter<boolean> = new EventEmitter();
 
     constructor(private scrollSrv: ScrollService, private _el: ElementRef) { }
 
     ngOnChanges(changes: { [P in keyof this]?: SimpleChange } & SimpleChanges): void {
-        if (changes.nzTarget) {
+        if (changes.fzTarget) {
             this.registerScrollEvent();
         }
     }
 
     ngOnInit(): void {
-        if (!this.nzTarget) {
+        if (!this.fzTarget) {
             this.registerScrollEvent();
         }
     }
@@ -70,8 +70,8 @@ export class AffixComponent implements OnChanges, OnInit, OnDestroy, AfterViewIn
     private reCalculate(): this {
         const elOffset = this.scrollSrv.getOffset(this._el.nativeElement);
         this.orgOffset = {
-            top : elOffset.top + this.scrollSrv.getScroll(this.nzTarget),
-            left: elOffset.left + this.scrollSrv.getScroll(this.nzTarget, false)
+            top : elOffset.top + this.scrollSrv.getScroll(this.fzTarget),
+            left: elOffset.left + this.scrollSrv.getScroll(this.fzTarget, false)
         };
 
         return this;
@@ -81,9 +81,9 @@ export class AffixComponent implements OnChanges, OnInit, OnDestroy, AfterViewIn
         if (!this.orgOffset) {
             this.reCalculate();
         }
-        const containerScrollTop = this.scrollSrv.getScroll(this.nzTarget);
-        const fixTop = this.nzTarget ? this.scrollSrv.getOffset(this.nzTarget).top : 0;
-        const hasFixed = this.orgOffset.top - fixTop - containerScrollTop - this.nzOffsetTop <= 0;
+        const containerScrollTop = this.scrollSrv.getScroll(this.fzTarget);
+        const fixTop = this.fzTarget ? this.scrollSrv.getOffset(this.fzTarget).top : 0;
+        const hasFixed = this.orgOffset.top - fixTop - containerScrollTop - this.fzOffsetTop <= 0;
         if (this.fixed === hasFixed) {
             return;
         }
@@ -91,13 +91,13 @@ export class AffixComponent implements OnChanges, OnInit, OnDestroy, AfterViewIn
         const wrapEl = this.wrap.nativeElement;
         wrapEl.classList[ hasFixed ? 'add' : 'remove' ]('ant-affix');
         if (hasFixed) {
-            wrapEl.style.cssText = `top:${((+this.nzOffsetTop) + (+fixTop))}px;left:${this.orgOffset.left}px`;
+            wrapEl.style.cssText = `top:${((+this.fzOffsetTop) + (+fixTop))}px;left:${this.orgOffset.left}px`;
         } else {
             wrapEl.style.cssText = ``;
         }
 
         this.fixed = hasFixed;
-        this.nzChange.emit(hasFixed);
+        this.fzChange.emit(hasFixed);
     }
 
     private removeListen(): void {
@@ -122,10 +122,10 @@ export class AffixComponent implements OnChanges, OnInit, OnDestroy, AfterViewIn
                 this.process();
             }
         }, 100);
-        this.scroll$ = fromEvent(this.nzTarget || window, 'scroll')
+        this.scroll$ = fromEvent(this.fzTarget || window, 'scroll')
             .subscribe(() => this.didScroll = true);
 
-        if (this.nzTarget) {
+        if (this.fzTarget) {
             // 当 window 滚动位发生变动时，需要重新计算滚动容器
             this.scrollWinInTarget$ = fromEvent(window, 'scroll').pipe(throttleTime(50), distinctUntilChanged())
                 .subscribe(e => {

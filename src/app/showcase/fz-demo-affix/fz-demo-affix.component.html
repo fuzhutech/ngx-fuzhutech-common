@@ -7,3 +7,27 @@
         <span>Affix Button</span>
     </button>
 </fz-affix>
+
+
+<fz-affix [fzOffsetTop]="120" (fzChange)="onChange($event)">
+    <button>
+        <span>120px to affix top</span>
+    </button>
+</fz-affix>
+
+
+
+<div class="scrollable-container" #target>
+    <div class="background">
+        <fz-affix [fzTarget]="target" id="affix-container-target">
+            <button>
+                <span>Fixed at the top of container</span>
+            </button>
+        </fz-affix>
+    </div>
+</div>
+
+
+<div style="height: 1200px;background-color: #00a2ae">
+
+</div>

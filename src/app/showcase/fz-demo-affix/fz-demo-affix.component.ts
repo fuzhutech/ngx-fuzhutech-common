@@ -13,4 +13,8 @@ export class FzDemoAffixComponent implements OnInit {
     ngOnInit() {
     }
 
+    onChange(status: boolean) {
+        console.log(status);
+    }
+
 }

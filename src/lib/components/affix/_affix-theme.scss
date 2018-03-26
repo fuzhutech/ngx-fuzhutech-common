@@ -1,0 +1,17 @@
+@import '../../core/theming/theming';
+
+@mixin fz-affix-theme($theme) {
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+    $primary: map-get($theme, primary);
+
+    .fz-affix {
+        //
+    }
+}
+
+@mixin fz-affix-typography($config) {
+    .fz-affix {
+        //
+    }
+}
