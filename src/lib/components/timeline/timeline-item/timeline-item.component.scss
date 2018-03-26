@@ -1,0 +1,76 @@
+.fz-timeline-item {
+    position: relative;
+    padding: 0 0 12px;
+    //list-style: none;
+    //margin: 0;
+}
+
+.fz-timeline-item-tail {
+    position: absolute;
+    left: 7px;
+    top: 0;
+    height: 100%;
+    //border-left: 2px solid @timeline-color;
+    //border-left: 2px solid #e9e9e9;
+    border-left: 2px solid #7b1fa2;
+}
+
+.fz-timeline-item-head {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    //background-color: @component-background;
+    background-color: #fff;
+    border-radius: 100px;
+    border: 2px solid transparent;
+    &-blue {
+        //border-color: @primary-color;
+        border-color: #108ee9;
+        //color: @primary-color;
+        color: #108ee9;
+    }
+    &-red {
+        //border-color: @error-color;
+        border-color: #f04134;
+        color: #f04134;
+    }
+    &-green {
+        //border-color: @success-color;
+        border-color: #00a854;
+        color: #00a854;
+    }
+}
+
+.fz-timeline-item-head-custom {
+    position: absolute;
+    text-align: center;
+    width: 40px;
+    //left: -14px;
+    left: -12px;
+    line-height: 1;
+    margin-top: 6px;
+    border: 0;
+    height: auto;
+    border-radius: 0;
+    padding: 3px 0;
+    font-size: 12px;
+    transform: translateY(-50%);
+}
+
+.fz-timeline-item-content {
+    padding: 0 0 10px 24px;
+    //font-size: @font-size-base;
+    font-size: 12px;
+    position: relative;
+    top: -3px;
+}
+
+.fz-timeline-item-last {
+    .fz-timeline-item-tail {
+        border-left-style: dotted;
+        display: none;
+    }
+    .fz-timeline-item-content {
+        min-height: 48px;
+    }
+}

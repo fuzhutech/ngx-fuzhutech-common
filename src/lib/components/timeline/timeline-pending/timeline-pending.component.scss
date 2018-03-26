@@ -1,0 +1,54 @@
+.fz-timeline-pending {
+    position: relative;
+    padding: 0 0 12px;
+    //list-style: none;
+    //margin: 0;
+}
+
+.fz-timeline-pending-head {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    //background-color: @component-background;
+    background-color: #fff;
+    border-radius: 100px;
+    border: 2px solid transparent;
+    &-blue {
+        //border-color: @primary-color;
+        border-color: #108ee9;
+        //color: @primary-color;
+        color: #108ee9;
+    }
+    &-red {
+        //border-color: @error-color;
+        border-color: #f04134;
+        color: #f04134;
+    }
+    &-green {
+        //border-color: @success-color;
+        border-color: #00a854;
+        color: #00a854;
+    }
+}
+
+.fz-timeline-pending-head-custom {
+    position: absolute;
+    text-align: center;
+    width: 40px;
+    left: -14px;
+    line-height: 1;
+    margin-top: 6px;
+    border: 0;
+    height: auto;
+    border-radius: 0;
+    padding: 3px 0;
+    font-size: 12px;
+    transform: translateY(-50%);
+}
+
+.fz-timeline-pending-content {
+    padding: 0 0 10px 24px;
+    font-size: 12px;
+    position: relative;
+    top: -3px;
+}

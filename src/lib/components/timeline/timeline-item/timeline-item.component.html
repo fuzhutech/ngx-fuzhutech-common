@@ -1,0 +1,18 @@
+<div
+    class="fz-timeline-item"
+    [class.fz-timeline-item-last]="lastItem"
+    [class.fz-timeline-item-pending]="pending">
+    <div class="fz-timeline-item-tail"></div>
+    <div class="fz-timeline-item-head"
+         [class.fz-timeline-item-head-custom]="_custom"
+         [ngClass]="{
+             'fz-timeline-item-head-blue': color ==='blue',
+             'fz-timeline-item-head-red': color ==='red',
+             'fz-timeline-item-head-green': color ==='green'}">
+        <ng-template [ngTemplateOutlet]="_customContent">
+        </ng-template>
+    </div>
+    <div class="fz-timeline-item-content">
+        <ng-content></ng-content>
+    </div>
+</div>

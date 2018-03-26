@@ -1,11 +1,3 @@
-<ul class="ant-timeline" [class.ant-timeline-pending]="_isPending">
+<div class="fz-timeline" [class.fz-timeline-with-pending]="_isPending">
     <ng-content></ng-content>
-    <li *ngIf="_isPending" class="ant-timeline-item ant-timeline-item-pending">
-        <div class="ant-timeline-item-tail"></div>
-        <div class="ant-timeline-item-head ant-timeline-item-head-blue"></div>
-        <div class="ant-timeline-item-content">
-            <ng-template [ngTemplateOutlet]="_pendingContent">
-            </ng-template>
-        </div>
-    </li>
-</ul>
+</div>

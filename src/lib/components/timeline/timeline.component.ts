@@ -8,7 +8,8 @@ import {
     TemplateRef,
     ViewEncapsulation,
 } from '@angular/core';
-import {TimelineItemComponent} from './timeline-item.component';
+import {TimelineItemComponent} from './timeline-item/timeline-item.component';
+import {TimelinePendingComponent} from './timeline-pending/timeline-pending.component';
 
 @Component({
     selector: 'fz-timeline',
@@ -20,7 +21,8 @@ export class TimelineComponent implements OnInit, AfterContentInit {
     _isPending = false;
     items: TimelineItemComponent[] = [];
     @ContentChildren(TimelineItemComponent) _listOfTimeline: QueryList<TimelineItemComponent>;
-    @ContentChild('pending') _pendingContent: TemplateRef<void>;
+    // @ContentChild('pending') _pendingContent: TemplateRef<void>;
+    @ContentChild(TimelinePendingComponent) _pendingContent: TemplateRef<TimelinePendingComponent>;
 
     ngOnInit(): void {
         if (this._pendingContent) {
@@ -32,7 +34,7 @@ export class TimelineComponent implements OnInit, AfterContentInit {
         setTimeout(_ => {
             if (this._listOfTimeline && this._listOfTimeline.length) {
                 const listArray = this._listOfTimeline.toArray();
-                listArray[listArray.length - 1]._lastItem = true;
+                listArray[listArray.length - 1].lastItem = true;
             }
         });
     }

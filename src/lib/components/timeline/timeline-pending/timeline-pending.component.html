@@ -1,0 +1,15 @@
+<div
+    class="fz-timeline-pending">
+    <div class="fz-timeline-pending-head"
+         [class.fz-timeline-pending-head-custom]="_custom"
+         [ngClass]="{
+             'fz-timeline-pending-head-blue': color ==='blue',
+             'fz-timeline-pending-head-red': color ==='red',
+             'fz-timeline-pending-head-green': color ==='green'}">
+        <ng-template [ngTemplateOutlet]="_customContent">
+        </ng-template>
+    </div>
+    <div class="fz-timeline-pending-content">
+        <ng-content></ng-content>
+    </div>
+</div>
