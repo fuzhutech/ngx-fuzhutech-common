@@ -1,0 +1,22 @@
+@import '../../core/theming/theming';
+
+@mixin fz-back-top-theme($theme) {
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+
+    .fz-back-top-content {
+        background-color: rgba(64, 64, 64, 0.4);
+        color: #fff;
+
+        &:hover {
+            background-color: mat-color($primary);
+        }
+    }
+}
+
+@mixin fz-back-top-typography($config) {
+    //
+}

@@ -1,9 +1,10 @@
 // Import all the theming functionality.
-@import '../../components/reuse-tab/reuse-tab-theme';
 @import '../../components/affix/affix-theme';
 @import '../../components/rate/rate-theme';
 @import '../../components/alert/alert-theme';
 @import '../../components/avatar/avatar-theme';
+@import '../../components/back-top/back-top-theme';
+@import '../../components/reuse-tab/reuse-tab-theme';
 @import '../../components/timeline/timeline-theme';
 
 // Create a theme.
@@ -11,6 +12,7 @@
     @include fz-affix-theme($theme);
     @include fz-alert-theme($theme);
     @include fz-avatar-theme($theme);
+    @include fz-back-top-theme($theme);
     @include fz-rate-theme($theme);
     @include fz-reuse-tab-theme($theme);
     @include fz-timeline-theme($theme);
@@ -24,6 +26,7 @@
     @include fz-affix-typography($config);
     @include fz-alert-typography($config);
     @include fz-avatar-typography($config);
+    @include fz-back-top-typography($config);
     @include fz-rate-typography($config);
     @include fz-reuse-tab-typography($config);
     @include fz-timeline-typography($config);

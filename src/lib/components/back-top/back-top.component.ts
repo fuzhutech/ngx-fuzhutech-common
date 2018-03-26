@@ -49,17 +49,17 @@ export class BackTopComponent implements OnInit, OnDestroy {
 
     _display = false;
 
-    @ContentChild('nzTemplate') nzTemplate: TemplateRef<void>;
+    @ContentChild('fzTemplate') fzTemplate: TemplateRef<void>;
 
-    @Input() nzVisibilityHeight = 400;
+    @Input() visibilityHeight = 400;
 
     @Input()
-    set nzTarget(el: HTMLElement) {
+    set fzTarget(el: HTMLElement) {
         this.target = el;
         this.registerScrollEvent();
     }
 
-    @Output() nzClick: EventEmitter<boolean> = new EventEmitter();
+    @Output() fzClick: EventEmitter<boolean> = new EventEmitter();
 
     constructor(private scrollSrv: ScrollService, private _renderer: Renderer2) {
     }
@@ -72,7 +72,7 @@ export class BackTopComponent implements OnInit, OnDestroy {
 
     clickBackTop(): void {
         this.scrollSrv.scrollTo(this.getTarget(), 0);
-        this.nzClick.emit(true);
+        this.fzClick.emit(true);
     }
 
     private getTarget(): HTMLElement | Window {
@@ -80,7 +80,7 @@ export class BackTopComponent implements OnInit, OnDestroy {
     }
 
     private handleScroll(): void {
-        this._display = this.scrollSrv.getScroll(this.getTarget()) > this.nzVisibilityHeight;
+        this._display = this.scrollSrv.getScroll(this.getTarget()) > this.visibilityHeight;
     }
 
     private removeListen(): void {

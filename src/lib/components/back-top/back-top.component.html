@@ -1,6 +1,8 @@
-<div class="ant-back-top" (click)="clickBackTop()" [@enterLeave] *ngIf="_display">
+<div class="fz-back-top" (click)="clickBackTop()" [@enterLeave] *ngIf="_display">
     <ng-template #defaultContent>
-        <div class="ant-back-top-content"><i class="anticon anticon-to-top ant-back-top-icon"></i></div>
+        <div class="fz-back-top-content">
+            <mat-icon class="fz-back-top-icon">vertical_align_top</mat-icon>
+        </div>
     </ng-template>
-    <ng-template [ngTemplateOutlet]="nzTemplate || defaultContent"></ng-template>
+    <ng-template [ngTemplateOutlet]="fzTemplate || defaultContent"></ng-template>
 </div>
