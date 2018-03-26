@@ -18,7 +18,7 @@ import {distinctUntilChanged} from 'rxjs/operators/distinctUntilChanged';
 import {throttleTime} from 'rxjs/operators/throttleTime';
 
 import {ScrollService} from '../../core/scroll/scroll.service';
-import {AnchorLinkComponent} from './anchor-link.component';
+import {AnchorLinkComponent} from './anchor-link/anchor-link.component';
 
 interface Section {
     comp: AnchorLinkComponent;
@@ -54,11 +54,11 @@ export class AnchorComponent implements OnDestroy, OnInit {
         this.registerScrollEvent();
     }
 
-    @Input() nzOffsetTop = 0;
+    @Input() fzOffsetTop = 0;
 
-    @Input() nzBounds = 5;
+    @Input() fzBounds = 5;
 
-    @Output() nzScroll: EventEmitter<AnchorLinkComponent> = new EventEmitter();
+    @Output() fzScroll: EventEmitter<AnchorLinkComponent> = new EventEmitter();
 
     /* tslint:disable-next-line:no-any */
     constructor(private scrollSrv: ScrollService, private _renderer: Renderer2, @Inject(DOCUMENT) doc: any) {
@@ -84,8 +84,9 @@ export class AnchorComponent implements OnDestroy, OnInit {
         this.links.forEach(comp => {
             comp.active = false;
             const target = this.doc.querySelector(comp.nzHref);
+
             const top = this.scrollSrv.getOffset(target).top;
-            if (target && top < this.nzOffsetTop + this.nzBounds) {
+            if (target && top < this.fzOffsetTop + this.fzBounds) {
                 sections.push({
                     top,
                     comp
@@ -94,6 +95,8 @@ export class AnchorComponent implements OnDestroy, OnInit {
         });
 
         this._visible = !!sections.length;
+        console.log(this._visible);
+
         if (!this._visible) {
             return;
         }
@@ -104,7 +107,7 @@ export class AnchorComponent implements OnDestroy, OnInit {
         const linkNode = (maxSection.comp.el.nativeElement as HTMLDivElement).querySelector('.ant-anchor-link-title') as HTMLElement;
         this.ball.nativeElement.style.top = `${linkNode.offsetTop + linkNode.clientHeight / 2 - 4.5}px`;
 
-        this.nzScroll.emit(maxSection.comp);
+        this.fzScroll.emit(maxSection.comp);
     }
 
     private removeListen(): void {
@@ -133,6 +136,7 @@ export class AnchorComponent implements OnDestroy, OnInit {
     /** 设置滚动条至 `linkComp` 所处位置 */
     scrollTo(linkComp: AnchorLinkComponent): void {
         const el = this.doc.querySelector(linkComp.nzHref);
+        console.log(linkComp.nzHref, el);
         if (!el) {
             return;
         }
@@ -140,7 +144,7 @@ export class AnchorComponent implements OnDestroy, OnInit {
         this.animating = true;
         const containerScrollTop = this.scrollSrv.getScroll(this.getTarget());
         const elOffsetTop = this.scrollSrv.getOffset(el).top;
-        const targetScrollTop = containerScrollTop + elOffsetTop - this.nzOffsetTop;
+        const targetScrollTop = containerScrollTop + elOffsetTop - this.fzOffsetTop;
         this.scrollSrv.scrollTo(this.getTarget(), targetScrollTop, null, () => {
             this.animating = false;
             this.handleScroll();

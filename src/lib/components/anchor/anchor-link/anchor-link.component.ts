@@ -9,21 +9,13 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 
-import {AnchorComponent} from './anchor.component';
+import {AnchorComponent} from '../anchor.component';
 
 @Component({
     selector: 'fz-link',
     encapsulation: ViewEncapsulation.None,
-    template: `
-        <a (click)="goToClick($event)" href="{{nzHref}}" class="ant-anchor-link-title">
-            <span *ngIf="!nzTemplate">{{ nzTitle }}</span>
-            <ng-template *ngIf="nzTemplate" [ngTemplateOutlet]="nzTemplate"></ng-template>
-        </a>
-        <ng-content></ng-content>
-    `,
-    host: {
-        '[class.ant-anchor-link]': 'true'
-    }
+    templateUrl: './anchor-link.component.html',
+    styleUrls: ['./anchor-link.component.scss'],
 })
 export class AnchorLinkComponent {
 
@@ -32,6 +24,8 @@ export class AnchorLinkComponent {
     @Input() nzTitle: string;
 
     @ContentChild('nzTemplate') nzTemplate: TemplateRef<void>;
+
+    @HostBinding('class.ant-anchor-link') class = true;
 
     @HostBinding('class.ant-anchor-link-active') active = false;
 
