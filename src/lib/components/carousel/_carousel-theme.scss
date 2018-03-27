@@ -1,0 +1,17 @@
+@import '../../core/theming/theming';
+
+@mixin fz-carousel-theme($theme) {
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+    $primary: map-get($theme, primary);
+
+    .fz-carousel {
+
+    }
+}
+
+@mixin fz-carousel-typography($config) {
+    .fz-carousel {
+
+    }
+}

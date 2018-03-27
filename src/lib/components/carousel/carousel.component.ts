@@ -26,7 +26,7 @@ import {first} from 'rxjs/operator/first';
     templateUrl: './carousel.component.html',
     styleUrls: ['./carousel.component.scss'],
     host: {
-        '[class.ant-carousel]': 'true'
+        '[class.fz-carousel]': 'true'
     }
 })
 export class CarouselComponent implements AfterViewInit, OnDestroy {
