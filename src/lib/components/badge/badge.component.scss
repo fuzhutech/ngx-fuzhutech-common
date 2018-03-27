@@ -1,12 +1,9 @@
-/**
- * Badge Style
- */
 .fz-badge {
     position: relative;
     display: inline-block;
 }
 
-.at-badge-sup {
+.fz-badge-sup {
     display: inline-block;
     height: 18px;
     padding: 0 6px;
@@ -20,33 +17,33 @@
     background-color: #FF4949;
 }
 
-.at-badge-alone .at-badge-sup {
+.fz-badge-alone .fz-badge-sup {
     top: 0;
 }
 
-.at-badge-corner {
+.fz-badge-corner {
     position: absolute;
     top: -8px;
     right: 0;
     transform: translateX(50%);
 }
 
-.at-badge-dot {
+.fz-badge-dot {
     padding: 0;
     width: 10px;
     height: 10px;
     top: -4px;
 }
 
-.fz-badge-status-success .at-badge-sup {
+.fz-badge-status-success .fz-badge-sup {
     background-color: #13CE66;
 }
 
-.fz-badge-status-warning .at-badge-sup {
+.fz-badge-status-warning .fz-badge-sup {
     background-color: #FFC82C;
 }
 
-.fz-badge-status-info .at-badge-sup {
+.fz-badge-status-info .fz-badge-sup {
     background-color: #78A4FA;
 }
 
