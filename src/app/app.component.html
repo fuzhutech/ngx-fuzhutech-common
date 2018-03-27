@@ -1,21 +1,16 @@
 <div class="site">
     <header>
-        <fz-header (toggle)="sidenav.toggle()" (toggleDarkTheme)="switchTheme($event)"></fz-header>
+        <fz-header (toggle)="toggleSidebar()" (toggleDarkTheme)="switchTheme($event)"></fz-header>
     </header>
 
     <main>
-        <mat-sidenav-container>
-
-            <!--Mode of the drawer; one of 'over', 'push' or 'side'.-->
-            <mat-sidenav #sidenav mode="side" opened="true" position="start" class="test1" style="min-width: 300px">
-                <fz-sidebar (navClick)="sidenav.toggle()"></fz-sidebar>
-            </mat-sidenav>
-
-            <!--todo: max-width-->
+        <div #sidebarContainerElement style="min-width: 300px" [style.display]="_sidebarOpen? 'block':'none'">
+            <fz-sidebar></fz-sidebar>
+        </div>
+        <div [ngStyle]="containerStyle">
             <fz-reuse-tab></fz-reuse-tab>
             <router-outlet></router-outlet>
-
-        </mat-sidenav-container>
+        </div>
     </main>
 
     <footer>

@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, ElementRef, HostBinding, OnInit, ViewChild} from '@angular/core';
 import {OverlayContainer} from '@angular/cdk/overlay';
 import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
 import {Title} from '@angular/platform-browser';
@@ -18,6 +18,9 @@ import {filter} from 'rxjs/operator/filter';
 })
 export class AppComponent implements OnInit {
     darkTheme = false;
+    _sidebarOpen = true;
+
+    @ViewChild('sidebarContainerElement') sidebarContainerElement: ElementRef;
 
     @HostBinding('class') componentCssClass = 'myapp-light-theme';
 
@@ -51,6 +54,15 @@ export class AppComponent implements OnInit {
             this.overlayContainer.getContainerElement().classList.remove('myapp-dark-theme');
             this.overlayContainer.getContainerElement().classList.add('myapp-light-theme');
         }
+    }
+
+    toggleSidebar() {
+        this._sidebarOpen = !this._sidebarOpen;
+    }
+
+    get containerStyle() {
+        const sidebarWidth = this.sidebarContainerElement.nativeElement.offsetWidth;
+        return {'width': this._sidebarOpen ? `calc(100% - ${sidebarWidth}px)` : 'calc(100% - 10px)'};
     }
 }
 
