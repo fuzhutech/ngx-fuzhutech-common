@@ -7,10 +7,15 @@ import {Component, OnInit} from '@angular/core';
 })
 export class FzDemoCarouselComponent implements OnInit {
 
+    array = [1, 2, 3, 4]; // try dynamic change the array
+
     constructor() {
     }
 
     ngOnInit() {
+        setTimeout(() => {
+            this.array = [1, 2, 3, 4];
+        }, 500);
     }
 
 }

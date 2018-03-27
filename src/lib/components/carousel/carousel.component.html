@@ -1,13 +1,19 @@
-<div class="slick-initialized slick-slider" [class.slick-vertical]="nzVertical">
-    <div class="slick-list" #slickList>
-        <div class="slick-track" style="opacity: 1;" [style.transform]="transform" #slickTrack>
+<div class="slick-initialized slick-slider">
+    <div class="slick-list" #slickList tabindex="-1" (keydown)="onKeyDown($event)">
+        <div class="slick-track" [style.transform]="transform" #slickTrack>
             <ng-content></ng-content>
         </div>
     </div>
-    <ul class="slick-dots" style="display: block;" *ngIf="nzDots">
-        <li [class.slick-active]="content.isActive" *ngFor="let content of slideContents; let i =index"
+    <ul class="slick-dots" *ngIf="nzDots">
+        <li *ngFor="let content of slideContents; let i =index"
+            [class.slick-active]="content.isActive"
             (click)="setActive(content,i)">
-            <button>1</button>
+            <button>{{i + 1}}</button>
         </li>
+
+        <!--li-- *ngFor="let content of slideContents; let i =index"
+            (click)="setActive(content,i)">
+            <button>{{i + 1}}</button>
+        </li-->
     </ul>
 </div>

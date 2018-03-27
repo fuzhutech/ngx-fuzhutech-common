@@ -19,7 +19,7 @@ export * from './components/notice-icon/notice-icon.module';
 export * from './components/notification/notification.module';
 export * from './components/popover/popover.module';
 export * from './components/rate/rate.module';
-export * from './components/side-navbar/side-navbar.module';
+// export * from './components/side-navbar/side-navbar.module';
 export * from './components/timeline/timeline.module';
 export * from './components/transfer/transfer.module';
 export * from './components/upload-dialog/upload-dialog.module';

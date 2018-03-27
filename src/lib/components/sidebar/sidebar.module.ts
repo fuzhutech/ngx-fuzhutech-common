@@ -28,4 +28,5 @@ import {ReactiveFormsModule} from '@angular/forms';
     ]
 })
 export class FzSidebarModule {
+    // SideNavbarModule
 }

@@ -4,8 +4,14 @@
 
 <div style="width: 247.63px">
     <fz-carousel>
-        <div fzCarouselContent><h3>1</h3></div>
-        <div fzCarouselContent><h3>2</h3></div>
-        <div fzCarouselContent><h3>3</h3></div>
+        <div fzCarouselContent><h3>1-1</h3></div>
+        <div fzCarouselContent><h3>2-2</h3></div>
+        <div fzCarouselContent><h3>3-3</h3></div>
+    </fz-carousel>
+</div>
+
+<div style="width: 800px;height: 300px">
+    <fz-carousel nzAutoPlay>
+        <div fzCarouselContent *ngFor="let index of array"><h3>{{index}}</h3></div>
     </fz-carousel>
 </div>
