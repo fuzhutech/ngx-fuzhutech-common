@@ -18,25 +18,18 @@ import {filter} from 'rxjs/operator/filter';
 })
 export class AppComponent implements OnInit {
     darkTheme = false;
-    _sidebarOpen = true;
-
-    @ViewChild('sidebarContainerElement') sidebarContainerElement: ElementRef;
+    _sidebarOpen = false;
 
     @HostBinding('class') componentCssClass = 'myapp-light-theme';
 
     constructor(private overlayContainer: OverlayContainer,
-                private router: Router,
-                private activatedRoute: ActivatedRoute,
-                private titleService: TitleService,
-                private menuService: MenuService) {
+                private activatedRoute: ActivatedRoute) {
 
         // this.menuService.add(appData.menu as Menu[]);
         this.switchTheme(false);
     }
 
     ngOnInit() {
-        this.router.events.filter(evt => evt instanceof NavigationEnd)
-            .subscribe(() => this.titleService.setTitle());
     }
 
     switchTheme(dark: boolean) {
@@ -60,9 +53,6 @@ export class AppComponent implements OnInit {
         this._sidebarOpen = !this._sidebarOpen;
     }
 
-    get containerStyle() {
-        const sidebarWidth = this.sidebarContainerElement.nativeElement.offsetWidth;
-        return {'width': this._sidebarOpen ? `calc(100% - ${sidebarWidth}px)` : 'calc(100% - 10px)'};
-    }
+
 }
 

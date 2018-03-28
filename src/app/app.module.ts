@@ -27,11 +27,6 @@ import {StartupService} from '../lib/core/theme/startup.service';
 import {FzThemeModule} from '../lib/core/theme/theme.module';
 import {FzSidebarModule} from '../lib/components/sidebar/sidebar.module';
 
-
-export function StartupServiceFactory(startupService: StartupService): Function {
-    return () => startupService.load();
-}
-
 @NgModule({
     declarations: [
         AppComponent,
@@ -94,10 +89,7 @@ export function StartupServiceFactory(startupService: StartupService): Function 
             }
         }),
         FzHighlightModule,
-        NgxFuzhutechCommonModule.forRoot(),
-        FzReuseTabModule.forRoot(),
-        FzThemeModule,
-        FzSidebarModule
+        NgxFuzhutechCommonModule.forRoot()
     ],
     providers: [
         /**
@@ -108,13 +100,13 @@ export function StartupServiceFactory(startupService: StartupService): Function 
         {provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
         // 最后将策略注册到模块当中
         // {provide: RouteReuseStrategy, useClass: SimpleReuseStrategy}
-        StartupService,
+        /*StartupService,
         {
             provide: APP_INITIALIZER,
             useFactory: StartupServiceFactory,
             deps: [StartupService],
             multi: true
-        }
+        }*/
     ],
     bootstrap: [AppComponent]
 })
