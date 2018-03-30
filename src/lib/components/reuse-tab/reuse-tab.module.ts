@@ -52,10 +52,10 @@ export class FzReuseTabModule {
         return {
             ngModule: FzReuseTabModule,
             providers: [
-                MenuService,
+                // MenuService,
                 TitleService,
                 ReuseTabService,
-                {provide: RouteReuseStrategy, useClass: ReuseTabStrategy, deps: [ReuseTabService]}
+                // {provide: RouteReuseStrategy, useClass: ReuseTabStrategy, deps: [ReuseTabService]}
             ]
         };
     }

@@ -17,7 +17,7 @@ const routes: Routes = [
             {
                 path: 'alert',
                 loadChildren: './fz-demo-alert/fz-demo-alert.module#FzDemoAlertModule',
-                data: {title: 'alert', module: 'alert', power: 'SHOW'}
+                data: {module: 'alert', power: 'SHOW'}
             },
             {
                 path: 'anchor',

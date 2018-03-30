@@ -26,6 +26,9 @@ import {FzReuseTabModule} from '../lib/components/reuse-tab/reuse-tab.module';
 import {StartupService} from '../lib/core/theme/startup.service';
 import {FzThemeModule} from '../lib/core/theme/theme.module';
 import {FzSidebarModule} from '../lib/components/sidebar/sidebar.module';
+import {ReuseTabStrategy} from '../lib/components/reuse-tab/reuse-tab.strategy';
+import {RouteReuseStrategy} from '@angular/router';
+import {SimpleReuseStrategy} from './domain/simple-reuse-strategy';
 
 @NgModule({
     declarations: [
@@ -98,6 +101,7 @@ import {FzSidebarModule} from '../lib/components/sidebar/sidebar.module';
          * by `@ngrx/router-store` to include only the desired pieces of the snapshot.
          */
         {provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
+        // {provide: RouteReuseStrategy, useClass: ReuseTabStrategy}
         // 最后将策略注册到模块当中
         // {provide: RouteReuseStrategy, useClass: SimpleReuseStrategy}
         /*StartupService,

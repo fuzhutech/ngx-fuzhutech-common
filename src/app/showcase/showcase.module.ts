@@ -7,6 +7,10 @@ import {FzReuseTabModule} from '../../lib/components/reuse-tab/reuse-tab.module'
 import {FzThemeModule} from '../../lib/core/theme/theme.module';
 import {CustomRouterStateSerializer} from '../reducers';
 import {StartupService} from '../../lib/core/theme/startup.service';
+import {FzLayoutModule} from '../../lib/components/layout/layout.module';
+import {ReuseTabStrategy} from '../../lib/components/reuse-tab/reuse-tab.strategy';
+import {RouteReuseStrategy} from '@angular/router';
+import {SimpleReuseStrategy} from '../domain/simple-reuse-strategy';
 
 export function StartupServiceFactory(startupService: StartupService): Function {
     return () => startupService.load();
@@ -16,9 +20,10 @@ export function StartupServiceFactory(startupService: StartupService): Function 
     imports: [
         CommonModule,
         ShowcaseRoutingModule,
-        FzReuseTabModule.forRoot(),
-        FzThemeModule,
-        FzSidebarModule
+        // FzReuseTabModule.forRoot(),
+        // FzThemeModule,
+        // FzSidebarModule,
+        FzLayoutModule.forRoot({path: 'showcase'})
     ],
     declarations: [ShowcaseComponent],
     providers: [
@@ -28,14 +33,15 @@ export function StartupServiceFactory(startupService: StartupService): Function 
          * by `@ngrx/router-store` to include only the desired pieces of the snapshot.
          */
         // 最后将策略注册到模块当中
-        // {provide: RouteReuseStrategy, useClass: SimpleReuseStrategy}
-        StartupService,
+        {provide: RouteReuseStrategy, useClass: SimpleReuseStrategy}
+        // {provide: RouteReuseStrategy, useClass: ReuseTabStrategy}
+        /*StartupService,
         {
             provide: APP_INITIALIZER,
             useFactory: StartupServiceFactory,
             deps: [StartupService],
             multi: true
-        }
+        }*/
     ],
 })
 export class ShowcaseModule {

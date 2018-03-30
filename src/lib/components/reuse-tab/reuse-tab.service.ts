@@ -2,8 +2,9 @@ import {Injectable, OnDestroy, Optional, Injector} from '@angular/core';
 import {ActivatedRouteSnapshot, DetachedRouteHandle, ActivatedRoute} from '@angular/router';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
-import {MenuService} from './menu.service';
+import {Menu, MenuService} from './menu.service';
 import {ReuseTabCached, ReuseTabMatchMode, ReuseTabNotify} from './interface';
+import {getResponseURL} from '@angular/http/src/http_utils';
 
 @Injectable()
 export class ReuseTabService implements OnDestroy {
@@ -19,6 +20,9 @@ export class ReuseTabService implements OnDestroy {
     private curUrl: string;
 
     // region: public
+
+    menuList: Menu[] = [];
+
 
     /** 允许最多复用多少个页面，取值范围 `2-100` */
     set max(value: number) {
@@ -160,8 +164,8 @@ export class ReuseTabService implements OnDestroy {
 
     // endregion
 
-    constructor(private injector: Injector, @Optional() private menuService: MenuService) {
-        console.log('ReuseTabService create...menuService:', this.menuService);
+    constructor(private injector: Injector) {
+        console.log('ReuseTabService create...');
     }
 
     /** @private */
@@ -172,12 +176,8 @@ export class ReuseTabService implements OnDestroy {
         if (route && route.data && (route.data.reuseTitle || route.data.title)) {
             return route.data.reuseTitle || route.data.title;
         }
-        if (!this.menuService) {
-            return url;
-        }
 
-        const list = this.menuService.getPathByUrl(url);
-        const item = list.pop();
+        const item = this.getMenu(url);
         return item ? item.text : url;
     }
 
@@ -200,12 +200,27 @@ export class ReuseTabService implements OnDestroy {
         return url;
     }
 
-    private getMenu(url: string) {
-        const menus = this.menuService ? this.menuService.getPathByUrl(url) : [];
-        if (!menus || menus.length === 0) {
+    private getMenu(url: string): Menu {
+        const getMenuByLink = (list: Menu[]): Menu => {
+            for (const item of list) {
+                // console.log(item);
+
+                if (item.link === url) {
+                    return item;
+                }
+
+                if (item.children && item.children.length > 0) {
+                    const temp = getMenuByLink(item.children);
+                    if (temp) {
+                        return temp;
+                    }
+                }
+            }
+
             return null;
-        }
-        return menus.pop();
+        };
+
+        return getMenuByLink(this.menuList || []);
     }
 
     private runHook(method: string, url: string, comp: any) {
@@ -275,6 +290,7 @@ export class ReuseTabService implements OnDestroy {
         if (!route.routeConfig || route.routeConfig.loadChildren || route.routeConfig.children) {
             return false;
         }
+        console.log('can');
         this.di('#shouldDetach', this.getUrl(route), this.can(route));
         return this.can(route);
     }
@@ -290,6 +306,7 @@ export class ReuseTabService implements OnDestroy {
             this._cached.shift();
         }
         const url = this.getUrl(_snapshot);
+        console.log(url);
         const idx = this.index(url);
 
         const item: ReuseTabCached = {

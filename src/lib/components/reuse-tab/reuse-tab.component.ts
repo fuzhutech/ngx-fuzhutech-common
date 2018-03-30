@@ -22,6 +22,7 @@ import {filter, debounceTime, take, first} from 'rxjs/operators';
 import {coerceNumberProperty, coerceBooleanProperty} from '@angular/cdk/coercion';
 import {ReuseTabService} from './reuse-tab.service';
 import {ReuseTabCached, ReuseTabNotify, ReuseTabMatchMode} from './interface';
+import {Menu} from './menu.service';
 
 
 @Component({
@@ -31,6 +32,20 @@ import {ReuseTabCached, ReuseTabNotify, ReuseTabMatchMode} from './interface';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
+
+    _menuList: Menu[] = [];
+    @Input() set menuList(value) {
+        this._menuList = value;
+        if (this.srv) {
+            this.srv.menuList = value;
+        }
+    }
+
+    get menuList() {
+        return this._menuList;
+    }
+
+
     private sub$: Subscription;
     _list: { url: string, title: string, [key: string]: any }[] = [];
     _pos = 0;
@@ -125,6 +140,7 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
                 index
             };
         });
+
         if (this.showCurrent) {
             const idx = ls.findIndex(w => w.url === url);
             if (idx !== -1) {

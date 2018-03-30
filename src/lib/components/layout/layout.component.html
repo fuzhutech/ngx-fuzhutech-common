@@ -1,0 +1,7 @@
+<div #sidebarContainerElement style="min-width: 300px" [style.display]="_sidebarOpen? 'block':'none'">
+    <fz-sidebar [list]="menuService.change | async"></fz-sidebar>
+</div>
+<div [ngStyle]="containerStyle">
+    <fz-reuse-tab [menuList]="menuService.change | async"></fz-reuse-tab>
+    <router-outlet></router-outlet>
+</div>
