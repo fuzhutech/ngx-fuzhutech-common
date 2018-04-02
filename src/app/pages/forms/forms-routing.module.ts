@@ -4,16 +4,16 @@ import {LayoutsComponent} from './layouts/layouts.component';
 import {InputsComponent} from './inputs/inputs.component';
 
 const routes: Routes = [
-    // {path: '', redirectTo: 'home', pathMatch: 'full'},
+    {path: '', redirectTo: 'inputs', pathMatch: 'full'},
     {
         path: 'inputs',
         component: InputsComponent,
-        data: {title: '首页', module: 'pages', power: 'SHOW'},
+        data: {title: 'inputs', module: 'inputs', power: 'SHOW', tab: 'none'},
     },
     {
         path: 'layouts',
         component: LayoutsComponent,
-        data: {title: '首页', module: 'pages', power: 'SHOW'},
+        data: {title: 'layouts', module: 'layouts', power: 'SHOW', sidebar: 'none'},
     },
     // {path: 'login', loadChildren: '../login/login.module#LoginModule', data: {title: '登录', module: 'login', power: 'SHOW'}}
 ];

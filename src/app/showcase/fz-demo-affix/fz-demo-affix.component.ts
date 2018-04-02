@@ -8,6 +8,7 @@ import {Component, OnInit} from '@angular/core';
 export class FzDemoAffixComponent implements OnInit {
 
     constructor() {
+        console.log('FzDemoAffixComponent create');
     }
 
     ngOnInit() {

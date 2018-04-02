@@ -12,7 +12,7 @@
         <!-- Menu -->
         <li>
             <!--div class="item" (click)="toggleCollapsedSideabar()"-->
-            <div class="item">
+            <div class="item" [routerLink]="['/home']">
                 <!--i class="anticon anticon-menu-{{settings.layout.collapsed ? 'unfold' : 'fold'}}"></i-->
                 <i class="anticon anticon-menu-fold"></i>
             </div>
@@ -25,7 +25,19 @@
         </li>
         <!-- Lock Page -->
         <li class="hidden-xs">
-            <div class="item" [routerLink]="['/showcase']">
+            <div class="item" [routerLink]="['/showcase/affix']">
+                <i class="anticon anticon-lock"></i>
+            </div>
+        </li>
+        <!-- Lock Page -->
+        <li class="hidden-xs">
+            <div class="item" [routerLink]="['/pages/forms']">
+                <i class="anticon anticon-lock"></i>
+            </div>
+        </li>
+        <!-- Lock Page -->
+        <li class="hidden-xs">
+            <div class="item" [routerLink]="['/login']">
                 <i class="anticon anticon-lock"></i>
             </div>
         </li>

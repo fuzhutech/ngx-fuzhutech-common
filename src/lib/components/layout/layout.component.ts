@@ -1,5 +1,6 @@
-import {Component, ElementRef, Injectable, OnInit, Optional, ViewChild} from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
+import {Component, ElementRef, Injectable, Input, OnInit, Optional, ViewChild} from '@angular/core';
+import {Title} from '@angular/platform-browser';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {TitleService} from '../reuse-tab/title.service';
 import {Menu, MenuService} from '../reuse-tab/menu.service';
 import {LayoutConfig} from './layout.config';
@@ -13,11 +14,39 @@ import {LayoutConfig} from './layout.config';
 export class LayoutComponent implements OnInit {
 
     _sidebarOpen = true;
+    // screen,layout: full,default/undefined
+    _layout = 'default';
+    // sidebar: none, left, right
+    _sidebar = 'left';
+    // tab: none, top, right,left,bottom
+    _tab = 'top';
+
+    get showSidebar(): boolean {
+        if (this._layout === 'full') {
+            return false;
+        }
+        return this._sidebar !== 'none';  // coerceBooleanProperty
+    }
+
+    get showReuseTab(): boolean {
+        if (this._layout === 'full') {
+            return false;
+        }
+        return this._tab !== 'none';
+    }
+
 
     @ViewChild('sidebarContainerElement') sidebarContainerElement: ElementRef;
 
-    constructor(private router: Router, private titleService: TitleService,
-                public menuService: MenuService, private menuConfig: LayoutConfig) {
+    moduleList: Array<{ module: string, isSelect: boolean }> = [];
+    selectModule = {module: '', power: '', isSelect: true};
+
+    constructor(private router: Router,
+                private activatedRoute: ActivatedRoute,
+                private title: Title,
+                private titleService: TitleService,
+                public menuService: MenuService,
+                private menuConfig: LayoutConfig) {
         if (this.menuConfig.path === 'showcase') {
             this.menuService.add(appMenuData.menu as Menu[]);
         } else {
@@ -26,14 +55,92 @@ export class LayoutComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.router.events.filter(evt => evt instanceof NavigationEnd)
-            .subscribe(() => this.titleService.setTitle());
+        this.router.events
+            .filter(event => event instanceof NavigationEnd)
+            .do((event: NavigationEnd) => {
+                // console.log(event);
+                const url = event.urlAfterRedirects;
+                const exitModule = this.moduleList.find(module => url.startsWith(module.module));
+                if (exitModule) {
+                    this.moduleList.forEach(module => module.isSelect = url.startsWith(module.module));
+                } else {
+                    const index = url.indexOf('/', 1);
+                    console.log(index, url.substring(0, index));
+                    const module = {module: url.substring(0, index), isSelect: true};
+                    this.moduleList.push(module);
+                    // 加载模块相关信息
+                }
+            })
+            .map(() => this.activatedRoute)
+            .map(route => {
+                console.log(route);
+                while (route.firstChild) {
+                    route = route.firstChild;
+                }
+                return route;
+            })
+            .do((route: ActivatedRoute) => {
+                // 获取url
+                let next = route.snapshot;
+                const segments = [];
+                while (next) {
+                    segments.push(next.url.join('/'));
+                    next = next.parent;
+                }
+                const url = '/' + segments.filter(i => i).reverse().join('/');
+                // console.log(url);
+                console.log(route);
+            })
+            // .filter(route => route.outlet === 'primary')
+            .mergeMap(route => route.data)
+            .subscribe((routeData) => {
+                // screen,layout: full,default/undefined
+                const layout = routeData['layout'];
+                this._layout = layout ? layout : 'default';
+                // sidebar: none, left, right
+                const sidebar = routeData['sidebar'];
+                this._sidebar = sidebar ? sidebar : 'left';
+                // tab: none, top, right,left,bottom
+                const tab = routeData['tab'];
+                this._tab = tab ? tab : 'top';
+            });
     }
 
     get containerStyle() {
-        const sidebarWidth = this.sidebarContainerElement.nativeElement.offsetWidth;
-        return {'width': this._sidebarOpen ? `calc(100% - ${sidebarWidth}px)` : 'calc(100% - 10px)'};
+        if (this.sidebarContainerElement) {
+            const sidebarWidth = this.sidebarContainerElement.nativeElement.offsetWidth;
+            return {'width': this._sidebarOpen ? `calc(100% - ${sidebarWidth}px)` : 'calc(100% - 10px)'};
+        }
+
+        return {'flex': 1, 'display': 'flex', 'flex-direction': 'column'};
     }
+
+
+    /*
+    //路由列表
+  menuList: Array<{ title: string, module: string, power: string,isSelect:boolean }>=[];
+    //关闭选项标签
+    closeUrl(module: string, isSelect: boolean) {
+        //当前关闭的是第几个路由
+        let index = this.menuList.findIndex(p => p.module == module);
+        //如果只有一个不可以关闭
+        if (this.menuList.length == 1) return;
+
+        this.menuList = this.menuList.filter(p => p.module != module);
+        //删除复用
+        delete SimpleReuseStrategy.handlers[module];
+        if (!isSelect) return;
+        //显示上一个选中
+        let menu = this.menuList[index - 1];
+        if (!menu) {//如果上一个没有下一个选中
+            menu = this.menuList[index + 1];
+        }
+        // console.log(menu);
+        // console.log(this.menuList);
+        this.menuList.forEach(p => p.isSelect = p.module == menu.module);
+        //显示当前路由信息
+        this.router.navigate(['/' + menu.module]);
+    }*/
 
 }
 

@@ -5,8 +5,8 @@ import {FzDemoOverplayPanelModule} from './showcase/fz-demo-overplay-panel/fz-de
 
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
-    {path: 'home', component: HomeComponent, data: {title: '首页', module: 'home', power: 'SHOW'}},
-    {path: 'login', loadChildren: './login/login.module#LoginModule', data: {title: '登录', module: 'login', power: 'SHOW'}},
+    {path: 'home', component: HomeComponent, data: {title: '首页', module: 'home', power: 'SHOW', layout: 'tab', sidebar: 'none'}},
+    {path: 'login', loadChildren: './login/login.module#LoginModule', data: {title: '登录', module: 'login', power: 'SHOW', layout: 'full'}},
     {
         path: 'showcase',
         loadChildren: './showcase/showcase.module#ShowcaseModule',

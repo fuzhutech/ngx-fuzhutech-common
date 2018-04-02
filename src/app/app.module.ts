@@ -29,6 +29,7 @@ import {FzSidebarModule} from '../lib/components/sidebar/sidebar.module';
 import {ReuseTabStrategy} from '../lib/components/reuse-tab/reuse-tab.strategy';
 import {RouteReuseStrategy} from '@angular/router';
 import {SimpleReuseStrategy} from './domain/simple-reuse-strategy';
+import {FzLayoutModule} from '../lib/components/layout/layout.module';
 
 @NgModule({
     declarations: [
@@ -92,7 +93,8 @@ import {SimpleReuseStrategy} from './domain/simple-reuse-strategy';
             }
         }),
         FzHighlightModule,
-        NgxFuzhutechCommonModule.forRoot()
+        NgxFuzhutechCommonModule.forRoot(),
+        FzLayoutModule.forRoot({path: 'home'})
     ],
     providers: [
         /**
@@ -103,7 +105,7 @@ import {SimpleReuseStrategy} from './domain/simple-reuse-strategy';
         {provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
         // {provide: RouteReuseStrategy, useClass: ReuseTabStrategy}
         // 最后将策略注册到模块当中
-        // {provide: RouteReuseStrategy, useClass: SimpleReuseStrategy}
+        {provide: RouteReuseStrategy, useClass: SimpleReuseStrategy}
         /*StartupService,
         {
             provide: APP_INITIALIZER,

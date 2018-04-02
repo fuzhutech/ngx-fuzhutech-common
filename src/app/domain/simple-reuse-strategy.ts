@@ -31,6 +31,7 @@ export class SimpleReuseStrategy implements RouteReuseStrategy {
             return;
         }
         SimpleReuseStrategy.handlers[this.getRouteUrl(route)] = handle;
+        console.log(handle);
 
         /**
          * this._cacheRouters[route.routeConfig.path] = {

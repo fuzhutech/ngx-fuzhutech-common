@@ -10,6 +10,7 @@ import {NotificationService} from '../../lib/components/notification/notificatio
 export class HomeComponent implements OnInit {
 
     constructor() {
+        console.log('HomeComponent create');
     }
 
     ngOnInit() {
