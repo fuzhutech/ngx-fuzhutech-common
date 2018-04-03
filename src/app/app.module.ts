@@ -105,7 +105,7 @@ import {FzLayoutModule} from '../lib/components/layout/layout.module';
         {provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
         // {provide: RouteReuseStrategy, useClass: ReuseTabStrategy}
         // 最后将策略注册到模块当中
-        {provide: RouteReuseStrategy, useClass: SimpleReuseStrategy}
+        // {provide: RouteReuseStrategy, useClass: SimpleReuseStrategy}
         /*StartupService,
         {
             provide: APP_INITIALIZER,

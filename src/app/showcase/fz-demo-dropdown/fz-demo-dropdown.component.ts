@@ -8,6 +8,7 @@ import {Component, OnInit} from '@angular/core';
 export class FzDemoDropdownComponent implements OnInit {
 
     constructor() {
+        console.log('FzDemoDropdownComponent create');
     }
 
     ngOnInit() {

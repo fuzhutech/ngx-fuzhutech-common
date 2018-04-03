@@ -223,7 +223,8 @@ export class ReuseTabService implements OnDestroy {
         return getMenuByLink(this.menuList || []);
     }
 
-    private runHook(method: string, url: string, comp: any) {
+    /*private runHook(method: string, url: string, comp: any) {
+        console.log('runHook', url, comp);
         if (this._hookCached[url]) {
             return;
         }
@@ -234,7 +235,7 @@ export class ReuseTabService implements OnDestroy {
             }
             this._hookCached[url] = false;
         }, 100);
-    }
+    }*/
 
     /** @private */
     getClosable(url: string, route?: ActivatedRouteSnapshot): boolean {
@@ -250,122 +251,20 @@ export class ReuseTabService implements OnDestroy {
         return true;
     }
 
-    can(route: ActivatedRouteSnapshot): boolean {
-        const url = this.getUrl(route);
-        if (url === this.removeBuffer) {
-            return false;
-        }
-
-        if (route.data && typeof route.data.reuse === 'boolean') {
-            return route.data.reuse;
-        }
-
-        if (this._mode !== ReuseTabMatchMode.URL) {
-            const menu = this.getMenu(url);
-            if (!menu) {
-                return false;
-            }
-            if (this._mode === ReuseTabMatchMode.Menu) {
-                if (menu.reuse === false) {
-                    return false;
-                }
-            } else {
-                if (!menu.reuse || menu.reuse !== true) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        let idx = 0;
-        if (url) {
-            idx = this._excludes.findIndex(r => r.test(url));
-        }
-        return idx === -1;
+    ngOnDestroy(): void {
+        this._cached = null;
+        this._cachedChange.unsubscribe();
     }
 
-    /**
-     * 决定是否允许路由复用，若 `true` 会触发 `store`
-     */
-    shouldDetach(route: ActivatedRouteSnapshot): boolean {
-        if (!route.routeConfig || route.routeConfig.loadChildren || route.routeConfig.children) {
-            return false;
-        }
-        console.log('can');
-        this.di('#shouldDetach', this.getUrl(route), this.can(route));
-        return this.can(route);
-    }
+
+    // region: ReuseTabStrategy
 
     /**
-     * 存储
-     */
-    store(_snapshot: ActivatedRouteSnapshot, _handle: any) {
-        if (!_snapshot.routeConfig || _snapshot.routeConfig.loadChildren || _snapshot.routeConfig.children) {
-            return;
-        }
-        if (this.count >= this._max) {
-            this._cached.shift();
-        }
-        const url = this.getUrl(_snapshot);
-        console.log(url);
-        const idx = this.index(url);
-
-        const item: ReuseTabCached = {
-            customTitle: this._titleCached[url],
-            title: this.getTitle(url, _snapshot),
-            // closable: this.getClosable(url, _snapshot),
-            url,
-            _snapshot,
-            _handle
-        };
-        if (idx === -1) {
-            this._cached.push(item);
-        } else {
-            this._cached[idx] = item;
-        }
-        this._clearRemoveBuffer();
-
-        this.di('#store', url, idx === -1 ? '[new]' : '[override]');
-
-        if (_handle && _handle.componentRef) {
-            this.runHook('_onReuseDestroy', url, _handle.componentRef);
-        }
-
-        this._cachedChange.next({active: 'add', item});
-    }
-
-    /**
-     * 决定是否允许应用缓存数据
-     */
-    shouldAttach(route: ActivatedRouteSnapshot): boolean {
-        if (!route.routeConfig || route.routeConfig.loadChildren || route.routeConfig.children) {
-            return false;
-        }
-        const url = this.getUrl(route);
-        const data = this.get(url);
-        const ret = !!(data && data._handle);
-        this.di('#shouldAttach', url, ret);
-        return ret;
-    }
-
-    /**
-     * 提取复用数据
-     */
-    retrieve(route: ActivatedRouteSnapshot): {} {
-        if (!route.routeConfig || route.routeConfig.loadChildren || route.routeConfig.children) {
-            return null;
-        }
-        const url = this.getUrl(route);
-        const data = this.get(url);
-        const ret = (data && data._handle) || null;
-        this.di('#retrieve', url, ret);
-        if (ret && ret.componentRef) {
-            this.runHook('_onReuseInit', url, ret.componentRef);
-        }
-        return ret;
-    }
-
-    /**
-     * 决定是否应该进行复用路由处理
+     * 进入路由触发，判断是否同一路由时复用路由，确定是否应重用路由。
+     * reuse an activated route that is currently displayed on the screen
+     * @param {ActivatedRouteSnapshot} future
+     * @param {ActivatedRouteSnapshot} curr
+     * @returns {boolean}
      */
     shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
         let ret = future.routeConfig === curr.routeConfig;
@@ -380,12 +279,154 @@ export class ReuseTabService implements OnDestroy {
             }
         }
         this.curUrl = ret ? '' : (url || this.getUrl(curr));
-        this.di('#shouldReuseRoute', future, curr, ret);
+        this.di('#shouldReuseRoute', this.getUrl(future), this.getUrl(curr), ret, future, curr);
         return ret;
     }
 
-    ngOnDestroy(): void {
-        this._cached = null;
-        this._cachedChange.unsubscribe();
+    private shouldReuse(route: ActivatedRouteSnapshot): boolean {
+        const url = this.getUrl(route);
+
+        // 待移除的指定路径缓存
+        if (url === this.removeBuffer) {
+            return false;
+        }
+
+        // 路由配置数据
+        if (route.data && typeof route.data.reuse === 'boolean') {
+            return route.data.reuse;
+        }
+
+        // 复用匹配模式
+        if (this._mode === ReuseTabMatchMode.Menu) {  // 按菜单 `Menu` 配置
+
+            // 是否存在对应的Menu配置信息
+            const menu = this.getMenu(url);
+            if (!menu) {
+                return false;
+            }
+
+            /*  可复用：
+             * - `{ text:'Dashboard' }`
+             * - `{ text:'Dashboard', reuse: true }`
+             *
+             * 不可复用：
+             * - `{ text:'Dashboard', reuse: false }`
+             **/
+            return menu.reuse !== false;
+
+        } else if (this._mode === ReuseTabMatchMode.URL) {  // 对所有路由有效，可以配合 `excludes` 过滤无须复用路由
+            if (url) {
+                return -1 === this._excludes.findIndex(r => r.test(url));
+            } else {
+                return false;
+            }
+        } else {   // 按菜单 `Menu` 强制配置
+
+            const menu = this.getMenu(url);
+            if (!menu) {
+                return false;
+            }
+
+            /*  可复用：
+             * - `{ text:'Dashboard', reuse: true }`
+             *
+             * 不可复用：
+             * - `{ text:'Dashboard' }`
+             * - `{ text:'Dashboard', reuse: false }`
+             */
+            return menu.reuse && menu.reuse === true;
+        }
     }
+
+    /**
+     * 确定此路由（及其子树）是否应该分离以便稍后重用，若 `true` 会触发detachAndStoreRouteSubtree,调用 `store`
+     * @param {ActivatedRouteSnapshot} route
+     * @returns {boolean}
+     */
+    shouldDetach(route: ActivatedRouteSnapshot): boolean {
+        if (!route.routeConfig || route.routeConfig.loadChildren || route.routeConfig.children) {
+            return false;
+        }
+        this.di('#shouldDetach', this.getUrl(route), this.shouldReuse(route));
+        return this.shouldReuse(route);
+    }
+
+    /**
+     * 当路由离开时会触发,存储分离的路由。按path作为key存储路由快照&组件当前实例对象
+     * 存储空值`null` 应该删除先前存储的值。
+     * @param {ActivatedRouteSnapshot} route
+     * @param handle { componentRef, route, contexts } | null
+     */
+    store(route: ActivatedRouteSnapshot, handle: any) {
+        if (!route.routeConfig || route.routeConfig.loadChildren || route.routeConfig.children) {
+            return;
+        }
+        if (this.count >= this._max) {
+            this._cached.shift();
+        }
+        const url = this.getUrl(route);
+        console.log(url);
+        const idx = this.index(url);
+
+        const item: ReuseTabCached = {
+            customTitle: this._titleCached[url],
+            title: this.getTitle(url, route),
+            // closable: this.getClosable(url, _snapshot),
+            url,
+            _snapshot: route,
+            _handle: handle
+        };
+        if (idx === -1) {
+            this._cached.push(item);
+        } else {
+            this._cached[idx] = item;
+        }
+        this._clearRemoveBuffer();
+
+        this.di('#store', url, idx === -1 ? '[new]' : '[override]');
+
+        /*if (handle && handle.componentRef) {
+            console.log(handle);
+            this.runHook('_onReuseDestroy', url, handle.componentRef);
+        }*/
+
+        this._cachedChange.next({active: 'add', item});
+    }
+
+    /**
+     * 是否允许还原路由,决定是否允许应用缓存数据，确定这条路线（及其子树）应复位
+     * @param {ActivatedRouteSnapshot} route
+     * @returns {boolean}
+     */
+    shouldAttach(route: ActivatedRouteSnapshot): boolean {
+        if (!route.routeConfig || route.routeConfig.loadChildren || route.routeConfig.children) {
+            return false;
+        }
+        const url = this.getUrl(route);
+        const data = this.get(url);
+        const ret = !!(data && data._handle);
+        this.di('#shouldAttach', url, ret);
+        return ret;
+    }
+
+    /**
+     * 提取先前存储的复用数据,从缓存中获取快照，若无则返回nul
+     * @param {ActivatedRouteSnapshot} route
+     * @returns {{}}
+     */
+    retrieve(route: ActivatedRouteSnapshot): {} {
+        if (!route.routeConfig || route.routeConfig.loadChildren || route.routeConfig.children) {
+            return null;
+        }
+        const url = this.getUrl(route);
+        const data = this.get(url);
+        const ret = (data && data._handle) || null;
+        this.di('#retrieve', url, ret);
+        /*if (ret && ret.componentRef) {
+            this.runHook('_onReuseInit', url, ret.componentRef);
+        }*/
+        return ret;
+    }
+
+    // endregion
 }

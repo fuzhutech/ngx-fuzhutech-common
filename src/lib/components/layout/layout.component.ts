@@ -65,7 +65,7 @@ export class LayoutComponent implements OnInit {
                     this.moduleList.forEach(module => module.isSelect = url.startsWith(module.module));
                 } else {
                     const index = url.indexOf('/', 1);
-                    console.log(index, url.substring(0, index));
+                    // console.log(index, url.substring(0, index));
                     const module = {module: url.substring(0, index), isSelect: true};
                     this.moduleList.push(module);
                     // 加载模块相关信息
@@ -73,7 +73,7 @@ export class LayoutComponent implements OnInit {
             })
             .map(() => this.activatedRoute)
             .map(route => {
-                console.log(route);
+                // console.log(route);
                 while (route.firstChild) {
                     route = route.firstChild;
                 }
@@ -89,7 +89,7 @@ export class LayoutComponent implements OnInit {
                 }
                 const url = '/' + segments.filter(i => i).reverse().join('/');
                 // console.log(url);
-                console.log(route);
+                // console.log(route);
             })
             // .filter(route => route.outlet === 'primary')
             .mergeMap(route => route.data)

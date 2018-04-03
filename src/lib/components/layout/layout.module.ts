@@ -22,8 +22,8 @@ import {ReuseTabStrategy} from '../reuse-tab/reuse-tab.strategy';
         LayoutComponent
     ],
     providers: [
-        // 最后将策略注册到模块当中
-        // {provide: RouteReuseStrategy, useClass: ReuseTabStrategy}
+        // 将策略注册到模块当中
+        {provide: RouteReuseStrategy, useClass: ReuseTabStrategy}
     ]
 })
 export class FzLayoutModule {
