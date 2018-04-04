@@ -10,7 +10,6 @@ export class ReuseTabStrategy implements RouteReuseStrategy {
     // 是否允许复用路由
     /** 表示对所有路由允许复用 如果你有路由不想利用可以在这加一些业务逻辑判断 */
     shouldDetach(route: ActivatedRouteSnapshot): boolean {
-        console.log('shouldDetach');
         return this.srv.shouldDetach(route);
     }
 

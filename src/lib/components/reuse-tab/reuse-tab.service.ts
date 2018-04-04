@@ -61,9 +61,9 @@ export class ReuseTabService implements OnDestroy {
     }
 
     /** 获取指定路径缓存 */
-    get(path: string): ReuseTabCached {
+    /*get(path: string): ReuseTabCached {
         return path ? this._cached.find(w => w.url === path) || null : null;
-    }
+    }*/
 
     private destroy(_handle: any) {
         if (_handle && _handle.componentRef && _handle.componentRef.destroy) {
@@ -82,10 +82,11 @@ export class ReuseTabService implements OnDestroy {
     /**
      * 根据URL移除标签
      */
-    remove(url: string) {
+
+    /*remove(url: string) {
         this.di('remove tag', url);
         this._cachedChange.next({active: 'remove', url});
-    }
+    }*/
 
     /**
      * 移除指定路径缓存
@@ -283,9 +284,7 @@ export class ReuseTabService implements OnDestroy {
         return ret;
     }
 
-    private shouldReuse(route: ActivatedRouteSnapshot): boolean {
-        const url = this.getUrl(route);
-
+    private getShouldDetach(route: ActivatedRouteSnapshot, url: string): boolean {
         // 待移除的指定路径缓存
         if (url === this.removeBuffer) {
             return false;
@@ -347,8 +346,10 @@ export class ReuseTabService implements OnDestroy {
         if (!route.routeConfig || route.routeConfig.loadChildren || route.routeConfig.children) {
             return false;
         }
-        this.di('#shouldDetach', this.getUrl(route), this.shouldReuse(route));
-        return this.shouldReuse(route);
+        const url = this.getUrl(route);
+        const ret = this.getShouldDetach(route, url);
+        this.di('#shouldDetach', url, ret);
+        return ret;
     }
 
     /**
@@ -361,11 +362,8 @@ export class ReuseTabService implements OnDestroy {
         if (!route.routeConfig || route.routeConfig.loadChildren || route.routeConfig.children) {
             return;
         }
-        if (this.count >= this._max) {
-            this._cached.shift();
-        }
+
         const url = this.getUrl(route);
-        console.log(url);
         const idx = this.index(url);
 
         const item: ReuseTabCached = {
@@ -377,6 +375,9 @@ export class ReuseTabService implements OnDestroy {
             _handle: handle
         };
         if (idx === -1) {
+            if (this.count >= this._max) {
+                this._cached.shift();
+            }
             this._cached.push(item);
         } else {
             this._cached[idx] = item;
@@ -403,7 +404,7 @@ export class ReuseTabService implements OnDestroy {
             return false;
         }
         const url = this.getUrl(route);
-        const data = this.get(url);
+        const data = url ? this._cached.find(w => w.url === url) || null : null;
         const ret = !!(data && data._handle);
         this.di('#shouldAttach', url, ret);
         return ret;
@@ -419,7 +420,7 @@ export class ReuseTabService implements OnDestroy {
             return null;
         }
         const url = this.getUrl(route);
-        const data = this.get(url);
+        const data = url ? this._cached.find(w => w.url === url) || null : null;
         const ret = (data && data._handle) || null;
         this.di('#retrieve', url, ret);
         /*if (ret && ret.componentRef) {
