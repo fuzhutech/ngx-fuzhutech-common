@@ -22,7 +22,7 @@ import {DOCUMENT} from "@angular/common";
 })
 export class AppComponent implements OnInit {
     darkTheme = false;
-    _sidebarOpen = false;
+    _sidebarOpen = true;
 
     // @HostBinding('class') componentCssClass = 'myapp-light-theme';
 

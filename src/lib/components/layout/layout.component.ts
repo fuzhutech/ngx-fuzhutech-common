@@ -4,6 +4,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {TitleService} from '../reuse-tab/title.service';
 import {Menu, MenuService} from '../reuse-tab/menu.service';
 import {LayoutConfig} from './layout.config';
+import {coerceBooleanProperty} from "@angular/cdk/coercion";
 
 
 @Component({
@@ -14,6 +15,31 @@ import {LayoutConfig} from './layout.config';
 export class LayoutComponent implements OnInit {
 
     _sidebarOpen = true;
+
+    _containerStyle: any;
+
+    tabContainerWidth = -1;
+    sidebarWidth = -1;
+
+    @Input() set sidebarOpen(value) {
+        if (this.tabContainerElement && (this.tabContainerElement.nativeElement.offsetWidth > 0)) {
+            console.log('sidebarOpen', value);
+            if (value) {
+                // 展开侧边栏，导航栏减少宽度
+                // this.screenWidth = this.el.nativeElement.offsetWidth;
+                this.tabContainerWidth = this.tabContainerElement.nativeElement.offsetWidth;
+            } else {
+                //收缩侧边栏，导航栏增加宽度
+                this.tabContainerWidth = this.tabContainerElement.nativeElement.offsetWidth;
+                if (this.sidebarContainerElement) {
+                    this.sidebarWidth = this.sidebarContainerElement.nativeElement.offsetWidth;
+                }
+            }
+        }
+
+        this._sidebarOpen = coerceBooleanProperty(value);
+    }
+
     // screen,layout: full,default/undefined
     _layout = 'default';
     // sidebar: none, left, right
@@ -37,6 +63,7 @@ export class LayoutComponent implements OnInit {
 
 
     @ViewChild('sidebarContainerElement') sidebarContainerElement: ElementRef;
+    @ViewChild('tabContainerElement') tabContainerElement: ElementRef;
 
     moduleList: Array<{ module: string, isSelect: boolean }> = [];
     selectModule = {module: '', power: '', isSelect: true};
@@ -108,15 +135,64 @@ export class LayoutComponent implements OnInit {
     }
 
     get containerStyle() {
-        if (this.sidebarContainerElement) {
-            const sidebarWidth = this.sidebarContainerElement.nativeElement.offsetWidth;
-            const screenWidth = this.el.nativeElement.offsetWidth;
-            const width = this._sidebarOpen ? screenWidth - sidebarWidth : screenWidth;
-
-            return {'width': `${width}px`};
-        }
-
         return {'flex': 1, 'display': 'flex', 'flex-direction': 'column'};
+    }
+
+    get tabContainerStyle() {
+        console.log('tabContainerStyle');
+        if (this.tabContainerElement && (this.tabContainerElement.nativeElement.offsetWidth > 0)) {
+            console.log('tabContainerStyle screenWidth:', this.el.nativeElement.offsetWidth, 'tabContainerWidth:', this.tabContainerElement.nativeElement.offsetWidth);
+            if (this._sidebarOpen) {
+                // 收到展开侧边栏命令
+                if (this.tabContainerWidth > 0) {
+
+                    //侧边栏已展开
+                    if (this.sidebarContainerElement && (this.sidebarContainerElement.nativeElement.offsetWidth > 0)) {
+                        console.log(this.sidebarContainerElement.nativeElement.offsetWidth);
+                        const sidebarWidth = this.sidebarContainerElement.nativeElement.offsetWidth;
+                        const width = this.tabContainerWidth - sidebarWidth;
+                        this.tabContainerWidth = -1;
+                        console.log('1');
+                        return (width > 0) ? {'width': `${width}px`} : {};
+                    } else {
+                        console.log('2');
+                        // 侧边栏展开过程
+                        const width = this.tabContainerWidth - this.sidebarWidth > 0 ? this.tabContainerWidth - this.sidebarWidth : this.tabContainerWidth;
+                        return {'width': `${width}px`};
+                    }
+                } else if (this.sidebarContainerElement && (this.sidebarContainerElement.nativeElement.offsetWidth > 0)) {
+                    // 侧边栏日常已展开状态
+                    const sidebarWidth = this.sidebarContainerElement.nativeElement.offsetWidth;
+                    const screenWidth = this.el.nativeElement.offsetWidth;
+                    const width = screenWidth - sidebarWidth;
+                    console.log('3');
+                    return {'width': `${width - 10}px`};
+                }
+            } else {
+                // 收到收缩侧边栏命令
+                if (this.tabContainerWidth > 0) {
+                    //侧边栏已收缩
+                    if (this.sidebarContainerElement && (this.sidebarContainerElement.nativeElement.offsetWidth === 0)) {
+                        const screenWidth = this.el.nativeElement.offsetWidth;
+                        this.tabContainerWidth = -1;
+                        console.log('4');
+                        return {'width': `${screenWidth - 10}px`};
+                    }
+                    else {
+                        // 侧边栏收缩过程
+                        console.log('5');
+                        return {'width': `${this.tabContainerWidth}px`};
+                    }
+                } else {
+                    // 侧边栏日常已收缩状态
+                    const screenWidth = this.el.nativeElement.offsetWidth;
+                    console.log('6');
+                    return {'width': `${screenWidth - 10}px`};
+                }
+            }
+        }
+        console.log('7');
+        return {};
     }
 
 

@@ -1,7 +1,12 @@
-<div *ngIf="showSidebar" #sidebarContainerElement style="min-width: 300px" [style.display]="_sidebarOpen? 'block':'none'">
+<div *ngIf="showSidebar" #sidebarContainerElement style="min-width: 300px"
+     [style.display]="_sidebarOpen? 'block':'none'">
     <fz-sidebar [list]="menuService.change | async"></fz-sidebar>
 </div>
-<div [ngStyle]="containerStyle">
-    <fz-reuse-tab *ngIf="showReuseTab" [menuList]="menuService.change | async"></fz-reuse-tab>
-    <router-outlet></router-outlet>
+<div style="display: flex;flex: 1;">
+    <div #tabContainerElement [ngStyle]="tabContainerStyle">
+        <fz-reuse-tab *ngIf="showReuseTab" [menuList]="menuService.change | async"></fz-reuse-tab>
+    </div>
+    <div [ngStyle]="containerStyle">
+        <router-outlet></router-outlet>
+    </div>
 </div>
