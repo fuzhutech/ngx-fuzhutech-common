@@ -1,23 +1,12 @@
-.site {
-    min-height: 100%;
-    min-width: 100%;
-
-    display: -ms-flexbox;
-    display: -webkit-flex;
+.siteContainer {
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
 
 main {
-    -ms-flex: 1;
-    -webkit-flex: 1;
     flex: 1;
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
-    //flex-direction: column;
-    //justify-content: center;
-    //align-items: center;
 }
 
 .main-container {
@@ -66,7 +55,7 @@ main {
 }
 
 @media (max-width: 600px) {
-    .site {
+    .siteContainer {
         font-size: small;
     }
 }
@@ -76,7 +65,7 @@ main {
 }
 
 @media (max-width: 320px) {
-    .site {
+    .siteContainer {
         font-size: xx-small;
     }
 

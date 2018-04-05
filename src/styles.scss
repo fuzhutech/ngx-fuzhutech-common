@@ -7,9 +7,14 @@
 @import 'assets/css/prism.css';
 @import 'iconfont.scss';
 
-html, body, fz-root, mat-sidenav-container, .site {
+html {
     min-height: 100%;
     min-width: 100%;
+    display: flex;
+}
+
+body, fz-root {
+    flex: 1;
     display: flex;
 }
 

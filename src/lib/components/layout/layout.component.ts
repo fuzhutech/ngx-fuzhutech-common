@@ -46,7 +46,8 @@ export class LayoutComponent implements OnInit {
                 private title: Title,
                 private titleService: TitleService,
                 public menuService: MenuService,
-                private menuConfig: LayoutConfig) {
+                private menuConfig: LayoutConfig,
+                private el: ElementRef) {
         if (this.menuConfig.path === 'showcase') {
             this.menuService.add(appMenuData.menu as Menu[]);
         } else {
@@ -109,7 +110,10 @@ export class LayoutComponent implements OnInit {
     get containerStyle() {
         if (this.sidebarContainerElement) {
             const sidebarWidth = this.sidebarContainerElement.nativeElement.offsetWidth;
-            return {'width': this._sidebarOpen ? `calc(100% - ${sidebarWidth}px)` : 'calc(100% - 10px)'};
+            const screenWidth = this.el.nativeElement.offsetWidth;
+            const width = this._sidebarOpen ? screenWidth - sidebarWidth : screenWidth;
+
+            return {'width': `${width}px`};
         }
 
         return {'flex': 1, 'display': 'flex', 'flex-direction': 'column'};
