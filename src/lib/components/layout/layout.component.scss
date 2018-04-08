@@ -25,7 +25,12 @@ main {
     flex-direction: row;
 }
 
-.container {
+.contentContainer {
+    flex: 1;
+    display: flex;
+}
+
+.layoutContainer {
     flex: 1;
     display: flex;
     flex-direction: column;

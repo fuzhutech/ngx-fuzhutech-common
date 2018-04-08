@@ -5,11 +5,11 @@
          [style.display]="_sidebarOpen? 'block':'none'">
         <fz-sidebar [list]="menuService.change | async"></fz-sidebar>
     </div>
-    <div class="container" [ngStyle]="containerStyle">
+    <div class="layoutContainer">
         <div *ngIf="showReuseTab" #tabContainerElement [ngStyle]="tabContainerStyle">
             <fz-reuse-tab [menuList]="menuService.change | async"></fz-reuse-tab>
         </div>
-        <div [ngStyle]="containerStyle">
+        <div class="contentContainer" [ngStyle]="contentContainerStyle">
             <router-outlet></router-outlet>
         </div>
     </div>

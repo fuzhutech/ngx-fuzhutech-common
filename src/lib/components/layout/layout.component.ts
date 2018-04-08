@@ -27,7 +27,6 @@ export class LayoutComponent implements OnInit {
 
     @Input() set sidebarOpen(value) {
         if (this.tabContainerElement && (this.tabContainerElement.nativeElement.offsetWidth > 0)) {
-            console.log('sidebarOpen', value);
             if (value) {
                 // 展开侧边栏，导航栏减少宽度
                 // this.screenWidth = this.el.nativeElement.offsetWidth;
@@ -138,30 +137,25 @@ export class LayoutComponent implements OnInit {
             });
     }
 
-    get containerStyle() {
-        // return {'flex': 1, 'display': 'flex', 'flex-direction': 'column'};
+    get contentContainerStyle() {
         return {};
     }
 
     get tabContainerStyle() {
-        console.log('tabContainerStyle');
         if (this.tabContainerElement && (this.tabContainerElement.nativeElement.offsetWidth > 0)) {
-            console.log('tabContainerStyle screenWidth:', this.el.nativeElement.offsetWidth,
-                'tabContainerWidth:', this.tabContainerElement.nativeElement.offsetWidth);
+            /*console.log('tabContainerStyle screenWidth:', this.el.nativeElement.offsetWidth,
+                'tabContainerWidth:', this.tabContainerElement.nativeElement.offsetWidth);*/
             if (this._sidebarOpen) {
                 // 收到展开侧边栏命令
                 if (this.tabContainerWidth > 0) {
 
                     // 侧边栏已展开
                     if (this.sidebarContainerElement && (this.sidebarContainerElement.nativeElement.offsetWidth > 0)) {
-                        console.log(this.sidebarContainerElement.nativeElement.offsetWidth);
                         const sidebarWidth = this.sidebarContainerElement.nativeElement.offsetWidth;
                         const width = this.tabContainerWidth - sidebarWidth;
                         this.tabContainerWidth = -1;
-                        console.log('1');
                         return (width > 0) ? {'width': `${width}px`} : {};
                     } else {
-                        console.log('2');
                         // 侧边栏展开过程
                         const width = this.tabContainerWidth - this.sidebarWidth > 0 ?
                             this.tabContainerWidth - this.sidebarWidth : this.tabContainerWidth;
@@ -173,7 +167,6 @@ export class LayoutComponent implements OnInit {
                     const sidebarWidth = this.sidebarContainerElement.nativeElement.offsetWidth;
                     const screenWidth = this.el.nativeElement.offsetWidth;
                     this.width = screenWidth - sidebarWidth;
-                    console.log('3');
 
                     return {'width': `${this.width}px`};
                 }
@@ -184,22 +177,19 @@ export class LayoutComponent implements OnInit {
                     if (this.sidebarContainerElement && (this.sidebarContainerElement.nativeElement.offsetWidth === 0)) {
                         const screenWidth = this.el.nativeElement.offsetWidth;
                         this.tabContainerWidth = -1;
-                        console.log('4');
                         return {'width': `${screenWidth}px`};
                     } else {
                         // 侧边栏收缩过程
-                        console.log('5');
                         return {'width': `${this.tabContainerWidth}px`};
                     }
                 } else {
                     // 侧边栏日常已收缩状态
                     const screenWidth = this.el.nativeElement.offsetWidth;
-                    console.log('6');
                     return {'width': `${screenWidth}px`};
                 }
             }
         }
-        console.log('7');
+
         return {};
     }
 

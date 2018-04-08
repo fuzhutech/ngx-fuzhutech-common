@@ -1,0 +1,20 @@
+@import '../../core/theming/theming';
+
+@mixin fz-layout-theme($theme) {
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+    $primary: map-get($theme, primary);
+
+    $site-container-background-color: mat-color($background, background) !default;
+
+    .siteContainer {
+        color: mat-color($foreground, text);
+        background-color: $site-container-background-color;
+    }
+}
+
+@mixin fz-layout-typography($config) {
+    .siteContainer {
+        font-family: mat-font-family($config);
+    }
+}

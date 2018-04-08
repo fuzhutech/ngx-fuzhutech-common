@@ -6,6 +6,7 @@
 @import '../../components/back-top/back-top-theme';
 @import '../../components/badge/badge-theme';
 @import '../../components/carousel/carousel-theme';
+@import '../../components/layout/layout-theme';
 @import '../../components/reuse-tab/reuse-tab-theme';
 @import '../../components/timeline/timeline-theme';
 
@@ -18,6 +19,7 @@
     @include fz-badge-theme($theme);
     @include fz-carousel-theme($theme);
     @include fz-rate-theme($theme);
+    @include fz-layout-theme($theme);
     @include fz-reuse-tab-theme($theme);
     @include fz-timeline-theme($theme);
 }
@@ -34,6 +36,7 @@
     @include fz-badge-typography($config);
     @include fz-carousel-typography($config);
     @include fz-rate-typography($config);
+    @include fz-layout-typography($config);
     @include fz-reuse-tab-typography($config);
     @include fz-timeline-typography($config);
 }

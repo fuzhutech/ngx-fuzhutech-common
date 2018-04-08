@@ -14,11 +14,6 @@
 
     $drawer-container-background-color: mat-color($background, background) !default;
 
-    .siteContainer {
-        background-color: $drawer-container-background-color;
-        color: mat-color($foreground, text);
-    }
-
     .fz-site-container {
         background-color: $drawer-container-background-color;
         color: mat-color($foreground, text);
