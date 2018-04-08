@@ -1,16 +1,12 @@
-<div class="siteContainer">
+<fz-layout [sidebarOpen]="_sidebarOpen">
     <header>
         <fz-app-header (toggle)="toggleSidebar()" (toggleDarkTheme)="switchTheme($event)"></fz-app-header>
     </header>
-
-    <main>
-        <fz-layout [sidebarOpen]="_sidebarOpen"></fz-layout>
-    </main>
 
     <footer>
         <fz-footer></fz-footer>
     </footer>
 
-</div>
+</fz-layout>
 
 

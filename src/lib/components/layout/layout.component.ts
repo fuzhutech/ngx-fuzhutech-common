@@ -14,6 +14,9 @@ import {coerceBooleanProperty} from '@angular/cdk/coercion';
 })
 export class LayoutComponent implements OnInit {
 
+    @Input() showHeader = true;
+    @Input() showFooter = true;
+
     _sidebarOpen = true;
 
     _containerStyle: any;
