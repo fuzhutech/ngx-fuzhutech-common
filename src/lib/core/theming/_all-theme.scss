@@ -8,6 +8,7 @@
 @import '../../components/carousel/carousel-theme';
 @import '../../components/layout/layout-theme';
 @import '../../components/reuse-tab/reuse-tab-theme';
+@import '../../components/sidebar/sidebar-theme';
 @import '../../components/timeline/timeline-theme';
 
 // Create a theme.
@@ -20,6 +21,7 @@
     @include fz-carousel-theme($theme);
     @include fz-rate-theme($theme);
     @include fz-layout-theme($theme);
+    @include fz-sidebar-theme($theme);
     @include fz-reuse-tab-theme($theme);
     @include fz-timeline-theme($theme);
 }
@@ -38,5 +40,6 @@
     @include fz-rate-typography($config);
     @include fz-layout-typography($config);
     @include fz-reuse-tab-typography($config);
+    @include fz-sidebar-typography($config);
     @include fz-timeline-typography($config);
 }

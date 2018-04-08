@@ -6,6 +6,59 @@
     $background: map-get($theme, background);
     $foreground: map-get($theme, foreground);
 
+    .main-nav {
+        background: mat-color($background, 'card');
+    }
+
+    .nav-item-open {
+        //background-color: #fcfcfc;
+        background: mat-color($background, 'selected-button');
+    }
+
+    .nav-link {
+        //color: rgba(0, 0, 0, .65);
+        color: mat-color($foreground, 'text');
+        &:hover {
+            color: #108ee9;
+        }
+    }
+
+    .nav-item-selected {
+        border-right: 3px solid #108ee9;
+        background: rgba(0, 0, 0, .04);
+        a {
+            color: #108ee9;
+        }
+    }
+
+    .nav-group {
+        &:hover {
+            color: #108ee9;
+        }
+    }
+
+    .nav-submenu-open {
+        &:hover {
+            color: #108ee9;
+        }
+    }
+
+    .nav-sub-title {
+        &:hover {
+            color: #108ee9;
+        }
+    }
+
+    .nav-link:focus:not([disabled]), .nav-link:hover:not([disabled]) {
+        //background: rgba(0, 0, 0, .04)
+        background: mat-color($background, 'hover');
+    }
+
+    .nav-group:focus:not([disabled]), .nav-group:hover:not([disabled]) {
+        // background: rgba(0, 0, 0, .04)
+        background: mat-color($background, 'hover');
+    }
+
     .mat-menu-panel {
         background: mat-color($background, 'card');
     }
@@ -33,7 +86,7 @@
     }
 }
 
-@mixin mat-sidebar-typography($config) {
+@mixin fz-sidebar-typography($config) {
     .mat-menu-item {
         font: {
             family: mat-font-family($config, subheading-2);
