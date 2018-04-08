@@ -29,7 +29,6 @@ import {
 
 import {FzMarkdownModule} from '../../lib';
 
-import {FooterComponent} from './footer/footer.component';
 import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 import {ImageListSelectComponent} from './image-list-select/image-list-select.component';
 import {AgeInputComponent} from './age-input/age-input.component';
@@ -53,7 +52,8 @@ import {FzAnchorModule} from '../../lib';
 import {FzPopoverModule} from '../../lib';
 import {FzDropDownModule} from '../../lib';
 import {FzNoticeIconModule} from '../../lib';
-import {FzHeaderModule} from './header/header.module';
+import {FzHeaderModule} from '../../lib/components/header/header.module';
+import {FzAppHeaderModule} from './header/header.module';
 
 @NgModule({
     imports: [
@@ -101,9 +101,9 @@ import {FzHeaderModule} from './header/header.module';
         FzPopoverModule,
         FzDropDownModule,
         FzNoticeIconModule,
+        FzAppHeaderModule,
     ],
     declarations: [
-        FooterComponent,
         ConfirmDialogComponent,
         ImageListSelectComponent,
         AgeInputComponent,
@@ -112,7 +112,6 @@ import {FzHeaderModule} from './header/header.module';
         AreaListComponent,
     ],
     exports: [
-        FooterComponent,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -156,6 +155,7 @@ import {FzHeaderModule} from './header/header.module';
         FzPopoverModule,
         FzDropDownModule,
         FzNoticeIconModule,
+        FzAppHeaderModule,
         ImageListSelectComponent,
         AgeInputComponent,
         ChipsListComponent,

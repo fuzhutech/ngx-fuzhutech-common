@@ -8,7 +8,7 @@ import {Auth} from '../../domain';
 import * as actions from '../../actions/auth.action';
 
 @Component({
-    selector: 'fz-header',
+    selector: 'fz-app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

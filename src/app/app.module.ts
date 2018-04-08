@@ -30,6 +30,8 @@ import {ReuseTabStrategy} from '../lib/components/reuse-tab/reuse-tab.strategy';
 import {RouteReuseStrategy} from '@angular/router';
 import {SimpleReuseStrategy} from './domain/simple-reuse-strategy';
 import {FzLayoutModule} from '../lib/components/layout/layout.module';
+import {FzFooterModule} from '../lib/components/footer/footer.module';
+import {FzHeaderModule} from '../lib/components/header/header.module';
 
 @NgModule({
     declarations: [
@@ -94,7 +96,9 @@ import {FzLayoutModule} from '../lib/components/layout/layout.module';
         }),
         FzHighlightModule,
         NgxFuzhutechCommonModule.forRoot(),
-        FzLayoutModule.forRoot({path: 'home'})
+        FzLayoutModule.forRoot({path: 'home'}),
+        FzFooterModule,
+        FzHeaderModule
     ],
     providers: [
         /**

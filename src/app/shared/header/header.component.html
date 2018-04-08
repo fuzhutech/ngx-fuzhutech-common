@@ -1,99 +1,25 @@
-<mat-toolbar color="primary">
-    <!--button mat-icon-button (click)="openSidebar()" *ngIf="(auth$ | async)?.user"-->
-    <button mat-icon-button (click)="openSidebar()">
-        <mat-icon>menu</mat-icon>
-    </button>
+<fz-header (toggleSidebar)="openSidebar()" (toggleDarkTheme)="onChage($event)" [homeText]="'Ngx-Fuzhutech-Common'">
+    <div fzHeaderLeftWrap>
+        <span>
+            <a mat-button href="https://github.com/fuzhutech" data-toggle="dropdown" class="dropdown-toggle"
+               target="_blank">GitHub</a>
+        </span>
+        <span>
+            <a mat-button href="http://git.oschina.net/fuzhutech" data-toggle="dropdown" class="dropdown-toggle"
+               target="_blank">OSChina</a>
+        </span>
 
-    <mat-icon svgIcon="gifts"></mat-icon>
-    <span>Ngx-Fuzhutech-Common</span>
-
-
-    <ul class="top-nav">
-        <!-- Menu -->
-        <li>
-            <!--div class="item" (click)="toggleCollapsedSideabar()"-->
-            <div class="item" [routerLink]="['/home']">
-                <!--i class="anticon anticon-menu-{{settings.layout.collapsed ? 'unfold' : 'fold'}}"></i-->
-                <i class="anticon anticon-menu-fold"></i>
-            </div>
-        </li>
-        <!-- Github Page -->
-        <li>
-            <a class="item" href="//github.com/cipchk/ng-alain" target="_blank">
-                <i class="anticon anticon-github"></i>
-            </a>
-        </li>
-        <!-- Lock Page -->
-        <li class="hidden-xs">
-            <div class="item" [routerLink]="['/showcase/affix']">
-                <i class="anticon anticon-lock"></i>
-            </div>
-        </li>
-        <!-- Lock Page -->
-        <li class="hidden-xs">
-            <div class="item" [routerLink]="['/pages/forms']">
-                <i class="anticon anticon-lock"></i>
-            </div>
-        </li>
-        <!-- Lock Page -->
-        <li class="hidden-xs">
-            <div class="item" [routerLink]="['/login']">
-                <i class="anticon anticon-lock"></i>
-            </div>
-        </li>
-        <!-- Search Button -->
-        <!--li class="header-search__btn" (click)="searchToggleChange()"-->
-        <li class="header-search__btn">
-            <div class="item">
-                <i class="anticon anticon-search"></i>
-            </div>
-        </li>
-    </ul>
-
-    <!--header-search class="header-search" [toggleChange]="searchToggleStatus"></header-search-->
-    <fz-header-search class="header-search"></fz-header-search>
-
-    <ul class="top-nav">
-        <!-- Notify -->
-        <li>
-            <fz-header-notify></fz-header-notify>
-        </li>
-        <!-- Task -->
-        <li class="hidden-xs">
-            <fz-header-task></fz-header-task>
-        </li>
-        <!-- App Icons -->
-        <li class="hidden-xs">
-            <fz-header-icon></fz-header-icon>
-        </li>
-        <!-- Settings -->
-        <li class="hidden-xs">
-            <fz-dropdown nzTrigger="click" nzPlacement="bottomRight">
-                <div class="item" fzDropdown>
-                    <i class="anticon anticon-setting"></i>
-                </div>
-                <div nz-menu style="width:200px">
-                    <div nz-menu-item class="theme-switch">
-                        <fz-header-theme></fz-header-theme>
-                    </div>
-                    <div nz-menu-item>
-                        <fz-header-fullscreen></fz-header-fullscreen>
-                    </div>
-                    <div nz-menu-item>
-                        <fz-header-storage></fz-header-storage>
-                    </div>
-                    <!--div nz-menu-item>
-                        <fz-header-i18n></fz-header-i18n>
-                    </div-->
-                </div>
-            </fz-dropdown>
-        </li>
-        <li class="hidden-xs">
-            <fz-header-user></fz-header-user>
-        </li>
-    </ul>
-
-    <!--span class="fill-remaining-space"></span-->
-    <mat-slide-toggle (change)="onChage($event.checked)">黑夜模式</mat-slide-toggle>
-    <span><a mat-button *ngIf="(auth$ | async)?.user" (click)="logout()">退出</a></span>
-</mat-toolbar>
+        <span><a mat-button routerLink="/showcase/affix">showcase</a></span>
+        <span><a mat-button routerLink="/pages/forms">pages</a></span>
+        <span><a mat-button [routerLink]="['/login']">login</a></span>
+    </div>
+    <div>
+        <fz-header-search class="header-search"></fz-header-search>
+    </div>
+    <div fzHeaderRightWrap style="padding: 0 16px">
+        <fz-header-notify></fz-header-notify>
+        <fz-header-task></fz-header-task>
+        <fz-header-icon></fz-header-icon>
+        <fz-header-user></fz-header-user>
+    </div>
+</fz-header>

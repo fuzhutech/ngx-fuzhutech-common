@@ -19,6 +19,7 @@ import {FzNoticeIconModule} from '../../../lib/components/notice-icon/notice-ico
 import {FzBadgeModule} from '../../../lib/components/badge/badge.module';
 import {FzAvatarModule} from '../../../lib/components/avatar/avatar.module';
 import {FzDropDownModule} from '../../../lib/components/dropdown/dropdown.module';
+import {FzHeaderModule} from '../../../lib/components/header/header.module';
 
 @NgModule({
     imports: [
@@ -37,6 +38,7 @@ import {FzDropDownModule} from '../../../lib/components/dropdown/dropdown.module
         FzBadgeModule,
         FzDropDownModule,
         FzNoticeIconModule,
+        FzHeaderModule
     ],
     declarations: [
         HeaderComponent,
@@ -53,5 +55,5 @@ import {FzDropDownModule} from '../../../lib/components/dropdown/dropdown.module
         HeaderComponent
     ]
 })
-export class FzHeaderModule {
+export class FzAppHeaderModule {
 }
