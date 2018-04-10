@@ -16,6 +16,17 @@ main {
     // flex-direction: column;
 }
 
+.sidebarContainer {
+    min-width: 300px;
+    // display: flex;
+    // flex-direction: column;
+}
+
+fz-sidebar {
+    flex: 1;
+    display: flex;
+}
+
 .main-container {
     margin-right: auto;
     margin-left: auto;

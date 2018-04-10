@@ -8,11 +8,11 @@
 }
 
 .nav-item-open {
-    background-color: #fcfcfc;
+    // background-color: #fcfcfc;
 }
 
 .nav-link {
-    color: rgba(0, 0, 0, .65);
+    // color: rgba(0, 0, 0, .65);
     text-decoration: none;
     //padding: 8px 16px;
     padding: 5px 0;
@@ -20,78 +20,13 @@
     position: relative;
     display: block;
     user-select: none;
-    &:hover {
-        color: #108ee9;
-    }
 }
 
 .nav-group {
     padding: 5px 0;
-    &:hover {
-        color: #108ee9;
-    }
-}
-
-.nav-submenu-open {
-    &:after {
-        content: "\E61D";
-        font-family: anticon !important;
-        font-style: normal;
-        vertical-align: baseline;
-        text-align: center;
-        text-transform: none;
-        text-rendering: auto;
-        position: absolute;
-        right: 16px;
-        top: 9px;
-        display: inline-block;
-        //font-size: 12px;
-        transform: rotate(180deg) scale(.75);
-        transition: transform .3s cubic-bezier(0.645, 0.045, 0.355, 1);
-        zoom: 1;
-
-    }
-    &:hover {
-        color: #108ee9;
-    }
-}
-
-.nav-sub-title {
-    &:after {
-        content: "\E61D";
-        font-family: anticon !important;
-        font-style: normal;
-        vertical-align: baseline;
-        text-align: center;
-        text-transform: none;
-        text-rendering: auto;
-        position: absolute;
-        right: 16px;
-        top: 9px;
-        display: inline-block;
-        //font-size: 12px;
-        transform: scale(.66666667) rotate(0deg);
-        transition: transform .3s cubic-bezier(0.645, 0.045, 0.355, 1);
-        zoom: 1;
-    }
-    &:hover {
-        color: #108ee9;
-    }
 }
 
 // Selected
 .nav-item-selected {
-    border-right: 3px solid #108ee9;
-    background: rgba(0, 0, 0, .04);
-    a {
-        color: #108ee9;
-    }
-}
-
-.nav-link:focus:not([disabled]), .nav-link:hover:not([disabled]) {
-    background: rgba(0, 0, 0, .04)
-}
-
-.nav-group:focus:not([disabled]), .nav-group:hover:not([disabled]) {
-    background: rgba(0, 0, 0, .04)
+    border-right: 3px solid;
 }

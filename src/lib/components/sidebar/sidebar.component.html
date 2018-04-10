@@ -1,4 +1,9 @@
 <div class="nav-bar">
-    <fz-side-nav-filter></fz-side-nav-filter>
-    <fz-side-nav-item class="main-nav" *ngFor="let item of list" [item]="item" (select)="onSelect($event)"></fz-side-nav-item>
+    <div class="sidebar-header">
+        <fz-side-nav-filter></fz-side-nav-filter>
+    </div>
+    <div class="sidebar-content">
+        <fz-side-nav-item class="main-nav-item" *ngFor="let item of list" [item]="item"
+                          (select)="onSelect($event)"></fz-side-nav-item>
+    </div>
 </div>

@@ -1,8 +1,8 @@
 <ng-content *ngIf="showHeader" select="header"></ng-content>
 
 <main class="siteContainer">
-    <div *ngIf="showSidebar" #sidebarContainerElement style="min-width: 300px"
-         [style.display]="_sidebarOpen? 'block':'none'">
+    <div *ngIf="showSidebar" #sidebarContainerElement class="sidebarContainer"
+         [style.display]="_sidebarOpen? 'flex':'none'">
         <fz-sidebar [list]="menuService.change | async"></fz-sidebar>
     </div>
     <div class="layoutContainer">

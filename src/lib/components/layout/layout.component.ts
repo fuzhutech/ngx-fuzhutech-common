@@ -2,7 +2,7 @@ import {Component, ElementRef, Injectable, Input, OnInit, Optional, ViewChild} f
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {TitleService} from '../reuse-tab/title.service';
-import {Menu, MenuService} from '../reuse-tab/menu.service';
+import {Menu, MenuData, MenuService} from '../reuse-tab/menu.service';
 import {LayoutConfig} from './layout.config';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
@@ -78,11 +78,14 @@ export class LayoutComponent implements OnInit {
                 public menuService: MenuService,
                 private menuConfig: LayoutConfig,
                 private el: ElementRef) {
-        if (this.menuConfig.path === 'showcase') {
-            this.menuService.add(appMenuData.menu as Menu[]);
+        /*if (this.menuConfig.path === 'showcase') {
+            this.menuService.add(appMenuData.menu as MenuData[]);
         } else {
-            this.menuService.add(pagesMenuData.menu as Menu[]);
-        }
+            this.menuService.add(pagesMenuData.menu as MenuData[]);
+        }*/
+        this.menuService.add(appMenuData.menu as MenuData[]);
+
+        // this.menuService.add(pagesMenuData.menu as MenuData[]);
     }
 
     ngOnInit() {

@@ -67,6 +67,9 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
     @include fz-site-theme($my-app-theme);
     @include fz-toolbar-theme($my-app-theme);
     @include fz-menu-theme($my-app-theme);
+
+    // 改变字体,Typography
+    @include fz-common-typography(null);
 }
 
 // 提供一个深色主题
@@ -83,6 +86,8 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
     @include fz-site-theme($dark-theme);
     @include fz-menu-theme($dark-theme);
 
+
+    // 改变字体,Typography
     @include fz-common-typography(null);
 
     // 改变字体,Typography

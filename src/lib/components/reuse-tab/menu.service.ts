@@ -2,6 +2,7 @@ import {Injectable, Inject, Optional, OnDestroy} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {share} from 'rxjs/operators';
+import {Layout} from '../../core/theme/settings.service';
 // import { ALAIN_I18N_TOKEN, AlainI18NService } from '../i18n/i18n';
 // import { ACLService } from '@delon/acl';
 
@@ -37,13 +38,13 @@ export interface MenuData {
     /** 是否允许复用，需配合 `reuse-tab` 组件 */
     reuse?: boolean;
     /** 二级菜单 */
-    children?: Menu[];
+    children?: MenuData[];
 
     [key: string]: any;
 }
 
 
-export interface Menu {
+export class Menu {
     /** 文本 */
     text: string;
     /** i18n主键 */
@@ -105,14 +106,24 @@ export interface Menu {
     _depth?: number;
 
     [key: string]: any;
+
+    setOpenState(value: boolean) {
+        if (!value && this.children) {
+            this.children.forEach((item: Menu) => {
+                item.setOpenState(value);
+            });
+        }
+
+        this._open = value;
+    }
 }
 
 @Injectable()
 export class MenuService implements OnDestroy {
 
-    private _change$: BehaviorSubject<Menu[]> = new BehaviorSubject<Menu[]>([]);
-    private _root: Menu = {text: 'root', children: [], _depth: -1};
-    private _shortcut: Menu = {text: '快捷菜单1', _depth: 0, children: []};
+    private _change$: BehaviorSubject<MenuData[]> = new BehaviorSubject<MenuData[]>([]);
+    private _root: Menu = Object.assign(new Menu(), {text: 'root', children: [], _depth: -1});
+    private _shortcut: Menu = Object.assign(new Menu(), {text: '快捷菜单1', _depth: 0, children: []});
 
     private data: MenuData[] = [];
     // private root: Menu = {text: 'root', _depth: -1};
@@ -122,14 +133,15 @@ export class MenuService implements OnDestroy {
         // @Optional() private aclService: ACLService
     ) {
         console.log('MenuService create...');
+        this._root.setOpenState(false);
     }
 
-    get change(): Observable<Menu[]> {
+    get change(): Observable<MenuData[]> {
         return this._change$.pipe(share());
     }
 
-    visit(callback: (item: Menu, parentMenum: Menu, depth?: number) => void) {
-        const inFn = (list: Menu[], parentMenu: Menu, depth: number) => {
+    visit(callback: (item: MenuData, parentMenum: MenuData, depth?: number) => void) {
+        const inFn = (list: MenuData[], parentMenu: MenuData, depth: number) => {
             for (const item of list) {
                 callback(item, parentMenu, depth);
                 if (item.children && item.children.length > 0) {
@@ -143,7 +155,7 @@ export class MenuService implements OnDestroy {
         inFn(this.data, null, 0);
     }
 
-    add(items: Menu[]) {
+    add(items: MenuData[]) {
         this.data.push(...items);
         this.resume();
     }
@@ -214,7 +226,7 @@ export class MenuService implements OnDestroy {
 
     inFn1(list: MenuData[], parentMenu: Menu, depth: number) {
         for (const item of list) {
-            const menuItem: Menu = {
+            const menuItem: Menu = Object.assign(new Menu(), {
                 text: item.text,
                 group: item.group ? item.group : false,
                 link: item.link ? item.link : '',
@@ -232,7 +244,7 @@ export class MenuService implements OnDestroy {
                 badge_dot: item.badge ? item.badge_dot : false,
                 badge_status: item.badge && item.badge_status ? item.badge_status : 'error',
                 children: []
-            };
+            });
 
             /**
              * 菜单类型，无须指定由 Service 自动识别
@@ -283,15 +295,15 @@ export class MenuService implements OnDestroy {
 
     resume() {
         // this.removeShortcut();
-        this._root = {text: 'root', children: [], _depth: -1};
-        this._shortcut = {text: '快捷菜单1', _depth: 0, children: []};
+        this._root = Object.assign(new Menu(), {text: 'root', children: [], _depth: -1});
+        this._shortcut = Object.assign(new Menu(), {text: '快捷菜单1', _depth: 0, children: []});
         this._root.children.push(this._shortcut);
         this.inFn1(this.data, this._root, 0);
 
         // 快捷菜单的深度序号重排
         const shortcutChilds = [];
         this._shortcut.children.forEach((item: Menu) => {
-                const temp = Object.assign({}, item);
+                const temp = Object.assign(new Menu(), item);
                 shortcutChilds.push(temp);
                 temp.__parent = this._shortcut;
             }
@@ -395,15 +407,15 @@ export class MenuService implements OnDestroy {
      * 根据url获取菜单列表
      * @param url
      */
-    getPathByUrl(url: string): Menu[] {
-        let item: Menu = null;
+    getPathByUrl(url: string): MenuData[] {
+        let item: MenuData = null;
         this.visit((i, parent, depth) => {
             if (i.link === url) {
                 item = i;
             }
         });
 
-        const ret: Menu[] = [];
+        const ret: MenuData[] = [];
         if (!item) {
             return ret;
         }

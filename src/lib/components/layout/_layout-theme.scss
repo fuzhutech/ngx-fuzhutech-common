@@ -11,6 +11,11 @@
         color: mat-color($foreground, text);
         background-color: $site-container-background-color;
     }
+
+    .sidebarContainer{
+        // background: mat-color($background, 'app-bar');
+        background: mat-color($background, 'disabled-list-option');
+    }
 }
 
 @mixin fz-layout-typography($config) {

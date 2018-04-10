@@ -5,98 +5,73 @@
 @mixin fz-sidebar-theme($theme) {
     $background: map-get($theme, background);
     $foreground: map-get($theme, foreground);
+    $accent: map-get($theme, accent);
 
-    .main-nav {
-        background: mat-color($background, 'card');
+    .nav-bar {
+        //background: mat-color($background, 'app-bar');
+        //background: mat-color($background, 'disabled-list-option');
     }
 
+    .main-nav-item {
+        // background: mat-color($background, 'card');
+    }
+
+    /**fz-side-nav-item*/
     .nav-item-open {
-        //background-color: #fcfcfc;
         background: mat-color($background, 'selected-button');
     }
 
+    .nav-submenu-open {
+        color: mat-color($accent, 0.5);
+    }
+
+    .nav-sub-title {
+        //
+    }
+
+    .nav-group:hover,
+    .nav-group:focus {
+        &:not([disabled]) {
+            background: mat-color($background, 'hover');
+        }
+    }
+
     .nav-link {
-        //color: rgba(0, 0, 0, .65);
         color: mat-color($foreground, 'text');
-        &:hover {
-            color: #108ee9;
+        &:hover:not([disabled]), &:focus:not([disabled]) {
+            background: mat-color($background, 'hover');
         }
     }
 
     .nav-item-selected {
         border-right: 3px solid #108ee9;
-        background: rgba(0, 0, 0, .04);
-        a {
-            color: #108ee9;
-        }
-    }
-
-    .nav-group {
-        &:hover {
-            color: #108ee9;
-        }
-    }
-
-    .nav-submenu-open {
-        &:hover {
-            color: #108ee9;
-        }
-    }
-
-    .nav-sub-title {
-        &:hover {
-            color: #108ee9;
-        }
-    }
-
-    .nav-link:focus:not([disabled]), .nav-link:hover:not([disabled]) {
-        //background: rgba(0, 0, 0, .04)
-        background: mat-color($background, 'hover');
-    }
-
-    .nav-group:focus:not([disabled]), .nav-group:hover:not([disabled]) {
-        // background: rgba(0, 0, 0, .04)
-        background: mat-color($background, 'hover');
-    }
-
-    .mat-menu-panel {
-        background: mat-color($background, 'card');
-    }
-
-    .mat-menu-item {
-        background: transparent;
-        color: mat-color($foreground, 'text');
-
-        &[disabled] {
-            color: mat-color($foreground, 'disabled');
-        }
-    }
-
-    .mat-menu-item .mat-icon:not([color]),
-    .mat-menu-item-submenu-trigger::after {
-        color: mat-color($foreground, 'icon');
-    }
-
-    .mat-menu-item:hover,
-    .mat-menu-item:focus,
-    .mat-menu-item-highlighted {
-        &:not([disabled]) {
-            background: mat-color($background, 'hover');
-        }
+        background: mat-color($background, 'selected-button');
+        color: mat-color($accent, 0.5);
     }
 }
 
 @mixin fz-sidebar-typography($config) {
-    .mat-menu-item {
-        font: {
-            family: mat-font-family($config, subheading-2);
-            size: mat-font-size($config, subheading-2);
-            weight: mat-font-weight($config, subheading-2);
-        }
+    .nav-bar {
+        font-size: mat-font-size($config, 'button');
     }
 
-    .nav-bar {
-        //font-size: 14px;
-        font-size: mat-font-size($config, subheading-2)
-    }
 }
+
+/**
+$mat-light-theme-foreground: (
+  base:              black,
+  divider:           $dark-dividers,
+  dividers:          $dark-dividers,
+  disabled:          $dark-disabled-text,
+  disabled-button:   rgba(black, 0.26),
+  disabled-text:     $dark-disabled-text,
+  hint-text:         $dark-disabled-text,
+  secondary-text:    $dark-secondary-text,
+  icon:              rgba(black, 0.54),
+  icons:             rgba(black, 0.54),
+  text:              rgba(black, 0.87),
+  slider-min:        rgba(black, 0.87),
+  slider-off:        rgba(black, 0.26),
+  slider-off-active: rgba(black, 0.38),
+);
+ */

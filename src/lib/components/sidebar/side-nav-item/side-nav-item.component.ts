@@ -5,16 +5,16 @@ import {Menu} from '../../reuse-tab/menu.service';
     selector: 'fz-side-nav-item',
     templateUrl: './side-nav-item.component.html',
     styleUrls: ['./side-nav-item.component.scss'],
-    /*host: {
+    host: {
         '[class.nav-item-open]': 'item._open'
-    }*/
+    }
 })
 export class SideNavItemComponent implements OnInit {
 
     @Input() item: Menu;
     @Output() select = new EventEmitter<any>();
 
-    @HostBinding('class.nav-item-open') itemOpen: boolean;
+    // @HostBinding('class.nav-item-open') itemOpen: boolean = this.item._open;
 
     constructor() {
     }
@@ -29,6 +29,7 @@ export class SideNavItemComponent implements OnInit {
             pItem.children.forEach((child: Menu) => {
                 if (child !== this.item) {
                     child._open = false;
+                    child.setOpenState(false);
                 }
             });
         }
@@ -39,7 +40,7 @@ export class SideNavItemComponent implements OnInit {
         }*/
 
         item._open = !item._open;
-        this.itemOpen = item._open;
+        // this.itemOpen = item._open;
     }
 
     onSelectClick(item: Menu) {
