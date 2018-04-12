@@ -33,12 +33,14 @@ import {FzLayoutModule} from '../lib/components/layout/layout.module';
 import {FzFooterModule} from '../lib/components/footer/footer.module';
 import {FzHeaderModule} from '../lib/components/header/header.module';
 import { AboutComponent } from './about/about.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         ComponentList,
-        AboutComponent
+        AboutComponent,
+        LoaderComponent
     ],
     imports: [
         BrowserModule,

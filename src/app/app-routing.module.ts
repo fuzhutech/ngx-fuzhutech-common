@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {FzDemoOverplayPanelModule} from './showcase/fz-demo-overplay-panel/fz-demo-overplay-panel.module';
 import {AboutComponent} from './about/about.component';
+import {LoaderComponent} from './loader/loader.component';
 
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -15,6 +16,11 @@ const routes: Routes = [
         path: 'about',
         component: AboutComponent,
         data: {title: '关于', module: 'about', power: 'SHOW', layout: 'tab', sidebar: 'none', state: 'about'}
+    },
+    {
+        path: 'loader',
+        component: LoaderComponent,
+        data: {title: '加载效果', module: 'loader', power: 'SHOW', layout: 'tab', sidebar: 'none', state: 'loader'}
     },
     {path: 'login', loadChildren: './login/login.module#LoginModule', data: {title: '登录', module: 'login', power: 'SHOW', layout: 'full'}},
     {

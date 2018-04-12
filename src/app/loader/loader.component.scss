@@ -1,0 +1,27 @@
+.inner {
+    width: 960px;
+    margin: 0 auto;
+}
+
+.load-container {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 240px;
+    height: 240px;
+    float: left;
+    position: relative;
+    overflow: hidden;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    background: #0dc5c1;
+    color: #FFF;
+}
+
+@import '../../lib/core/theming/loaders/load1';
+@import '../../lib/core/theming/loaders/load2';
+@import '../../lib/core/theming/loaders/load3';
+@import '../../lib/core/theming/loaders/load4';
+@import '../../lib/core/theming/loaders/load5';
+@import '../../lib/core/theming/loaders/load6';
+@import '../../lib/core/theming/loaders/load7';
+@import '../../lib/core/theming/loaders/load8';
