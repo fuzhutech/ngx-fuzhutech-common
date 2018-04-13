@@ -42,7 +42,11 @@ export const routeAnimation: AnimationTriggerMetadata =
             animate('0.5s ease-in-out')
         ]),*/
         transition('* => *', [
-            query(':leave', style({transform: 'translateX(0)', position: 'absolute'}), {optional: true}),
+            // query(':leave', style({transform: 'translateX(0)'/*, position: 'absolute'*/}), {optional: true}),  // translate不起作用
+            // query(':leave', style({transform: 'translateX(0)', position: 'fixed'}), {optional: true}),  // 起作用
+            query(':leave', style({transform: 'translateX(0)', position: 'absolute'}), {optional: true}), // 起作用
+            // query(':leave', style({transform: 'translateX(0)', position: 'relative'}), {optional: true}), // 起作用
+            // query(':leave', style({transform: 'translateX(0)', position: 'static'}), {optional: true}), // 不起作用
             query(':enter', style({transform: 'translateX(100%)', position: 'absolute'}), {optional: true}),
 
             group([

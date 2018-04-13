@@ -1,16 +1,18 @@
 .inner {
     width: 960px;
     margin: 0 auto;
+
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .load-container {
     border: 1px solid rgba(255, 255, 255, 0.2);
     width: 240px;
     height: 240px;
-    float: left;
+    //float: left;
     position: relative;
     overflow: hidden;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
 
     background: #0dc5c1;
