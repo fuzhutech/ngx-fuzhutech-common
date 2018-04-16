@@ -156,7 +156,8 @@ export class MenuService implements OnDestroy {
     }
 
     add(items: MenuData[]) {
-        this.data.push(...items);
+        // this.data.push(...items);
+        this.data = items;
         this.resume();
     }
 

@@ -88,10 +88,10 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     private gen(url?: string) {
-        console.log('gen', url);
         if (!url) {
             url = this.srv.getUrl(this.route.snapshot);
         }
+        console.log('gen', url);
         const ls = [...this.srv.items].map((item: ReuseTabCached, index: number) => {
             return {
                 url: item.url,
@@ -175,6 +175,7 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
         this.sub$ = <any>combineLatest(this.srv.change, route$).pipe(
             debounceTime(200)
         ).subscribe(([res]: [any]) => {
+            console.log(res);
             let nextUrl = this.router.url;
             if (res && res.active === 'remove' && res.url) {
                 nextUrl = this.removeByUrl(res.url);
@@ -182,10 +183,11 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
                     return;
                 }
             }
+            console.log('combineLatest(this.srv.change, route$)  gen');
             this.gen(nextUrl);
         });
 
-        const title$ = this.srv.change.pipe(
+        /*const title$ = this.srv.change.pipe(
             filter(w => w && w.active === 'title'),
             first()
         ).subscribe(res => {
@@ -193,7 +195,8 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
             title$.unsubscribe();
         });
 
-        this.gen();
+        console.log('ngOnInit  gen');
+        this.gen();*/
     }
 
     ngOnChanges(changes: { [P in keyof this]?: SimpleChange } & SimpleChanges): void {

@@ -8,7 +8,7 @@ const routes: Routes = [
     {
         path: 'inputs',
         component: InputsComponent,
-        data: {title: 'inputs', module: 'inputs', power: 'SHOW', tab: 'none'},
+        data: {title: 'inputs', module: 'inputs', power: 'SHOW'},
     },
     {
         path: 'layouts',

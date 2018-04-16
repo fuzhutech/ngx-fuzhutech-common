@@ -68,8 +68,13 @@ export class LayoutComponent implements OnInit {
     @ViewChild('sidebarContainerElement') sidebarContainerElement: ElementRef;
     @ViewChild('tabContainerElement') tabContainerElement: ElementRef;
 
-    moduleList: Array<{ module: string, isSelect: boolean }> = [];
+    moduleList: Array<{ module: string, isSelect: boolean, menuData: MenuData[] }> = [];
     selectModule = {module: '', power: '', isSelect: true};
+    moduleDefiniens = [
+        {path: '/showcase/', name: 'showcase', desc: '示例'},
+        {path: '/pages/', name: 'pages', desc: '页面'},
+        {path: '/', name: 'home', desc: '默认主页面'}
+    ];
 
     constructor(private router: Router,
                 private activatedRoute: ActivatedRoute,
@@ -94,15 +99,42 @@ export class LayoutComponent implements OnInit {
             .do((event: NavigationEnd) => {
                 // console.log(event);
                 const url = event.urlAfterRedirects;
-                const exitModule = this.moduleList.find(module => url.startsWith(module.module));
-                if (exitModule) {
-                    this.moduleList.forEach(module => module.isSelect = url.startsWith(module.module));
+                // 根据path获取module信息
+                const path = url + '/';
+                let temp = this.moduleDefiniens.find(defin => url.startsWith(defin.path));
+                if (temp) {
+                    //
                 } else {
-                    const index = url.indexOf('/', 1);
-                    // console.log(index, url.substring(0, index));
-                    const module = {module: url.substring(0, index), isSelect: true};
-                    this.moduleList.push(module);
+                    // 默认module
+                    temp = {path: '/', name: 'home', desc: '默认主页面'};
+                }
+
+                // console.log('模块信息:', temp);
+
+                // 是否已经展示过该module
+                const exitModule = this.moduleList.find(module => module.module === temp.path);
+                if (exitModule) {
+                    // console.log('存在模块缓存:', exitModule.module);
+                    this.moduleList.forEach(module => module.isSelect = url.startsWith(module.module));
+                    if (exitModule.menuData) {
+                        this.menuService.add(exitModule.menuData);
+                    } else {
+                        // 加载模块菜单信息
+                        const menuData = this.loadMenuData(temp.path);
+                        exitModule.menuData = menuData;
+                        this.menuService.add(menuData);
+                    }
+                } else {
+                    // console.log('不存在模块缓存:', temp.path);
                     // 加载模块相关信息
+                    const module = this.loadModuleData(temp.path);
+
+                    // 刷新菜单
+                    const menuData = module.menuData;
+                    this.menuService.add(menuData);
+
+                    // console.log(module);
+                    this.moduleList.push(module);
                 }
             })
             .map(() => this.activatedRoute)
@@ -138,6 +170,24 @@ export class LayoutComponent implements OnInit {
                 const tab = routeData['tab'];
                 this._tab = tab ? tab : 'top';
             });
+    }
+
+    private loadMenuData(path: string): MenuData[] {
+        switch (path) {
+            case '/showcase/':
+                return appMenuData.menu;
+            case '/pages/':
+                return pagesMenuData.menu;
+            case '/':
+                return [];
+            default:
+                return [];
+        }
+    }
+
+
+    private loadModuleData(path: string): { module: string, isSelect: boolean, menuData: MenuData[] } {
+        return {module: path, isSelect: true, menuData: this.loadMenuData(path)};
     }
 
     get contentContainerStyle() {
