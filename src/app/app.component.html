@@ -1,4 +1,4 @@
-<!--fz-layout [sidebarOpen]="_sidebarOpen">
+<fz-layout [sidebarOpen]="_sidebarOpen">
     <header>
         <fz-app-header (toggle)="toggleSidebar()" (toggleDarkTheme)="switchTheme($event)"></fz-app-header>
     </header>
@@ -7,40 +7,4 @@
         <fz-footer></fz-footer>
     </footer>
 
-</fz-layout-->
-
-<script src="app.component.ts"></script>
-<nav>
-    <a routerLink="/home" routerLinkActive="active">Home</a>
-    <a routerLink="/about" routerLinkActive="active">About</a>
-    <a routerLink="/loader" routerLinkActive="active">Loader</a>
-</nav>
-<main>
-    <!--div [@routerTransition]="getState(o)">
-        <router-outlet #o="outlet"></router-outlet>
-    </div-->
-
-    <div [@routeAnimation]="routerStateCode">
-        <router-outlet></router-outlet>
-    </div>
-
-    <div style="height: 200px">
-
-    </div>
-
-
-    <div [@flyIn] style="height: 200px">
-        <p style="height: 40px; line-height: 40px; background: pink;">
-            动画
-        </p>
-    </div>
-
-
-    <div [@queryAnimation]="goAnimate()">
-        <h1>Title</h1>
-        <div class="content">
-            Blah blah blah
-        </div>
-    </div>
-</main>
-
+</fz-layout>

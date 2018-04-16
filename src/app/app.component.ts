@@ -17,36 +17,14 @@ import {routeAnimation, routerFlyIn, routerTransition} from '../lib/core/animati
 @Component({
     selector: 'fz-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
+    styleUrls: ['./app.component.scss']
     /*host: {
         '[class]': 'myapp-light-theme'
     }*/
-    animations: [
-        trigger('queryAnimation', [
-            transition('* => *', [
-                query('h1', style({opacity: 0, color: 'red'})),
-                query('.content', style({opacity: 0, color: 'green', width: '100px', height: '100px', border: '1px solid red'})),
-                query('h1', animate(1000, style({opacity: 1, color: ' blue'}))),
-                query('.content', animate(1000, style({opacity: 1, width: '50px', height: '100px', border: '10px solid green'})),
-                    {optional: true}),
-            ]),
-            transition(':leave', [
-                style({color: 'pink'}),
-                animate(2000)
-            ])
-        ]),
-        routerTransition,
-        routerFlyIn,
-        routeAnimation
-    ]
 })
 export class AppComponent implements OnInit, AfterViewInit {
     darkTheme = false;
     _sidebarOpen = true;
-
-    // router跳转动画所需参数
-    routerState = true;
-    routerStateCode = 'active';
 
     // @HostBinding('class') componentCssClass = 'myapp-light-theme';
 
@@ -57,15 +35,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
         // this.menuService.add(appData.menu as Menu[]);
         this.switchTheme(false);
-
-
-        this.router.events.subscribe(event => {
-            if (event instanceof NavigationEnd) {
-                // 每次路由跳转改变状态
-                this.routerState = !this.routerState;
-                this.routerStateCode = this.routerState ? 'active' : 'inactive';
-            }
-        });
     }
 
     ngOnInit() {
@@ -118,14 +87,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     toggleSidebar() {
         this._sidebarOpen = !this._sidebarOpen;
-    }
-
-    goAnimate() {
-        return true;
-    }
-
-    getState(outlet) {
-        return outlet.activatedRouteData.state;
     }
 
 }
