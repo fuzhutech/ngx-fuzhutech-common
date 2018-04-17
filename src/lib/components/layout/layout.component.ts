@@ -69,7 +69,7 @@ export class LayoutComponent implements OnInit {
     @ViewChild('tabContainerElement') tabContainerElement: ElementRef;
 
     moduleList: Array<{ module: string, isSelect: boolean, menuData: MenuData[] }> = [];
-    selectModule = {module: '', power: '', isSelect: true};
+    selectModule: { module: string, isSelect: boolean, menuData: MenuData[] };
     moduleDefiniens = [
         {path: '/showcase/', name: 'showcase', desc: '示例'},
         {path: '/pages/', name: 'pages', desc: '页面'},
@@ -97,45 +97,7 @@ export class LayoutComponent implements OnInit {
         this.router.events
             .filter(event => event instanceof NavigationEnd)
             .do((event: NavigationEnd) => {
-                // console.log(event);
-                const url = event.urlAfterRedirects;
-                // 根据path获取module信息
-                const path = url + '/';
-                let temp = this.moduleDefiniens.find(defin => url.startsWith(defin.path));
-                if (temp) {
-                    //
-                } else {
-                    // 默认module
-                    temp = {path: '/', name: 'home', desc: '默认主页面'};
-                }
-
-                // console.log('模块信息:', temp);
-
-                // 是否已经展示过该module
-                const exitModule = this.moduleList.find(module => module.module === temp.path);
-                if (exitModule) {
-                    // console.log('存在模块缓存:', exitModule.module);
-                    this.moduleList.forEach(module => module.isSelect = url.startsWith(module.module));
-                    if (exitModule.menuData) {
-                        this.menuService.add(exitModule.menuData);
-                    } else {
-                        // 加载模块菜单信息
-                        const menuData = this.loadMenuData(temp.path);
-                        exitModule.menuData = menuData;
-                        this.menuService.add(menuData);
-                    }
-                } else {
-                    // console.log('不存在模块缓存:', temp.path);
-                    // 加载模块相关信息
-                    const module = this.loadModuleData(temp.path);
-
-                    // 刷新菜单
-                    const menuData = module.menuData;
-                    this.menuService.add(menuData);
-
-                    // console.log(module);
-                    this.moduleList.push(module);
-                }
+                this.setModule(event.urlAfterRedirects);
             })
             .map(() => this.activatedRoute)
             .map(route => {
@@ -169,7 +131,52 @@ export class LayoutComponent implements OnInit {
                 // tab: none, top, right,left,bottom
                 const tab = routeData['tab'];
                 this._tab = tab ? tab : 'top';
+                console.log('this._tab:', this._tab);
             });
+    }
+
+    private setModule(url: string): void {
+        // 根据path获取module信息
+        const path = url + '/';
+        let temp = this.moduleDefiniens.find(defin => url.startsWith(defin.path));
+        if (!temp) {
+            // 默认module
+            temp = {path: '/', name: 'home', desc: '默认主页面'};
+        }
+        // console.log('模块信息:', temp);
+
+        // 是否为当前选择模块
+        if (this.selectModule && this.selectModule.module === temp.path) {
+            return;
+        }
+
+        // 是否已经展示过该module
+        const exitModule = this.moduleList.find(module => module.module === temp.path);
+        if (exitModule) {
+            // console.log('存在模块缓存:', exitModule.module);
+            this.moduleList.forEach(module => module.isSelect = url.startsWith(module.module));
+            if (exitModule.menuData) {
+                this.menuService.add(exitModule.menuData);
+            } else {
+                // 加载模块菜单信息
+                const menuData = this.loadMenuData(temp.path);
+                exitModule.menuData = menuData;
+                this.menuService.add(menuData);
+            }
+            this.selectModule = exitModule;
+        } else {
+            // console.log('不存在模块缓存:', temp.path);
+            // 加载模块相关信息
+            const module = this.loadModuleData(temp.path);
+
+            // 刷新菜单
+            const menuData = module.menuData;
+            this.menuService.add(menuData);
+
+            // console.log(module);
+            this.moduleList.push(module);
+            this.selectModule = module;
+        }
     }
 
     private loadMenuData(path: string): MenuData[] {

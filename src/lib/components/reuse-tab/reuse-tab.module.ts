@@ -4,7 +4,6 @@ import {RouterModule, RouteReuseStrategy} from '@angular/router';
 
 import {ReuseTabComponent} from './reuse-tab.component';
 import {ReuseTabService} from './reuse-tab.service';
-import {ReuseTabStrategy} from './reuse-tab.strategy';
 
 const COMPONENTS = [ReuseTabComponent];
 
@@ -50,9 +49,7 @@ export class FzReuseTabModule {
         return {
             ngModule: FzReuseTabModule,
             providers: [
-                // MenuService,
-                ReuseTabService,
-                // {provide: RouteReuseStrategy, useClass: ReuseTabStrategy, deps: [ReuseTabService]}
+                ReuseTabService
             ]
         };
     }

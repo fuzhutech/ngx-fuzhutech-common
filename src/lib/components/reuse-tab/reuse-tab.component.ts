@@ -1,14 +1,9 @@
 import {
     Component,
     Input,
-    Output,
-    OnChanges,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
-    EventEmitter,
     OnInit,
-    SimpleChanges,
-    SimpleChange,
     OnDestroy,
     ElementRef,
     Renderer2,
@@ -17,12 +12,10 @@ import {
 import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
 import {DOCUMENT} from '@angular/common';
 import {Subscription} from 'rxjs/Subscription';
-import {combineLatest} from 'rxjs/observable/combineLatest';
-import {filter, debounceTime, take, first} from 'rxjs/operators';
-import {coerceNumberProperty, coerceBooleanProperty} from '@angular/cdk/coercion';
+import {coerceNumberProperty} from '@angular/cdk/coercion';
 import {ReuseTabService} from './reuse-tab.service';
-import {ReuseTabCached, ReuseTabNotify, ReuseTabMatchMode} from './interface';
-import {Menu} from '../../core/layout/menu.service';
+import {Menu, MenuService} from '../../core/layout/menu.service';
+import {MatTabChangeEvent} from '@angular/material';
 
 
 @Component({
@@ -31,54 +24,31 @@ import {Menu} from '../../core/layout/menu.service';
     styleUrls: ['./reuse-tab.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
+export class ReuseTabComponent implements OnInit, OnDestroy {
 
-    _menuList: Menu[] = [];
+    private _menuList: Menu[] = [];
     @Input() set menuList(value) {
+        console.log('set menuList');
         this._menuList = value;
         if (this.srv) {
             this.srv.menuList = value;
         }
     }
 
-    get menuList() {
-        return this._menuList;
-    }
-
-    private sub$: Subscription;
-    tabList: { url: string, title: string, [key: string]: any }[] = [];
-    selectedIndex = 0;
-
-    /** 允许最多复用多少个页面 */
+    private _max: number;
     @Input()
-    get max() {
-        return this._max;
-    }
-
     set max(value: any) {
         this._max = coerceNumberProperty(value);
     }
 
-    private _max: number;
+    // _tabList: { url: string, title: string, [key: string]: any }[] = [];
+    _tabList: { url: string, title: string, reuse: boolean, isSelected: boolean }[] = [];
+    _selectedIndex = 0;
 
-    /** 允许关闭 */
-    @Input()
-    get allowClose() {
-        return this._allowClose;
-    }
-
-    set allowClose(value: any) {
-        this._allowClose = coerceBooleanProperty(value);
-    }
-
-    private _allowClose = true;
-
-    /** 切换时回调 */
-    @Output() change: EventEmitter<any> = new EventEmitter<any>();
-    /** 关闭回调 */
-    @Output() close: EventEmitter<any> = new EventEmitter<any>();
+    private sub$: Subscription;
 
     constructor(public srv: ReuseTabService,
+                private menuService: MenuService,
                 private cd: ChangeDetectorRef,
                 private router: Router,
                 private route: ActivatedRoute,
@@ -87,124 +57,28 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
                 @Inject(DOCUMENT) private doc: any) {
     }
 
-    private gen(url?: string) {
-        if (!url) {
-            url = this.srv.getUrl(this.route.snapshot);
-        }
-        console.log('gen', url);
-        const ls = [...this.srv.items].map((item: ReuseTabCached, index: number) => {
-            return {
-                url: item.url,
-                title: item.customTitle || item.title,
-                index
-            };
-        });
-
-        const idx = ls.findIndex(w => w.url === url);
-        if (idx !== -1) {
-            this.selectedIndex = idx;
-        } else {
-            ls.push({
-                url,
-                title: this.srv.getTitle(url, this.srv.getTruthRoute(this.route.snapshot)),
-                index: -1
-            });
-            this.selectedIndex = ls.length;
-        }
-
-        this.tabList = ls;
-        this.cd.markForCheck();
-    }
-
-    handleSelection(event) {
-        console.log(event);
-        const item = this.tabList[event.index];
-        if (!item || !item.url) {
-            return;
-        }
-        this.router.navigateByUrl(item.url);
-        this.change.emit(item);
-    }
-
-    private removeByUrl(url: string): string {
-        const removeIdx = this.tabList.findIndex(w => w.url === url);
-        if (removeIdx === -1) {
-            return null;
-        }
-
-        this.remove(removeIdx);
-        return this.tabList[Math.min(removeIdx, this.tabList.length - 1)].url;
-    }
-
-    remove(idx: number) {
-        const item = this.tabList[idx];
-        if (!this.srv._remove(item)) {
-            return false;
-        }
-
-        this.tabList.splice(idx, 1);
-
-        this.cd.markForCheck();
-
-        this.close.emit(item);
-    }
-
-    removeOther(idx: number) {
-        this.tabList = [this.tabList.find(w => w.url === this.router.url)];
-        this.srv.clear();
-        this.close.emit(null);
-    }
-
-    removeAll(idx: number) {
-        this.tabList = [];
-        this.srv.clear();
-        this.close.emit(null);
-    }
-
-    clear() {
-        this.tabList = [this.tabList.find(w => w.url === this.router.url)];
-        this.srv.clear();
-        this.close.emit(null);
-    }
-
     ngOnInit(): void {
 
-        const route$ = this.router.events.pipe(
-            filter(evt => evt instanceof NavigationEnd)
-        );
-        this.sub$ = <any>combineLatest(this.srv.change, route$).pipe(
-            debounceTime(200)
-        ).subscribe(([res]: [any]) => {
-            console.log(res);
-            let nextUrl = this.router.url;
-            if (res && res.active === 'remove' && res.url) {
-                nextUrl = this.removeByUrl(res.url);
-                if (nextUrl === null) {
-                    return;
+        // 模块菜单数据变化
+        // todo: 后期要不要更改为监控ModuleService.change
+        this.menuService.change
+            .subscribe(
+                (value: Menu[]) => {
+                    console.log('menuService.change');
+                    this.clear();
                 }
-            }
-            console.log('combineLatest(this.srv.change, route$)  gen');
-            this.gen(nextUrl);
-        });
+            );
 
-        /*const title$ = this.srv.change.pipe(
-            filter(w => w && w.active === 'title'),
-            first()
-        ).subscribe(res => {
-            this.gen(this.router.url);
-            title$.unsubscribe();
-        });
-
-        console.log('ngOnInit  gen');
-        this.gen();*/
-    }
-
-    ngOnChanges(changes: { [P in keyof this]?: SimpleChange } & SimpleChanges): void {
-        if (changes.max) {
-            this.srv.max = this.max;
-        }
-
-        this.cd.markForCheck();
+        // 路由变化
+        this.router.events
+            .filter(event => event instanceof NavigationEnd)
+            .subscribe((value: NavigationEnd) => {
+                // todo: 判断是否需要生成导航标签
+                const nextUrl = this.router.url;
+                const url = value.urlAfterRedirects;
+                console.log(nextUrl, url);
+                this.setSelectedTab(url);
+            });
     }
 
     ngOnDestroy(): void {
@@ -212,4 +86,85 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
             this.sub$.unsubscribe();
         }
     }
+
+    handleSelection(event: MatTabChangeEvent) {
+        const item = this._tabList[event.index];
+        if (item && (!item.isSelected) && item.url) {
+            console.log(event);
+            this.router.navigateByUrl(item.url);
+        }
+    }
+
+    handleRemove(idx: number) {
+        const item = this._tabList[idx];
+        if (!this.srv.remove(item.url)) {
+            return false;
+        }
+        const newTabList = this._tabList.filter((value, index) =>
+            index !== idx
+            )
+        ;
+        let indexToSelect = this._selectedIndex;
+        if (idx < this._selectedIndex) {
+            // 选择标签index往前移动一位，但页面url没变
+            indexToSelect = this._selectedIndex - 1;
+        } else if (idx === this._selectedIndex) {
+            // 关闭当前页面
+
+            if (idx === this._tabList.length - 1) {  // 关闭最后一页，默认选择前一页,url改变
+                if (this._tabList.length > 1) {
+                    indexToSelect = idx - 1;
+                } else {
+                    // 关闭仅有的一页
+                    // this._tabList.length > 1
+                }
+            }
+            if (idx < this._tabList.length - 1) {  // 非最后一页，选择后一页,url改变
+                indexToSelect = idx;
+            }
+
+            // 改变url页面
+        }
+
+        this._tabList.splice(idx, 1);
+        this._selectedIndex = indexToSelect;
+        this.cd.markForCheck();
+    }
+
+    handleRemoveOther(idx: number) {
+        this._tabList = [this._tabList.find(w => w.url === this.router.url)];
+        this.srv.clear();
+    }
+
+    handleRemoveAll(idx: number) {
+        this.clear();
+    }
+
+    private clear() {
+        // this._tabList = [this._tabList.find(w => w.url === this.router.url)];
+        this._tabList = [];
+        this.srv.clear();
+    }
+
+    private setSelectedTab(url: string) {
+        const newTabList = this._tabList.filter(item => item.reuse === true);
+        let index = newTabList.findIndex(w => w.url === url);
+        this._tabList.forEach(tab => {
+            tab.isSelected = false;
+        });
+        if (index === -1) {
+            const info = this.srv.getTabInfo(url, ReuseTabService.getTruthRoute(this.route.snapshot));
+            const item = {url: url, title: info.title, reuse: info.reuse, isSelected: true};
+            newTabList.push(item);
+            index = newTabList.length - 1;
+        } else {
+            this._tabList[index].isSelected = true;
+        }
+        this._tabList = newTabList;
+        this._selectedIndex = index;
+
+        this.cd.markForCheck();
+    }
+
+
 }
