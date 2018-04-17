@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {TitleService} from '../../lib/components/reuse-tab/title.service';
+import {TitleService} from '../../lib/core/layout/title.service';
 import {NavigationEnd, Router} from '@angular/router';
-import {MenuService} from '../../lib/components/reuse-tab/menu.service';
+import {MenuService} from '../../lib/core/layout/menu.service';
 
 @Component({
     selector: 'fz-showcase',

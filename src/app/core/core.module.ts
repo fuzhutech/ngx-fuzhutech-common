@@ -1,6 +1,7 @@
 import {NgModule, SkipSelf, Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
 
 import {MatIconRegistry} from '@angular/material';
 
@@ -39,7 +40,8 @@ import {loadSvgResource} from '../utils/svg.util';
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        // HttpClientModule,
     ],
     declarations: [],
     providers: [

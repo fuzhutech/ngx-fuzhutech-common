@@ -17,23 +17,15 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule, ComponentList} from './app-routing.module';
 import {CoreModule} from './core/core.module';
 import {SharedModule} from './shared/shared.module';
-import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import {FzHighlightModule} from './ngx-fuzhutech-common';
 import {FzPrismModule} from '../lib/core/prism/prism.module';
 import {NgxFuzhutechCommonModule} from '../lib/ngx-fuzhutech-common.module';
-// import {SimpleReuseStrategy} from './domain/simple-reuse-strategy';
-import {FzReuseTabModule} from '../lib/components/reuse-tab/reuse-tab.module';
-import {StartupService} from '../lib/core/theme/startup.service';
-import {FzThemeModule} from '../lib/core/theme/theme.module';
-import {FzSidebarModule} from '../lib/components/sidebar/sidebar.module';
-import {ReuseTabStrategy} from '../lib/components/reuse-tab/reuse-tab.strategy';
-import {RouteReuseStrategy} from '@angular/router';
-import {SimpleReuseStrategy} from './domain/simple-reuse-strategy';
 import {FzLayoutModule} from '../lib/components/layout/layout.module';
 import {FzFooterModule} from '../lib/components/footer/footer.module';
 import {FzHeaderModule} from '../lib/components/header/header.module';
 import { AboutComponent } from './about/about.component';
 import { LoaderComponent } from './loader/loader.component';
+import {StartupService, StartupServiceFactory} from '../lib/core/layout/startup.service';
 
 @NgModule({
     declarations: [
@@ -47,8 +39,6 @@ import { LoaderComponent } from './loader/loader.component';
         BrowserAnimationsModule,
         // RouterModule,
         // ReactiveFormsModule,
-        HttpClientModule,
-        // HttpClientJsonpModule,
         SharedModule,
         CoreModule,
         /**
@@ -114,13 +104,13 @@ import { LoaderComponent } from './loader/loader.component';
         // {provide: RouteReuseStrategy, useClass: ReuseTabStrategy}
         // 最后将策略注册到模块当中
         // {provide: RouteReuseStrategy, useClass: SimpleReuseStrategy}
-        /*StartupService,
+        StartupService,
         {
             provide: APP_INITIALIZER,
             useFactory: StartupServiceFactory,
             deps: [StartupService],
             multi: true
-        }*/
+        }
     ],
     bootstrap: [AppComponent]
 })

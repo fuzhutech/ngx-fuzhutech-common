@@ -19,11 +19,11 @@ import {
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Observable} from 'rxjs/Observable';
 import {fadeAnimation} from '../../core/animation/fade-animations';
 import {DEFAULT_4_POSITIONS, POSITION_MAP} from '../../core/overlay/overlay-position-map';
-import {toBoolean} from '../../util/convert';
+
 
 @Component({
     selector: 'fz-popover',
@@ -53,7 +53,7 @@ export class PopoverComponent {
 
     @Input()
     set nzVisible(value: boolean) {
-        const visible = toBoolean(value);
+        const visible = coerceBooleanProperty(value);
         if (this.visibleSource.value !== visible) {
             this.visibleSource.next(visible);
             this.nzVisibleChange.emit(visible);

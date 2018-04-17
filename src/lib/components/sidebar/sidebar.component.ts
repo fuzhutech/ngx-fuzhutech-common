@@ -3,7 +3,7 @@ import {
     Renderer2, Inject, HostListener, OnDestroy
 } from '@angular/core';
 import {getDate} from 'date-fns';
-import {Menu, MenuService} from '../reuse-tab/menu.service';
+import {Menu, MenuService} from '../../core/layout/menu.service';
 import {Subscription} from 'rxjs/Subscription';
 import {DOCUMENT} from '@angular/common';
 import {NavigationEnd, Router} from '@angular/router';

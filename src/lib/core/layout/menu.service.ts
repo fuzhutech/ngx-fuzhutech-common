@@ -2,7 +2,7 @@ import {Injectable, Inject, Optional, OnDestroy} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {share} from 'rxjs/operators';
-import {Layout} from '../../core/theme/settings.service';
+import {Layout} from './settings.service';
 // import { ALAIN_I18N_TOKEN, AlainI18NService } from '../i18n/i18n';
 // import { ACLService } from '@delon/acl';
 

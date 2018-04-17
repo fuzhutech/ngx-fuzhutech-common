@@ -3,7 +3,6 @@ import {
     ElementRef,
     HostBinding, OnInit, Renderer2,
 } from '@angular/core';
-import {isNotNil} from '../../util/check';
 
 @Directive({
     selector: '[fzCarouselContent]',
@@ -30,7 +29,7 @@ export class CarouselContentDirective implements OnInit {
 
     set left(value: number) {
         this._left = value;
-        if (isNotNil(this.left)) {
+        if (this.left) {
             this.renderer.setStyle(this.el, 'left', `${this.left}px`);
         } else {
             this.renderer.removeStyle(this.el, 'left');
@@ -43,7 +42,7 @@ export class CarouselContentDirective implements OnInit {
 
     set top(value: number) {
         this._top = value;
-        if (isNotNil(this.top)) {
+        if (this.top) {
             this.renderer.setStyle(this.el, 'top', `${this.top}px`);
         } else {
             this.renderer.removeStyle(this.el, 'top');

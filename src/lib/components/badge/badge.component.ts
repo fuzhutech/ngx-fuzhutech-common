@@ -14,8 +14,7 @@ import {
     transition,
     trigger,
 } from '@angular/animations';
-
-import {toBoolean} from '../../util/convert';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 @Component({
     selector: 'fz-badge',
@@ -53,7 +52,7 @@ export class BadgeComponent implements OnInit {
      */
     @Input()
     set showZero(value: boolean) {
-        this._showZero = toBoolean(value);
+        this._showZero = coerceBooleanProperty(value);
     }
 
     get showZero(): boolean {
@@ -66,7 +65,7 @@ export class BadgeComponent implements OnInit {
      */
     @Input()
     set showDot(value: boolean) {
-        this._showDot = toBoolean(value);
+        this._showDot = coerceBooleanProperty(value);
     }
 
     get showDot(): boolean {

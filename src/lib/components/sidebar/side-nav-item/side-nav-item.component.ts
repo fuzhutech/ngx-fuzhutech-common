@@ -1,5 +1,5 @@
 import {Component, EventEmitter, HostBinding, Input, OnInit, Output} from '@angular/core';
-import {Menu} from '../../reuse-tab/menu.service';
+import {Menu} from '../../../core/layout/menu.service';
 
 @Component({
     selector: 'fz-side-nav-item',

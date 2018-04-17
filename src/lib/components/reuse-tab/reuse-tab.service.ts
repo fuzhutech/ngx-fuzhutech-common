@@ -2,7 +2,7 @@ import {Injectable, OnDestroy, Optional, Injector} from '@angular/core';
 import {ActivatedRouteSnapshot, DetachedRouteHandle, ActivatedRoute} from '@angular/router';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
-import {Menu, MenuService} from './menu.service';
+import {Menu, MenuService} from '../../core/layout/menu.service';
 import {ReuseTabCached, ReuseTabMatchMode, ReuseTabNotify} from './interface';
 import {getResponseURL} from '@angular/http/src/http_utils';
 

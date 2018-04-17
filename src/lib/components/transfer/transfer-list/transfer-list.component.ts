@@ -15,7 +15,7 @@ import {
     SimpleChanges,
     TemplateRef
 } from '@angular/core';
-import {toBoolean} from '../../../util/convert';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {TransferItem} from '../item';
 
 @Component({
@@ -39,7 +39,7 @@ export class TransferListComponent implements OnChanges, OnInit, DoCheck {
     // search
     @Input()
     set showSearch(value: boolean) {
-        this._showSearch = toBoolean(value);
+        this._showSearch = coerceBooleanProperty(value);
     }
 
     get showSearch(): boolean {

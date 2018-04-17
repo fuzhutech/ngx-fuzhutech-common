@@ -22,7 +22,7 @@ import {filter, debounceTime, take, first} from 'rxjs/operators';
 import {coerceNumberProperty, coerceBooleanProperty} from '@angular/cdk/coercion';
 import {ReuseTabService} from './reuse-tab.service';
 import {ReuseTabCached, ReuseTabNotify, ReuseTabMatchMode} from './interface';
-import {Menu} from './menu.service';
+import {Menu} from '../../core/layout/menu.service';
 
 
 @Component({

@@ -5,8 +5,9 @@ import {
     Output,
     ViewEncapsulation,
 } from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {fadeAnimation} from '../../core/animation/fade-animations';
-import {toBoolean} from '../../util/convert';
+
 
 @Component({
     selector: 'fz-alert',
@@ -28,7 +29,7 @@ export class AlertComponent {
 
     @Input()
     set showIcon(value: boolean) {
-        this._showIcon = toBoolean(value);
+        this._showIcon = coerceBooleanProperty(value);
     }
 
     get showIcon(): boolean {
@@ -37,7 +38,7 @@ export class AlertComponent {
 
     @Input()
     set closeable(value: boolean) {
-        this._closeable = toBoolean(value);
+        this._closeable = coerceBooleanProperty(value);
     }
 
     get closeable(): boolean {

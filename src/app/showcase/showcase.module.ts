@@ -2,19 +2,8 @@ import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ShowcaseComponent} from './showcase.component';
 import {ShowcaseRoutingModule} from './showcase-routing.module';
-import {FzSidebarModule} from '../../lib/components/sidebar/sidebar.module';
-import {FzReuseTabModule} from '../../lib/components/reuse-tab/reuse-tab.module';
-import {FzThemeModule} from '../../lib/core/theme/theme.module';
-import {CustomRouterStateSerializer} from '../reducers';
-import {StartupService} from '../../lib/core/theme/startup.service';
-import {FzLayoutModule} from '../../lib/components/layout/layout.module';
-import {ReuseTabStrategy} from '../../lib/components/reuse-tab/reuse-tab.strategy';
 import {RouteReuseStrategy} from '@angular/router';
 import {SimpleReuseStrategy} from '../domain/simple-reuse-strategy';
-
-export function StartupServiceFactory(startupService: StartupService): Function {
-    return () => startupService.load();
-}
 
 @NgModule({
     imports: [
@@ -22,8 +11,7 @@ export function StartupServiceFactory(startupService: StartupService): Function 
         ShowcaseRoutingModule,
         // FzReuseTabModule.forRoot(),
         // FzThemeModule,
-        // FzSidebarModule,
-        FzLayoutModule.forRoot({path: 'showcase'})
+        // FzSidebarModule
     ],
     declarations: [ShowcaseComponent],
     providers: [

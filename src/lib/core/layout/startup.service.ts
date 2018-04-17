@@ -3,9 +3,9 @@ import {Injectable, Injector, Inject} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {zip} from 'rxjs/observable/zip';
 import {catchError} from 'rxjs/operators';
-import {Menu, MenuData, MenuService} from '../../components/reuse-tab/menu.service';
+import {Menu, MenuData, MenuService} from './menu.service';
 import {SettingsService} from './settings.service';
-import {TitleService} from '../../components/reuse-tab/title.service';
+import {TitleService} from './title.service';
 
 /**
  * 用于应用启动时
@@ -114,6 +114,11 @@ export class StartupService {
             this.viaMock(resolve, reject);
         });
     }
+}
+
+
+export function StartupServiceFactory(startupService: StartupService): Function {
+    return () => startupService.load();
 }
 
 

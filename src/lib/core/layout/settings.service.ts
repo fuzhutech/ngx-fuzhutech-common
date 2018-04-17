@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ThemeType} from './themes.service';
+import {ThemeType} from '../theme/themes.service';
 
 const KEY = 'layout';
 

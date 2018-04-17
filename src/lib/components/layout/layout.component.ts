@@ -1,8 +1,8 @@
 import {Component, ElementRef, Injectable, Input, OnInit, Optional, ViewChild} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {TitleService} from '../reuse-tab/title.service';
-import {Menu, MenuData, MenuService} from '../reuse-tab/menu.service';
+import {TitleService} from '../../core/layout/title.service';
+import {Menu, MenuData, MenuService} from '../../core/layout/menu.service';
 import {LayoutConfig} from './layout.config';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 

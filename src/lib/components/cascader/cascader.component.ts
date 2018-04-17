@@ -8,6 +8,7 @@ import {
     RIGHT_ARROW,
     UP_ARROW,
 } from '@angular/cdk/keycodes';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {ConnectedOverlayPositionChange, ConnectionPositionPair} from '@angular/cdk/overlay';
 import {
     forwardRef,
@@ -34,7 +35,6 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 const ESC = 27;
 
 import {dropDownAnimation} from '../../core/animation/dropdown-animations';
-import {toBoolean} from '../../util/convert';
 
 // TODO: remove this as used nowhere
 const noop = () => null;
@@ -159,7 +159,7 @@ export class CascaderComponent implements OnInit, OnDestroy, OnChanges, AfterVie
     /** Whether is disabled */
     @Input()
     set nzDisabled(value: boolean) {
-        this._disabled = toBoolean(value);
+        this._disabled = coerceBooleanProperty(value);
     }
 
     get nzDisabled(): boolean {
@@ -175,7 +175,7 @@ export class CascaderComponent implements OnInit, OnDestroy, OnChanges, AfterVie
     /** Whether show input box. Defaults to `true`. */
     @Input()
     set nzShowInput(value: boolean) {
-        this._showInput = toBoolean(value);
+        this._showInput = coerceBooleanProperty(value);
     }
 
     get nzShowInput(): boolean {
@@ -185,7 +185,7 @@ export class CascaderComponent implements OnInit, OnDestroy, OnChanges, AfterVie
     /** Whether can search. Defaults to `false`. */
     @Input()
     set nzShowSearch(value: boolean) {
-        this._showSearch = toBoolean(value);
+        this._showSearch = coerceBooleanProperty(value);
     }
 
     get nzShowSearch(): boolean {
@@ -195,7 +195,7 @@ export class CascaderComponent implements OnInit, OnDestroy, OnChanges, AfterVie
     /** Whether allow clear. Defaults to `true`. */
     @Input()
     set nzAllowClear(value: boolean) {
-        this._allowClear = toBoolean(value);
+        this._allowClear = coerceBooleanProperty(value);
     }
 
     get nzAllowClear(): boolean {
@@ -208,7 +208,7 @@ export class CascaderComponent implements OnInit, OnDestroy, OnChanges, AfterVie
     /** Whether to show arrow */
     @Input()
     set nzShowArrow(value: boolean) {
-        this._showArrow = toBoolean(value);
+        this._showArrow = coerceBooleanProperty(value);
     }
 
     get nzShowArrow(): boolean {
@@ -230,7 +230,7 @@ export class CascaderComponent implements OnInit, OnDestroy, OnChanges, AfterVie
     /** Whether cache children when they were loaded asych */
     @Input()
     set nzEnableCache(value: boolean) {
-        this._enableCache = toBoolean(value);
+        this._enableCache = coerceBooleanProperty(value);
     }
 
     get nzEnableCache(): boolean {
@@ -243,7 +243,7 @@ export class CascaderComponent implements OnInit, OnDestroy, OnChanges, AfterVie
     /** Change value on each selection if set to true */
     @Input()
     set nzChangeOnSelect(value: boolean) {
-        this._changeOnSelect = toBoolean(value);
+        this._changeOnSelect = coerceBooleanProperty(value);
     }
 
     get nzChangeOnSelect(): boolean {

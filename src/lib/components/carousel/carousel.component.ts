@@ -14,7 +14,7 @@ import {
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
-import {toBoolean} from '../../util/convert';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {CarouselContentDirective} from './carousel-content.directive';
 import {Subscription} from 'rxjs/Subscription';
 import {first} from 'rxjs/operator/first';
@@ -52,7 +52,7 @@ export class CarouselComponent implements AfterViewInit, OnDestroy {
 
     @Input()
     set nzDots(value: boolean) {
-        this._dots = toBoolean(value);
+        this._dots = coerceBooleanProperty(value);
     }
 
     get nzDots(): boolean {
@@ -61,7 +61,7 @@ export class CarouselComponent implements AfterViewInit, OnDestroy {
 
     @Input()
     set nzAutoPlay(value: boolean) {
-        this._autoPlay = toBoolean(value);
+        this._autoPlay = coerceBooleanProperty(value);
         this.setUpAutoPlay();
     }
 

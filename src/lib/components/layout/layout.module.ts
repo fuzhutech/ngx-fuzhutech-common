@@ -4,14 +4,18 @@ import {RouteReuseStrategy, RouterModule} from '@angular/router';
 import {LayoutComponent} from './layout.component';
 import {FzSidebarModule} from '../sidebar/sidebar.module';
 import {FzReuseTabModule} from '../reuse-tab/reuse-tab.module';
-import {MenuService} from '../reuse-tab/menu.service';
+import {MenuService} from '../../core/layout/menu.service';
 import {LayoutConfig} from './layout.config';
 import {ReuseTabStrategy} from '../reuse-tab/reuse-tab.strategy';
+import {TitleService} from '../../core/layout/title.service';
+import {SettingsService} from '../../core/layout/settings.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
     imports: [
         CommonModule,
         RouterModule,
+        HttpClientModule,
         FzSidebarModule,
         FzReuseTabModule.forRoot()
     ],
@@ -32,7 +36,9 @@ export class FzLayoutModule {
             ngModule: FzLayoutModule,
             providers: [
                 {provide: LayoutConfig, useValue: config},
-                MenuService
+                SettingsService,
+                MenuService,
+                TitleService,
             ]
         };
     }

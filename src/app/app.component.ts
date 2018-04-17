@@ -1,18 +1,8 @@
-import {AfterViewInit, Component, ElementRef, HostBinding, Inject, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit} from '@angular/core';
 import {OverlayContainer} from '@angular/cdk/overlay';
-import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
-import {Title} from '@angular/platform-browser';
-import {SimpleReuseStrategy} from './domain/simple-reuse-strategy';
-
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
-import {Menu, MenuService} from '../lib/components/reuse-tab/menu.service';
-import {TitleService} from '../lib/components/reuse-tab/title.service';
-import {filter} from 'rxjs/operator/filter';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DOCUMENT} from '@angular/common';
-import {animate, query, style, transition, trigger} from '@angular/animations';
-import {routeAnimation, routerFlyIn, routerTransition} from '../lib/core/animation/route-animations';
+
 
 @Component({
     selector: 'fz-root',
@@ -26,14 +16,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     darkTheme = false;
     _sidebarOpen = true;
 
-    // @HostBinding('class') componentCssClass = 'myapp-light-theme';
-
     constructor(private overlayContainer: OverlayContainer,
                 private activatedRoute: ActivatedRoute,
                 @Inject(DOCUMENT) private doc: any,
                 private router: Router) {
-
-        // this.menuService.add(appData.menu as Menu[]);
         this.switchTheme(false);
     }
 
@@ -63,8 +49,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
 
         if (dark) {
-            // this.componentCssClass = 'myapp-dark-theme';
-
             this.doc.body.classList.remove('myapp-light-theme');
             this.doc.body.classList.add('myapp-dark-theme');
 
@@ -75,8 +59,6 @@ export class AppComponent implements OnInit, AfterViewInit {
             this.overlayContainer.getContainerElement().classList.remove('myapp-light-theme');
             this.overlayContainer.getContainerElement().classList.add('myapp-dark-theme');
         } else {
-            // this.componentCssClass = 'myapp-light-theme';
-
             this.doc.body.classList.remove('myapp-dark-theme');
             this.doc.body.classList.add('myapp-light-theme');
 

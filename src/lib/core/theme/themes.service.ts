@@ -1,6 +1,6 @@
 import {Injectable, Inject} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
-import {SettingsService} from './settings.service';
+import {SettingsService} from '../layout/settings.service';
 
 export type ThemeType = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J';
 

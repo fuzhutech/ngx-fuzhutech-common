@@ -14,6 +14,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import {Subscription} from 'rxjs/Subscription';
@@ -24,7 +25,6 @@ import {merge} from 'rxjs/operators/merge';
 import {dropDownAnimation} from '../../core/animation/dropdown-animations';
 import {DEFAULT_DROPDOWN_POSITIONS, POSITION_MAP} from '../../core/overlay/overlay-position-map';
 // import { NzMenuComponent } from '../menu/nz-menu.component';
-import {toBoolean} from '../../util/convert';
 import {DropDownDirective} from './dropdown.directive';
 
 export type NzPlacement = 'bottomLeft' | 'bottomCenter' | 'bottomRight' | 'topLeft' | 'topCenter' | 'topRight';
@@ -58,7 +58,7 @@ export class DropDownComponent implements OnInit, OnDestroy, AfterViewInit {
 
     @Input()
     set nzClickHide(value: boolean) {
-        this._clickHide = toBoolean(value);
+        this._clickHide = coerceBooleanProperty(value);
     }
 
     get nzClickHide(): boolean {
@@ -67,7 +67,7 @@ export class DropDownComponent implements OnInit, OnDestroy, AfterViewInit {
 
     @Input()
     set nzVisible(value: boolean) {
-        this._visible = toBoolean(value);
+        this._visible = coerceBooleanProperty(value);
     }
 
     get nzVisible(): boolean {
@@ -142,7 +142,7 @@ export class DropDownComponent implements OnInit, OnDestroy, AfterViewInit {
             this.nzVisibleChange.emit(this.nzVisible);
         }
         this._changeDetector.markForCheck();
-    }
+    };
 
     _startSubscribe(observable$: Observable<boolean>): void {
         this._subscription = observable$.pipe(debounceTime(50))

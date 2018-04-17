@@ -13,11 +13,12 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 // import {NzLocaleService} from '../locale/index';
-import {toBoolean} from '../../util/convert';
 import {TransferItem} from './item';
+
 
 export interface TransferCanMove {
     direction: string;
@@ -77,7 +78,7 @@ export class TransferComponent implements OnChanges {
     // search
     @Input()
     set nzShowSearch(value: boolean) {
-        this._showSearch = toBoolean(value);
+        this._showSearch = coerceBooleanProperty(value);
     }
 
     get nzShowSearch(): boolean {
