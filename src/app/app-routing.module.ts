@@ -21,7 +21,7 @@ const routes: Routes = [
         component: LoaderComponent,
         data: {title: '加载效果', layout: 'tab', sidebar: 'none', state: 'loader'}
     },
-    {path: 'login', loadChildren: './login/login.module#LoginModule', data: {title: '登录', module: 'login', power: 'SHOW', layout: 'full'}},
+    {path: 'login', loadChildren: './login/login.module#LoginModule', data: {title: '登录', layout: 'full'}},
     {
         path: 'showcase',
         loadChildren: './showcase/showcase.module#ShowcaseModule',

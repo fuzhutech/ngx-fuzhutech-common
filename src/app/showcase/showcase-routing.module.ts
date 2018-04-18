@@ -7,7 +7,7 @@ const routes: Routes = [
     {
         path: '',
         component: ShowcaseComponent,
-        data: {title: '首页'},
+        data: {title: '首页', tab: 'none'},
         children: [
             {
                 path: 'affix',

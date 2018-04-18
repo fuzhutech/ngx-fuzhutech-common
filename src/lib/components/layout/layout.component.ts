@@ -3,6 +3,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {MenuData, MenuService} from '../../core/layout/menu.service';
 import {LayoutConfig} from './layout.config';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import {TitleService} from '../../core/layout/title.service';
 
 
 @Component({
@@ -53,14 +54,11 @@ export class LayoutComponent implements OnInit {
     private _tab = 'top';
 
     get showReuseTab(): boolean {
-        let ret: boolean;
         if (this._layout === 'full') {
-            ret = false;
-        } else {
-            ret = this._tab !== 'none';
+            return false;
         }
-        console.log(ret);
-        return ret;
+
+        return this._tab !== 'none';
     }
 
     get contentContainerStyle() {
@@ -123,21 +121,22 @@ export class LayoutComponent implements OnInit {
         return {};
     }
 
-    private moduleList: Array<{ module: string, isSelect: boolean, menuData: MenuData[] }> = [];
-    private selectModule: { module: string, isSelect: boolean, menuData: MenuData[] };
+    private moduleList: Array<{ path: string, title: string, isSelect: boolean, menuData: MenuData[] }> = [];
+    private selectModule: { path: string, title: string, isSelect: boolean, menuData: MenuData[] };
 
     constructor(private router: Router,
                 private activatedRoute: ActivatedRoute,
                 public menuService: MenuService,
                 private menuConfig: LayoutConfig,
+                private titleService: TitleService,
                 private el: ElementRef) {
         // this.menuService.add(appMenuData.menu as MenuData[]);
     }
 
     private moduleDefiniens = [
-        {path: '/showcase/', name: 'showcase', desc: '示例'},
-        {path: '/pages/', name: 'pages', desc: '页面'},
-        {path: '/', name: 'home', desc: '默认主页面'}
+        {path: '/showcase/', name: 'showcase', title: '示例', desc: '示例'},
+        {path: '/pages/', name: 'pages', title: '页面', desc: '页面'},
+        {path: '/', name: 'home', title: '', desc: '默认主页面'}
     ];
 
     ngOnInit() {
@@ -190,42 +189,48 @@ export class LayoutComponent implements OnInit {
         let temp = this.moduleDefiniens.find(defin => path.startsWith(defin.path));
         if (!temp) {
             // 默认module
-            temp = {path: '/', name: 'home', desc: '默认主页面'};
+            temp = this.moduleDefiniens[this.moduleDefiniens.length - 1];
         }
         // console.log('模块信息:', temp);
 
         // 是否为当前选择模块
-        if (this.selectModule && this.selectModule.module === temp.path) {
+        if (this.selectModule && this.selectModule.path === temp.path) {
+
+            if (temp.path === '/') {
+                this.titleService.setTitle(temp.title);
+            }
+
             return;
         }
 
         // 是否已经展示过该module
-        const exitModule = this.moduleList.find(module => module.module === temp.path);
+        const exitModule = this.moduleList.find(module => module.path === temp.path);
         if (exitModule) {
             // console.log('存在模块缓存:', exitModule.module);
-            this.moduleList.forEach(module => module.isSelect = url.startsWith(module.module));
+            this.moduleList.forEach(module => module.isSelect = url.startsWith(module.path));
             if (exitModule.menuData) {
-                this.menuService.add(exitModule.module, temp.path, exitModule.menuData);
+                this.menuService.add(exitModule.path, temp.path, exitModule.menuData);
             } else {
                 // 加载模块菜单信息
                 const menuData = this.loadMenuData(temp.path);
                 exitModule.menuData = menuData;
-                this.menuService.add(exitModule.module, temp.path, menuData);
+                this.menuService.add(exitModule.path, temp.path, menuData);
             }
             this.selectModule = exitModule;
         } else {
             // console.log('不存在模块缓存:', temp.path);
             // 加载模块相关信息
-            const module = this.loadModuleData(temp.path);
+            const module = this.loadModuleData(temp.path, temp.title);
 
             // 刷新菜单
             const menuData = module.menuData;
-            this.menuService.add(module.module, temp.path, menuData);
+            this.menuService.add(module.path, temp.path, menuData);
 
             // console.log(module);
             this.moduleList.push(module);
             this.selectModule = module;
         }
+        this.titleService.setTitle(temp.title);
     }
 
     private loadMenuData(path: string): MenuData[] {
@@ -242,8 +247,8 @@ export class LayoutComponent implements OnInit {
     }
 
 
-    private loadModuleData(path: string): { module: string, isSelect: boolean, menuData: MenuData[] } {
-        return {module: path, isSelect: true, menuData: this.loadMenuData(path)};
+    private loadModuleData(path: string, title: string): { path: string, title: string, isSelect: boolean, menuData: MenuData[] } {
+        return {path: path, title: title, isSelect: true, menuData: this.loadMenuData(path)};
     }
 }
 

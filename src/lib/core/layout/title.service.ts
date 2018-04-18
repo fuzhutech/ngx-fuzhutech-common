@@ -4,18 +4,11 @@ import {Title} from '@angular/platform-browser';
 import {DOCUMENT} from '@angular/common';
 import {MenuService} from './menu.service';
 
-// import { ALAIN_I18N_TOKEN, AlainI18NService } from '../i18n/i18n';
-
-/**
- * 设置标题
- * @see http://ng-alain.com/docs/service#TitleService
- */
 @Injectable()
 export class TitleService {
     constructor(private injector: Injector,
                 private title: Title,
                 private menuSrv: MenuService,
-                // @Optional() @Inject(ALAIN_I18N_TOKEN) private translatorSrv: AlainI18NService,
                 @Inject(DOCUMENT) private doc: any) {
     }
 
@@ -66,16 +59,6 @@ export class TitleService {
         return next.snapshot && next.snapshot.data && next.snapshot.data.title;
     }
 
-    /*private getByMenu(): string {
-        const menus = this.menuSrv.getPathByUrl(this.injector.get(Router).url);
-        if (!menus || menus.length <= 0) {
-            return '';
-        }
-
-        const item = menus[menus.length - 1];
-        return item.text;
-    }*/
-
     /**
      * 设置标题，若不指定具体名称，则按以顺序获取：
      * - 路由配置 `{ data: { title: 'page name' } }`
@@ -84,8 +67,8 @@ export class TitleService {
      * - 默认标题名
      */
     setTitle(title?: string | string[]) {
-        /*if (!title) {
-            title = this.getByRoute() || this.getByMenu() || this.getByElement() || this._default;
+        if (!title) {
+            title = this.getByRoute() || this.getByElement() || this._default;
         }
         if (title && !Array.isArray(title)) {
             title = [title];
@@ -104,6 +87,6 @@ export class TitleService {
         if (this._reverse) {
             newTitles = newTitles.reverse();
         }
-        this.title.setTitle(newTitles.join(this._separator));*/
+        this.title.setTitle(newTitles.join(this._separator));
     }
 }

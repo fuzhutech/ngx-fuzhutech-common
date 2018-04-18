@@ -62,7 +62,7 @@ export class StartupService {
         // }
         // mock
         const app: any = {
-            name: `ng-alain`,
+            name: `Fuzhutech-Common`,
             description: `Ng-zorro admin panel front-end framework`
         };
         const user: any = {
