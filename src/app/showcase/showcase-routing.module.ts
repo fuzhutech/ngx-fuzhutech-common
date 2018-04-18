@@ -20,6 +20,7 @@ const routes: Routes = [
             {
                 path: 'anchor',
                 loadChildren: './fz-demo-anchor/fz-demo-anchor.module#FzDemoAnchorModule',
+                data: {tab: 'none'}
             },
             {
                 path: 'avatar',

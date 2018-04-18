@@ -6,8 +6,7 @@
         <fz-sidebar [list]="(menuService.change | async)?.menuList || []"></fz-sidebar>
     </div>
     <div class="layoutContainer">
-        <div *ngIf="showReuseTab" #tabContainerElement [ngStyle]="tabContainerStyle">
-            <div style="background-color: #13CE66;height: 64px;width: 100%"></div>
+        <div #tabContainerElement [ngStyle]="tabContainerStyle" [style.display]="showReuseTab? 'block':'none'">
             <fz-reuse-tab></fz-reuse-tab>
         </div>
         <div class="contentContainer" [ngStyle]="contentContainerStyle">
