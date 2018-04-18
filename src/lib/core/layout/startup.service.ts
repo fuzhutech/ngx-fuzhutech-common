@@ -42,7 +42,7 @@ export class StartupService {
                 // ACL：设置权限为全量
                 // this.aclService.setFull(true);
                 // 初始化菜单
-                this.menuService.add(res.menu);
+                // this.menuService.add(res.menu);
                 // 设置页面标题的后缀
                 this.titleService.suffix = res.app.name;
             },
@@ -96,7 +96,7 @@ export class StartupService {
                 ]
             }
         ]);*/
-        this.menuService.add(appMenuData.menu as MenuData[]);
+        // this.menuService.add(appMenuData.menu as MenuData[]);
 
         // 设置页面标题的后缀
         this.titleService.suffix = app.name;

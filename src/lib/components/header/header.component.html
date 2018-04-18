@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-    <div class="logo" [routerLink]="['/']">
+    <div class="logo" (click)="onHomeClick()">
         <!--img class="expanded" src="./assets/img/logo.svg" alt="" style="max-height:40px;"/-->
         <mat-icon svgIcon="gifts"></mat-icon>
         <span>{{homeText}}</span>

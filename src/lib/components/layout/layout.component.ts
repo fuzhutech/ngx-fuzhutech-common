@@ -1,8 +1,6 @@
 import {Component, ElementRef, Injectable, Input, OnInit, Optional, ViewChild} from '@angular/core';
-import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {TitleService} from '../../core/layout/title.service';
-import {Menu, MenuData, MenuService} from '../../core/layout/menu.service';
+import {MenuData, MenuService} from '../../core/layout/menu.service';
 import {LayoutConfig} from './layout.config';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
@@ -14,17 +12,13 @@ import {coerceBooleanProperty} from '@angular/cdk/coercion';
 })
 export class LayoutComponent implements OnInit {
 
+    @ViewChild('sidebarContainerElement') sidebarContainerElement: ElementRef;
+    @ViewChild('tabContainerElement') tabContainerElement: ElementRef;
+
     @Input() showHeader = true;
     @Input() showFooter = true;
 
     _sidebarOpen = true;
-
-    _containerStyle: any;
-
-    tabContainerWidth = -1;
-    sidebarWidth = -1;
-    width = -1;
-
     @Input() set sidebarOpen(value) {
         if (this.tabContainerElement && (this.tabContainerElement.nativeElement.offsetWidth > 0)) {
             if (value) {
@@ -44,11 +38,9 @@ export class LayoutComponent implements OnInit {
     }
 
     // screen,layout: full,default/undefined
-    _layout = 'default';
+    private _layout = 'default';
     // sidebar: none, left, right
-    _sidebar = 'left';
-    // tab: none, top, right,left,bottom
-    _tab = 'top';
+    private _sidebar = 'left';
 
     get showSidebar(): boolean {
         if (this._layout === 'full') {
@@ -57,149 +49,27 @@ export class LayoutComponent implements OnInit {
         return this._sidebar !== 'none';  // coerceBooleanProperty
     }
 
+    // tab: none, top, right,left,bottom
+    private _tab = 'top';
+
     get showReuseTab(): boolean {
+        let ret: boolean;
         if (this._layout === 'full') {
-            return false;
-        }
-        return this._tab !== 'none';
-    }
-
-
-    @ViewChild('sidebarContainerElement') sidebarContainerElement: ElementRef;
-    @ViewChild('tabContainerElement') tabContainerElement: ElementRef;
-
-    moduleList: Array<{ module: string, isSelect: boolean, menuData: MenuData[] }> = [];
-    selectModule: { module: string, isSelect: boolean, menuData: MenuData[] };
-    moduleDefiniens = [
-        {path: '/showcase/', name: 'showcase', desc: '示例'},
-        {path: '/pages/', name: 'pages', desc: '页面'},
-        {path: '/', name: 'home', desc: '默认主页面'}
-    ];
-
-    constructor(private router: Router,
-                private activatedRoute: ActivatedRoute,
-                private title: Title,
-                private titleService: TitleService,
-                public menuService: MenuService,
-                private menuConfig: LayoutConfig,
-                private el: ElementRef) {
-        /*if (this.menuConfig.path === 'showcase') {
-            this.menuService.add(appMenuData.menu as MenuData[]);
+            ret = false;
         } else {
-            this.menuService.add(pagesMenuData.menu as MenuData[]);
-        }*/
-        this.menuService.add(appMenuData.menu as MenuData[]);
-
-        // this.menuService.add(pagesMenuData.menu as MenuData[]);
-    }
-
-    ngOnInit() {
-        this.router.events
-            .filter(event => event instanceof NavigationEnd)
-            .do((event: NavigationEnd) => {
-                this.setModule(event.urlAfterRedirects);
-            })
-            .map(() => this.activatedRoute)
-            .map(route => {
-                // console.log(route);
-                while (route.firstChild) {
-                    route = route.firstChild;
-                }
-                return route;
-            })
-            .do((route: ActivatedRoute) => {
-                // 获取url
-                let next = route.snapshot;
-                const segments = [];
-                while (next) {
-                    segments.push(next.url.join('/'));
-                    next = next.parent;
-                }
-                const url = '/' + segments.filter(i => i).reverse().join('/');
-                // console.log(url);
-                // console.log(route);
-            })
-            // .filter(route => route.outlet === 'primary')
-            .mergeMap(route => route.data)
-            .subscribe((routeData) => {
-                // screen,layout: full,default/undefined
-                const layout = routeData['layout'];
-                this._layout = layout ? layout : 'default';
-                // sidebar: none, left, right
-                const sidebar = routeData['sidebar'];
-                this._sidebar = sidebar ? sidebar : 'left';
-                // tab: none, top, right,left,bottom
-                const tab = routeData['tab'];
-                this._tab = tab ? tab : 'top';
-                console.log('this._tab:', this._tab);
-            });
-    }
-
-    private setModule(url: string): void {
-        // 根据path获取module信息
-        const path = url + '/';
-        let temp = this.moduleDefiniens.find(defin => url.startsWith(defin.path));
-        if (!temp) {
-            // 默认module
-            temp = {path: '/', name: 'home', desc: '默认主页面'};
+            ret = this._tab !== 'none';
         }
-        // console.log('模块信息:', temp);
-
-        // 是否为当前选择模块
-        if (this.selectModule && this.selectModule.module === temp.path) {
-            return;
-        }
-
-        // 是否已经展示过该module
-        const exitModule = this.moduleList.find(module => module.module === temp.path);
-        if (exitModule) {
-            // console.log('存在模块缓存:', exitModule.module);
-            this.moduleList.forEach(module => module.isSelect = url.startsWith(module.module));
-            if (exitModule.menuData) {
-                this.menuService.add(exitModule.menuData);
-            } else {
-                // 加载模块菜单信息
-                const menuData = this.loadMenuData(temp.path);
-                exitModule.menuData = menuData;
-                this.menuService.add(menuData);
-            }
-            this.selectModule = exitModule;
-        } else {
-            // console.log('不存在模块缓存:', temp.path);
-            // 加载模块相关信息
-            const module = this.loadModuleData(temp.path);
-
-            // 刷新菜单
-            const menuData = module.menuData;
-            this.menuService.add(menuData);
-
-            // console.log(module);
-            this.moduleList.push(module);
-            this.selectModule = module;
-        }
-    }
-
-    private loadMenuData(path: string): MenuData[] {
-        switch (path) {
-            case '/showcase/':
-                return appMenuData.menu;
-            case '/pages/':
-                return pagesMenuData.menu;
-            case '/':
-                return [];
-            default:
-                return [];
-        }
-    }
-
-
-    private loadModuleData(path: string): { module: string, isSelect: boolean, menuData: MenuData[] } {
-        return {module: path, isSelect: true, menuData: this.loadMenuData(path)};
+        console.log(ret);
+        return ret;
     }
 
     get contentContainerStyle() {
         return {};
     }
+
+    private tabContainerWidth = -1;
+    private sidebarWidth = -1;
+    private width = -1;
 
     get tabContainerStyle() {
         if (this.tabContainerElement && (this.tabContainerElement.nativeElement.offsetWidth > 0)) {
@@ -253,33 +123,128 @@ export class LayoutComponent implements OnInit {
         return {};
     }
 
+    private moduleList: Array<{ module: string, isSelect: boolean, menuData: MenuData[] }> = [];
+    private selectModule: { module: string, isSelect: boolean, menuData: MenuData[] };
 
-    /*
-    //路由列表
-  menuList: Array<{ title: string, module: string, power: string,isSelect:boolean }>=[];
-    //关闭选项标签
-    closeUrl(module: string, isSelect: boolean) {
-        //当前关闭的是第几个路由
-        let index = this.menuList.findIndex(p => p.module == module);
-        //如果只有一个不可以关闭
-        if (this.menuList.length == 1) return;
+    constructor(private router: Router,
+                private activatedRoute: ActivatedRoute,
+                public menuService: MenuService,
+                private menuConfig: LayoutConfig,
+                private el: ElementRef) {
+        // this.menuService.add(appMenuData.menu as MenuData[]);
+    }
 
-        this.menuList = this.menuList.filter(p => p.module != module);
-        //删除复用
-        delete SimpleReuseStrategy.handlers[module];
-        if (!isSelect) return;
-        //显示上一个选中
-        let menu = this.menuList[index - 1];
-        if (!menu) {//如果上一个没有下一个选中
-            menu = this.menuList[index + 1];
+    private moduleDefiniens = [
+        {path: '/showcase/', name: 'showcase', desc: '示例'},
+        {path: '/pages/', name: 'pages', desc: '页面'},
+        {path: '/', name: 'home', desc: '默认主页面'}
+    ];
+
+    ngOnInit() {
+        this.router.events
+            .filter(event => event instanceof NavigationEnd)
+            .do((event: NavigationEnd) => {
+                this.setModule(event.urlAfterRedirects);
+            })
+            .map(() => this.activatedRoute)
+            .map(route => {
+                // console.log(route);
+                while (route.firstChild) {
+                    route = route.firstChild;
+                }
+                return route;
+            })
+            .do((route: ActivatedRoute) => {
+                // 获取url
+                let next = route.snapshot;
+                const segments = [];
+                while (next) {
+                    segments.push(next.url.join('/'));
+                    next = next.parent;
+                }
+                const url = '/' + segments.filter(i => i).reverse().join('/');
+                // console.log(url);
+                // console.log(route);
+            })
+            // .filter(route => route.outlet === 'primary')
+            .mergeMap(route => route.data)
+            .subscribe((routeData) => {
+                console.log(routeData);
+                // screen,layout: full,default/undefined
+                const layout = routeData['layout'];
+                this._layout = layout ? layout : 'default';
+                // sidebar: none, left, right
+                const sidebar = routeData['sidebar'];
+                this._sidebar = sidebar ? sidebar : 'left';
+                // tab: none, top, right,left,bottom
+                const tab = routeData['tab'];
+                this._tab = tab ? tab : 'top';
+            });
+    }
+
+    private setModule(url: string): void {
+        // 根据path获取module信息
+        const path = url + '/';
+
+
+        let temp = this.moduleDefiniens.find(defin => path.startsWith(defin.path));
+        if (!temp) {
+            // 默认module
+            temp = {path: '/', name: 'home', desc: '默认主页面'};
         }
-        // console.log(menu);
-        // console.log(this.menuList);
-        this.menuList.forEach(p => p.isSelect = p.module == menu.module);
-        //显示当前路由信息
-        this.router.navigate(['/' + menu.module]);
-    }*/
+        // console.log('模块信息:', temp);
 
+        // 是否为当前选择模块
+        if (this.selectModule && this.selectModule.module === temp.path) {
+            return;
+        }
+
+        // 是否已经展示过该module
+        const exitModule = this.moduleList.find(module => module.module === temp.path);
+        if (exitModule) {
+            // console.log('存在模块缓存:', exitModule.module);
+            this.moduleList.forEach(module => module.isSelect = url.startsWith(module.module));
+            if (exitModule.menuData) {
+                this.menuService.add(exitModule.module, temp.path, exitModule.menuData);
+            } else {
+                // 加载模块菜单信息
+                const menuData = this.loadMenuData(temp.path);
+                exitModule.menuData = menuData;
+                this.menuService.add(exitModule.module, temp.path, menuData);
+            }
+            this.selectModule = exitModule;
+        } else {
+            // console.log('不存在模块缓存:', temp.path);
+            // 加载模块相关信息
+            const module = this.loadModuleData(temp.path);
+
+            // 刷新菜单
+            const menuData = module.menuData;
+            this.menuService.add(module.module, temp.path, menuData);
+
+            // console.log(module);
+            this.moduleList.push(module);
+            this.selectModule = module;
+        }
+    }
+
+    private loadMenuData(path: string): MenuData[] {
+        switch (path) {
+            case '/showcase/':
+                return appMenuData.menu;
+            case '/pages/':
+                return pagesMenuData.menu;
+            case '/':
+                return [];
+            default:
+                return [];
+        }
+    }
+
+
+    private loadModuleData(path: string): { module: string, isSelect: boolean, menuData: MenuData[] } {
+        return {module: path, isSelect: true, menuData: this.loadMenuData(path)};
+    }
 }
 
 

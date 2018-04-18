@@ -1,7 +1,4 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {TitleService} from '../../lib/core/layout/title.service';
-import {NavigationEnd, Router} from '@angular/router';
-import {MenuService} from '../../lib/core/layout/menu.service';
 
 @Component({
     selector: 'fz-showcase',
@@ -14,12 +11,10 @@ export class ShowcaseComponent implements OnInit {
 
     @ViewChild('sidebarContainerElement') sidebarContainerElement: ElementRef;
 
-    constructor(private router: Router, private titleService: TitleService, private menuService: MenuService) {
+    constructor() {
     }
 
     ngOnInit() {
-        this.router.events.filter(evt => evt instanceof NavigationEnd)
-            .subscribe(() => this.titleService.setTitle());
     }
 
     get containerStyle() {

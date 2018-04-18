@@ -8,7 +8,7 @@ const routes: Routes = [
     {
         path: '',
         component: PagesComponent,
-        data: {title: '页面', module: 'pages', power: 'SHOW'},
+        data: {title: '首页'},
         children: [
             {
                 path: 'auth',

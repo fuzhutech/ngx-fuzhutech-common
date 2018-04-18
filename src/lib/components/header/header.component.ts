@@ -1,4 +1,5 @@
 import {Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy, Input} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'fz-header',
@@ -11,11 +12,15 @@ export class HeaderComponent implements OnInit {
     @Output() toggleDarkTheme = new EventEmitter<boolean>();
     @Input() homeText = '';
 
-    constructor() {
+    constructor(private router: Router) {
         //
     }
 
     ngOnInit() {
+    }
+
+    onHomeClick() {
+        this.router.navigate(['']).catch(err => console.log(err));
     }
 
     openSidebar() {

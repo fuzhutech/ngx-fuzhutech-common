@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
-import {FzDemoOverplayPanelModule} from './showcase/fz-demo-overplay-panel/fz-demo-overplay-panel.module';
 import {AboutComponent} from './about/about.component';
 import {LoaderComponent} from './loader/loader.component';
 
@@ -10,17 +9,17 @@ const routes: Routes = [
     {
         path: 'home',
         component: HomeComponent,
-        data: {title: '首页', module: 'home', power: 'SHOW', layout: 'tab', sidebar: 'none', state: 'home'}
+        data: {title: '首页', layout: 'tab', sidebar: 'none', state: 'home'}
     },
     {
         path: 'about',
         component: AboutComponent,
-        data: {title: '关于', module: 'about', power: 'SHOW', layout: 'tab', sidebar: 'none', state: 'about'}
+        data: {title: '关于', layout: 'tab', sidebar: 'none', state: 'about'}
     },
     {
         path: 'loader',
         component: LoaderComponent,
-        data: {title: '加载效果', module: 'loader', power: 'SHOW', layout: 'tab', sidebar: 'none', state: 'loader'}
+        data: {title: '加载效果', layout: 'tab', sidebar: 'none', state: 'loader'}
     },
     {path: 'login', loadChildren: './login/login.module#LoginModule', data: {title: '登录', module: 'login', power: 'SHOW', layout: 'full'}},
     {

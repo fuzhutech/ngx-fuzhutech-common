@@ -66,20 +66,15 @@ export class TitleService {
         return next.snapshot && next.snapshot.data && next.snapshot.data.title;
     }
 
-    private getByMenu(): string {
+    /*private getByMenu(): string {
         const menus = this.menuSrv.getPathByUrl(this.injector.get(Router).url);
         if (!menus || menus.length <= 0) {
             return '';
         }
 
         const item = menus[menus.length - 1];
-        /*let title;
-        if (item.translate && this.translatorSrv) {
-            title = this.translatorSrv.fanyi(item.translate);
-        }
-        return title || item.text;*/
         return item.text;
-    }
+    }*/
 
     /**
      * 设置标题，若不指定具体名称，则按以顺序获取：
@@ -89,7 +84,7 @@ export class TitleService {
      * - 默认标题名
      */
     setTitle(title?: string | string[]) {
-        if (!title) {
+        /*if (!title) {
             title = this.getByRoute() || this.getByMenu() || this.getByElement() || this._default;
         }
         if (title && !Array.isArray(title)) {
@@ -109,6 +104,6 @@ export class TitleService {
         if (this._reverse) {
             newTitles = newTitles.reverse();
         }
-        this.title.setTitle(newTitles.join(this._separator));
+        this.title.setTitle(newTitles.join(this._separator));*/
     }
 }
