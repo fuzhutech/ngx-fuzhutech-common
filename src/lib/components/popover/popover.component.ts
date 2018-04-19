@@ -40,9 +40,9 @@ export class PopoverComponent {
 
     _hasBackdrop = false;
 
-    @Input() nzTitle: string;
-    @Input() nzOverlayClassName = '';
-    @Input() nzOverlayStyle = {};
+    @Input() title: string;
+    @Input() overlayClassName = '';
+    @Input() overlayStyle = {};
     @Input() nzMouseEnterDelay = 0; // Unit: second
     @Input() nzMouseLeaveDelay = 0.1; // Unit: second
     @Output() nzVisibleChange: EventEmitter<boolean> = new EventEmitter();
@@ -68,12 +68,12 @@ export class PopoverComponent {
     visible$ = this.visibleSource.asObservable();
 
     @Input()
-    set nzTrigger(value: string) {
+    set trigger(value: string) {
         this._trigger = value;
         this._hasBackdrop = this._trigger === 'click';
     }
 
-    get nzTrigger(): string {
+    get trigger(): string {
         return this._trigger;
     }
 
@@ -83,14 +83,14 @@ export class PopoverComponent {
     _trigger = 'hover';
 
     @Input()
-    set nzPlacement(value: string) {
+    set placement(value: string) {
         if (value !== this._placement) {
             this._placement = value;
-            this._positions.unshift(POSITION_MAP[this.nzPlacement] as ConnectionPositionPair);
+            this._positions.unshift(POSITION_MAP[this.placement] as ConnectionPositionPair);
         }
     }
 
-    get nzPlacement(): string {
+    get placement(): string {
         return this._placement;
     }
 
@@ -104,7 +104,7 @@ export class PopoverComponent {
     onPositionChange($event: ConnectedOverlayPositionChange): void {
         for (const key in POSITION_MAP) {
             if (JSON.stringify($event.connectionPair) === JSON.stringify(POSITION_MAP[key])) {
-                this.nzPlacement = key;
+                this.placement = key;
                 break;
             }
         }
@@ -134,7 +134,7 @@ export class PopoverComponent {
 
     setClassMap(): void {
         this._classMap = {
-            [this.nzOverlayClassName]: true,
+            [this.overlayClassName]: true,
             [`${this._prefix}-${this._placement}`]: true
         };
     }
@@ -147,8 +147,6 @@ export class PopoverComponent {
     }
 
     private isContentEmpty(): boolean {
-        // return this.nzTemplate ? !(this.nzTemplate.elementRef.nativeElement as HTMLElement).hasChildNodes() : this.nzTitle === '';
-        return this.nzTemplate ? false : (this.nzTitle === '' || this.nzTitle == null);
-        // Pity, can't detect whether nzTemplate is empty due to can't get it's content before shown up
+       return this.nzTemplate ? false : (this.title === '' || this.title == null);
     }
 }

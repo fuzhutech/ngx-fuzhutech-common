@@ -16,23 +16,9 @@
             <img alt="expand code" width="16px" height="16px" src="https://gw.alipayobjects.com/zos/rmsportal/OpROPHYqWmrMDBFMZtKF.svg"
                  [class.code-expand-icon-show]="!fzExpanded" [class.code-expand-icon-hide]="fzExpanded">
         </span>
-        <!--nz-tooltip [nzTitle]="nzExpanded?'收起代码':'展开代码'">
-          <span class="code-expand-icon" nz-tooltip (click)="nzExpanded=!nzExpanded">
-            <img alt="expand code" src="https://gw.alipayobjects.com/zos/rmsportal/wSAkBuJFbdxsosKKpqyq.svg"
-                 [class.code-expand-icon-show]="nzExpanded" [class.code-expand-icon-hide]="!nzExpanded">
-            <img alt="expand code" src="https://gw.alipayobjects.com/zos/rmsportal/OpROPHYqWmrMDBFMZtKF.svg"
-                 [class.code-expand-icon-show]="!nzExpanded" [class.code-expand-icon-hide]="nzExpanded">
-          </span>
-        </nz-tooltip-->
     </section>
     <section class="highlight-wrapper" [ngClass]="{'highlight-wrapper-expand':fzExpanded}">
         <div class="highlight">
-            <!--div class="code-box-actions">
-                <nz-tooltip [nzTitle]="'复制代码'">
-                    <i nz-tooltip class="anticon code-box-code-copy" [class.anticon-copy]="!_copied"
-                       [class.anticon-check]="_copied" [class.ant-tooltip-open]="_copied" (click)="copyCode(_code)"></i>
-                </nz-tooltip>
-            </div-->
             <fz-highlight [fzCode]="_code" [fzLanguage]="'typescript'"></fz-highlight>
         </div>
     </section>
