@@ -5,8 +5,10 @@ import {NoticeListComponent} from './notice-list/notice-list.component';
 import {NoticeIconComponent} from './notice-icon.component';
 import {FzBadgeModule} from '../badge/badge.module';
 import {FzPopoverModule} from '../popover/popover.module';
-import {MatIconModule, MatListModule, MatTabsModule} from '@angular/material';
+import {MatIconModule, MatListModule, MatTabsModule, MatCardModule} from '@angular/material';
 import {FzAvatarModule} from '../avatar/avatar.module';
+import {FzDropDownModule} from '../..';
+import {OverlayModule} from '@angular/cdk/overlay';
 
 const COMPONENTS = [NoticeListComponent, NoticeIconComponent];
 
@@ -27,8 +29,8 @@ const ZORROMODULES = [
 @NgModule({
     imports: [
         CommonModule,
-        FzBadgeModule, FzPopoverModule, FzAvatarModule,
-        MatTabsModule, MatListModule, MatIconModule,
+        FzBadgeModule, FzPopoverModule, FzAvatarModule, FzDropDownModule, OverlayModule,
+        MatTabsModule, MatListModule, MatIconModule, MatCardModule,
         /*AdDescListModule.forRoot(),*/ ...ZORROMODULES
     ],
     declarations: [

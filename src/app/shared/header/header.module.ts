@@ -20,6 +20,7 @@ import {FzBadgeModule} from '../../../lib/components/badge/badge.module';
 import {FzAvatarModule} from '../../../lib/components/avatar/avatar.module';
 import {FzDropDownModule} from '../../../lib/components/dropdown/dropdown.module';
 import {FzHeaderModule} from '../../../lib/components/header/header.module';
+import {FzPopoverModule} from '../../../lib';
 
 @NgModule({
     imports: [
@@ -38,7 +39,8 @@ import {FzHeaderModule} from '../../../lib/components/header/header.module';
         FzBadgeModule,
         FzDropDownModule,
         FzNoticeIconModule,
-        FzHeaderModule
+        FzHeaderModule,
+        FzPopoverModule,
     ],
     declarations: [
         HeaderComponent,

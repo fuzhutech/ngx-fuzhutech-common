@@ -1,5 +1,5 @@
 // import { NzMessageService } from 'ng-zorro-antd';
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ArrayObservable} from 'rxjs/observable/ArrayObservable';
 import {map, groupBy, concatMap, mergeMap, flatMap, delay, tap, toArray} from 'rxjs/operators';
@@ -20,8 +20,9 @@ import {MessageService} from '../../../../lib/components/message/message.service
             [loading]="loading"
             (select)="select($event)"
             (clear)="clear($event)"
-            (popupVisibleChange)="loadData($event)"></fz-notice-icon>
-    `
+            (visibleChange)="loadData($event)"></fz-notice-icon>
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderNotifyComponent implements OnInit {
     // data: NoticeItem[] = [
@@ -33,7 +34,7 @@ export class HeaderNotifyComponent implements OnInit {
     count = 0;
     loading = false;
 
-    constructor(private msg: MessageService/*, private settings: SettingsService*/) {
+    constructor(private msg: MessageService/*, private settings: SettingsService*/, private _cdr: ChangeDetectorRef) {
     }
 
     ngOnInit() {
@@ -66,7 +67,10 @@ export class HeaderNotifyComponent implements OnInit {
             tap((ls: any) => {
                 this.data.find(w => w.title === ls[0].type).list = ls;
             })
-        ).subscribe(res => this.loading = false);
+        ).subscribe(res => {
+            this.loading = false;
+            this._cdr.detectChanges();
+        });
     }
 
     loadData(res) {

@@ -1,22 +1,32 @@
-<fz-badge *ngIf="data?.length <= 0" [count]="count" [showDot]="dot">
-    <ng-template>
+<div class="item" cdk-overlay-origin
+     #origin="cdkOverlayOrigin"
+     (click)="_toggle()"
+     #trigger>
+    <i *ngIf="data?.length <= 0" class="anticon anticon-bell"></i>
+    <fz-badge *ngIf="data?.length > 0" [count]="count" [showDot]="dot">
         <i class="anticon anticon-bell"></i>
-    </ng-template>
-</fz-badge>
-<fz-popover *ngIf="data?.length > 0" [nzVisible]="popoverVisible" (nzVisibleChange)="onVisibleChange($event)"
-            [trigger]="'click'" [placement]="'bottomRight'" overlayClassName="notice-icon-popover">
-    <div fzPopover class="item">
-        <fz-badge [count]="count" [showDot]="dot">
-            <i class="anticon anticon-bell"></i>
-        </fz-badge>
+    </fz-badge>
+</div>
+
+<ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayHasBackdrop]="true"
+    [cdkConnectedOverlayPositions]="_positions"
+    [cdkConnectedOverlayOrigin]="origin"
+    (backdropClick)="_close()"
+    [cdkConnectedOverlayMinWidth]="_triggerWidth"
+    (positionChange)="_onPositionChange($event)"
+    [cdkConnectedOverlayOpen]="panelOpen">
+    <div [style.minWidth.px]="_triggerWidth"
+         [@dropDownAnimation]="_dropDownPosition">
+        <mat-card>
+            <mat-tab-group>
+                <mat-tab *ngFor="let i of data" [label]="i.title">
+                    <fz-notice-list [data]="i"
+                                    (select)="_onSelect($event)"
+                                    (clear)="_onClear($event)"></fz-notice-list>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card>
     </div>
-    <ng-template #nzTemplate>
-        <mat-tab-group>
-            <mat-tab *ngFor="let i of data" [label]="i.title">
-                <fz-notice-list [data]="i"
-                                (select)="onSelect($event)"
-                                (clear)="onClear($event)"></fz-notice-list>
-            </mat-tab>
-        </mat-tab-group>
-    </ng-template>
-</fz-popover>
+</ng-template>
