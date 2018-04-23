@@ -7,8 +7,8 @@ import {FzBadgeModule} from '../badge/badge.module';
 import {FzPopoverModule} from '../popover/popover.module';
 import {MatIconModule, MatListModule, MatTabsModule, MatCardModule} from '@angular/material';
 import {FzAvatarModule} from '../avatar/avatar.module';
-import {FzDropDownModule} from '../..';
 import {OverlayModule} from '@angular/cdk/overlay';
+import {FzDropDownModule} from '../dropdown/dropdown.module';
 
 const COMPONENTS = [NoticeListComponent, NoticeIconComponent];
 
