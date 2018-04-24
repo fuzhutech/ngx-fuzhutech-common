@@ -30,11 +30,7 @@ import {
 import {FzMarkdownModule} from '../../lib';
 
 import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
-import {ImageListSelectComponent} from './image-list-select/image-list-select.component';
-import {AgeInputComponent} from './age-input/age-input.component';
 import {ChipsListComponent} from './chips-list/chips-list.component';
-import {IdentityInputComponent} from './identity-input/identity-input.component';
-import {AreaListComponent} from './area-list/area-list.component';
 import {FzMessageModule} from '../../lib';
 import {FzNotificationModule} from '../../lib';
 import {FzTimelineModule} from '../../lib';
@@ -105,11 +101,7 @@ import {FzAppHeaderModule} from './header/header.module';
     ],
     declarations: [
         ConfirmDialogComponent,
-        ImageListSelectComponent,
-        AgeInputComponent,
-        ChipsListComponent,
-        IdentityInputComponent,
-        AreaListComponent,
+        ChipsListComponent
     ],
     exports: [
         CommonModule,
@@ -156,11 +148,7 @@ import {FzAppHeaderModule} from './header/header.module';
         FzDropDownModule,
         FzNoticeIconModule,
         FzAppHeaderModule,
-        ImageListSelectComponent,
-        AgeInputComponent,
-        ChipsListComponent,
-        IdentityInputComponent,
-        AreaListComponent,
+        ChipsListComponent
     ],
     entryComponents: [
         ConfirmDialogComponent,

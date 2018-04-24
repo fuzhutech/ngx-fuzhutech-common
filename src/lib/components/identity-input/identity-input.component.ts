@@ -3,9 +3,8 @@ import {ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR} fro
 import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
-import {Identity, IdentityType} from '../../domain';
-import {isValidAddr, extractInfo} from '../../utils/identity.util';
-import {isValidDate} from '../../utils/date.util';
+import {isValidAddr, extractInfo} from './identity.util';
+import {isValidDate} from '../age-input/date.util';
 
 @Component({
     selector: 'fz-identity-input',
@@ -161,4 +160,18 @@ export class IdentityInputComponent implements ControlValueAccessor, OnInit, OnD
     private get idNo(): Observable<string> {
         return this._idNo.asObservable();
     }
+}
+
+
+export enum IdentityType {
+    IdCard = 0,
+    Insurance,
+    Passport,
+    Military,
+    Other
+}
+
+export interface Identity {
+    identityNo: string;
+    identityType: IdentityType;
 }

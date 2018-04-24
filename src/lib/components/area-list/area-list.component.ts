@@ -1,10 +1,9 @@
 import {Component, OnInit, ChangeDetectionStrategy, forwardRef, OnDestroy} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {getProvinces, getCitiesByProvince, getAreasByCity} from '../../utils/area.util';
+import {getProvinces, getCitiesByProvince, getAreasByCity} from './area.util';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import {Subscription} from 'rxjs/Subscription';
-import {Address} from '../../domain';
 
 @Component({
     selector: 'fz-area-list',
@@ -40,7 +39,8 @@ export class AreaListComponent implements ControlValueAccessor, OnInit, OnDestro
     provinces = getProvinces();
 
     private _sub: Subscription;
-    private propagateChange = (_: any) => {};
+    private propagateChange = (_: any) => {
+    };
 
     constructor() {
     }
@@ -136,4 +136,13 @@ export class AreaListComponent implements ControlValueAccessor, OnInit, OnDestro
     onStreetChange() {
         this._street.next(this._address.street);
     }
+}
+
+
+export interface Address {
+    id?: number;
+    province: string;
+    city: string;
+    district: string;
+    street?: string;
 }
