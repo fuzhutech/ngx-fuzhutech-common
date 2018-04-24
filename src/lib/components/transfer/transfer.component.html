@@ -15,10 +15,12 @@
                   (handleSelectAll)="handleLeftSelectAll($event)"></fz-transfer-list>
 <div class="fz-transfer-operation">
     <button mat-raised-button color="primary" (click)="moveToLeft()" [disabled]="!leftActive">
-        <i class="anticon anticon-left"></i><span *ngIf="nzOperations[1]">{{ nzOperations[1] }}</span>
+        <mat-icon>keyboard_arrow_left</mat-icon>
+        <span *ngIf="nzOperations[1]">{{ nzOperations[1] }}</span>
     </button>
     <button mat-raised-button color="primary" (click)="moveToRight()" [disabled]="!rightActive">
-        <i class="anticon anticon-right"></i><span *ngIf="nzOperations[0]">{{ nzOperations[0] }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+        <span *ngIf="nzOperations[0]">{{ nzOperations[0] }}</span>
     </button>
 </div>
 <fz-transfer-list class="fz-transfer-list" [ngStyle]="nzListStyle" data-direction="right"
