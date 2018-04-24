@@ -1,0 +1,9 @@
+<mat-form-field class="fz-transfer-list-search">
+    <input matInput type="text" [placeholder]="placeholder" [(ngModel)]="value" (ngModelChange)="_handle()"/>
+    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="_clear()">
+        <mat-icon>close</mat-icon>
+    </button>
+    <button mat-button *ngIf="!value" matSuffix mat-icon-button style="pointer-events: none">
+        <mat-icon>search</mat-icon>
+    </button>
+</mat-form-field>

@@ -21,6 +21,7 @@ import {TransferItem} from '../item';
 @Component({
     selector: 'fz-transfer-list',
     templateUrl: './transfer-list.component.html',
+    styleUrls: ['./transfer-list.component.scss']
 })
 export class TransferListComponent implements OnChanges, OnInit, DoCheck {
     private _showSearch = false;
@@ -30,10 +31,10 @@ export class TransferListComponent implements OnChanges, OnInit, DoCheck {
     @Input() direction = '';
     @Input() titleText = '';
 
-    @Input() dataSource: TransferItem[] = [];
+    @Input() dataSource: TransferItem[] = [];  // 数据源，其中若数据属性 direction: 'right' 将会被渲染到右边一栏中
 
-    @Input() itemUnit = '';
-    @Input() itemsUnit = '';
+    @Input() itemUnit = ''; // 单数单位
+    @Input() itemsUnit = ''; // 复数单位
     @Input() filter = '';
 
     // search
@@ -46,12 +47,12 @@ export class TransferListComponent implements OnChanges, OnInit, DoCheck {
         return this._showSearch;
     }
 
-    @Input() searchPlaceholder: string;
-    @Input() notFoundContent: string;
+    @Input() searchPlaceholder: string;  // 搜索框的默认值
+    @Input() notFoundContent: string;    // 当列表为空时显示的内容
+    // 接收 inputValueoption 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
     @Input() filterOption: (inputValue: string, item: TransferItem) => boolean;
-
-    @Input() render: TemplateRef<void>;
-    @Input() footer: TemplateRef<void>;
+    @Input() render: TemplateRef<void>;  // 每行数据渲染模板
+    @Input() footer: TemplateRef<void>;  // 底部渲染模板
 
     // events
     @Output() handleSelectAll: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -157,12 +158,15 @@ export class TransferListComponent implements OnChanges, OnInit, DoCheck {
         }
     }
 
-    _handleSelect(item: TransferItem): void {
+    _handleSelect(item: TransferItem, event): void {
         if (item.disabled) {
             return;
         }
+        console.log(item.checked, !item.checked);
         item.checked = !item.checked;
         this.updateCheckStatus();
         this.handleSelect.emit(item);
+        event.preventDefault();
+        event.stopPropagation();
     }
 }

@@ -3,6 +3,7 @@
 </p>
 
 <fz-transfer
+    [nzShowSearch]="true"
     [nzDataSource]="list"
     [nzTitles]="['Source', 'Target']"
     (nzSelectChange)="select($event)"

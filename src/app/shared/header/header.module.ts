@@ -7,7 +7,6 @@ import {HeaderUserComponent} from './header-user/header-user.component';
 import {HeaderTaskComponent} from './header-task/header-task.component';
 import {HeaderNotifyComponent} from './header-notify/header-notify.component';
 import {HeaderIconComponent} from './header-icon/header-icon.component';
-import {HeaderSearchComponent} from './header-search/header-search.component';
 import {HeaderThemeComponent} from './header-theme/header-theme.component';
 import {
     MatButtonModule, MatSlideToggleModule, MatIconModule, MatToolbarModule, MatInputModule, MatCardModule,
@@ -45,7 +44,6 @@ import {FzPopoverModule} from '../../../lib';
     declarations: [
         HeaderComponent,
         HeaderThemeComponent,
-        HeaderSearchComponent,
         HeaderIconComponent,
         HeaderNotifyComponent,
         HeaderTaskComponent,

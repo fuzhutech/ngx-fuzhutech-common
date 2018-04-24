@@ -6,15 +6,19 @@ import {FormsModule} from '@angular/forms';
 // import {NzInputModule} from '../input/nz-input.module';
 // import {NzLocaleModule} from '../locale/index';
 import {TransferListComponent} from './transfer-list/transfer-list.component';
-import {TransferSearchComponent} from './transfer-search.component';
 import {TransferComponent} from './transfer.component';
-import {MatCheckboxModule} from '@angular/material';
+import {MatCheckboxModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import {TransferSearchComponent} from './transfer-search/transfer-search.component';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         MatCheckboxModule,
+        MatButtonModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
         /*NzCheckboxModule,
         NzButtonModule,
         NzInputModule,
@@ -23,7 +27,8 @@ import {MatCheckboxModule} from '@angular/material';
     declarations: [
         TransferComponent,
         TransferListComponent,
-        TransferSearchComponent],
+        TransferSearchComponent
+    ],
     exports: [TransferComponent]
 })
 export class FzTransferModule {

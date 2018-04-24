@@ -21,19 +21,19 @@ import {TransferItem} from './item';
 
 
 export interface TransferCanMove {
-    direction: string;
-    list: TransferItem[];
+    direction: string;            // 数据方向	left,right
+    list: TransferItem[];         // 数据源
 }
 
 export interface TransferChange {
-    from: string;
-    to: string;
-    list: TransferItem[];
+    from: string;           // 数据方向	left,right
+    to: string;             // 数据方向	left,right
+    list: TransferItem[];   // 数据源
 }
 
 export interface TransferSearchChange {
-    direction: string;
-    value: string;
+    direction: string;   // 数据方向	left,right
+    value: string;       // 搜索关键词
 }
 
 export interface TransferSelectChange {
@@ -50,7 +50,7 @@ export interface TransferSelectChange {
     styleUrls: ['./transfer.component.scss'],
     // tslint:disable-next-line:use-host-property-decorator
     host: {
-        '[class.ant-transfer]': 'true'
+        '[class.fz-transfer]': 'true'
     },
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -62,20 +62,18 @@ export class TransferComponent implements OnChanges {
 
     // region: fields
 
-    @Input() nzDataSource: TransferItem[] = [];
-    // @Input() nzTitles: string[] = this._locale.translate('Transfer.titles').split(',');
-    @Input() nzTitles: string[] = [];
-    @Input() nzOperations: string[] = [];
-    @Input() nzListStyle: object;
-    // @Input() nzItemUnit = this._locale.translate('Transfer.itemUnit');
-    @Input() nzItemUnit = '项目';
-    // @Input() nzItemsUnit = this._locale.translate('Transfer.itemsUnit');
-    @Input() nzItemsUnit = '项目';
+    @Input() nzDataSource: TransferItem[] = [];  // 数据源，其中若数据属性 direction: 'right' 将会被渲染到右边一栏中
+    @Input() nzTitles: string[] = [];            // 标题集合，顺序从左至右
+    @Input() nzOperations: string[] = [];        // 操作文案集合，顺序从下至上
+    @Input() nzListStyle: object;                // 两个穿梭框的自定义样式，等同 ngStyle
+    @Input() nzItemUnit = '项';                  // 单数单位
+    @Input() nzItemsUnit = '项';                 // 复数单位
+    // 穿梭时二次校验。注意： 穿梭组件内部始终只保留一份数据，二次校验过程中需取消穿梭项则直接删除该项；具体用法见示例。
     @Input() canMove: (arg: TransferCanMove) => Observable<TransferItem[]> = (arg: TransferCanMove) => of(arg.list);
-    @ContentChild('render') render: TemplateRef<void>;
-    @ContentChild('footer') footer: TemplateRef<void>;
+    @ContentChild('render') render: TemplateRef<void>;  // 每行数据渲染模板
+    @ContentChild('footer') footer: TemplateRef<void>;  // 底部渲染模板
 
-    // search
+    // search  是否显示搜索框
     @Input()
     set nzShowSearch(value: boolean) {
         this._showSearch = coerceBooleanProperty(value);
@@ -85,15 +83,16 @@ export class TransferComponent implements OnChanges {
         return this._showSearch;
     }
 
+    // 接收 inputValueoption 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
     @Input() nzFilterOption: (inputValue: string, item: TransferItem) => boolean;
-    // @Input() nzSearchPlaceholder = this._locale.translate('Transfer.searchPlaceholder');
-    @Input() nzSearchPlaceholder = '请输入';
-    // @Input() nzNotFoundContent = this._locale.translate('Transfer.notFoundContent');
+    // 搜索框的默认值
+    @Input() nzSearchPlaceholder = '请输入搜索内容';
+    // 当列表为空时显示的内容
     @Input() nzNotFoundContent = '无匹配结果';
     // events
-    @Output() nzChange: EventEmitter<TransferChange> = new EventEmitter();
-    @Output() nzSearchChange: EventEmitter<TransferSearchChange> = new EventEmitter();
-    @Output() nzSelectChange: EventEmitter<TransferSelectChange> = new EventEmitter();
+    @Output() nzChange: EventEmitter<TransferChange> = new EventEmitter();  // 选项在两栏之间转移时的回调函数
+    @Output() nzSearchChange: EventEmitter<TransferSearchChange> = new EventEmitter();  // 搜索框内容时改变时的回调函数
+    @Output() nzSelectChange: EventEmitter<TransferSelectChange> = new EventEmitter();  // 选中项发生改变时的回调函数
 
     // endregion
 

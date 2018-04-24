@@ -1,0 +1,21 @@
+@import '../../core/theming/theming';
+
+@mixin fz-transfer-theme($theme) {
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+    $primary: map-get($theme, primary);
+
+    .fz-timeline {
+        background-color: mat-color($background, background);
+    }
+
+    .fz-timeline-item-tail {
+        border-left-color: mat-color($foreground, divider);;
+    }
+}
+
+@mixin fz-timeline-typography($config) {
+    .fz-transfer {
+        font-family: mat-font-family($config);
+    }
+}

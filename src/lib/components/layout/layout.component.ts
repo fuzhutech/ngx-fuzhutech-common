@@ -21,20 +21,6 @@ export class LayoutComponent implements OnInit {
 
     _sidebarOpen = true;
     @Input() set sidebarOpen(value) {
-        if (this.tabContainerElement && (this.tabContainerElement.nativeElement.offsetWidth > 0)) {
-            if (value) {
-                // 展开侧边栏，导航栏减少宽度
-                // this.screenWidth = this.el.nativeElement.offsetWidth;
-                this.tabContainerWidth = this.tabContainerElement.nativeElement.offsetWidth;
-            } else {
-                // 收缩侧边栏，导航栏增加宽度
-                this.tabContainerWidth = this.tabContainerElement.nativeElement.offsetWidth;
-                if (this.sidebarContainerElement) {
-                    this.sidebarWidth = this.sidebarContainerElement.nativeElement.offsetWidth;
-                }
-            }
-        }
-
         this._sidebarOpen = coerceBooleanProperty(value);
     }
 
@@ -65,60 +51,15 @@ export class LayoutComponent implements OnInit {
         return {};
     }
 
-    private tabContainerWidth = -1;
-    private sidebarWidth = -1;
-    private width = -1;
-
     get tabContainerStyle() {
-        if (this.tabContainerElement && (this.tabContainerElement.nativeElement.offsetWidth > 0)) {
-            /*console.log('tabContainerStyle screenWidth:', this.el.nativeElement.offsetWidth,
-                'tabContainerWidth:', this.tabContainerElement.nativeElement.offsetWidth);*/
-            if (this._sidebarOpen) {
-                // 收到展开侧边栏命令
-                if (this.tabContainerWidth > 0) {
 
-                    // 侧边栏已展开
-                    if (this.sidebarContainerElement && (this.sidebarContainerElement.nativeElement.offsetWidth > 0)) {
-                        const sidebarWidth = this.sidebarContainerElement.nativeElement.offsetWidth;
-                        const width = this.tabContainerWidth - sidebarWidth;
-                        this.tabContainerWidth = -1;
-                        return (width > 0) ? {'width': `${width}px`} : {};
-                    } else {
-                        // 侧边栏展开过程
-                        const width = this.tabContainerWidth - this.sidebarWidth > 0 ?
-                            this.tabContainerWidth - this.sidebarWidth : this.tabContainerWidth;
-                        return {'width': `${width}px`};
-                    }
-                } else if (this.sidebarContainerElement && (this.sidebarContainerElement.nativeElement.offsetWidth > 0)) {
-                    // 侧边栏日常已展开状态
-                    // 代码前提，上级containerStyle，flex-direction: column
-                    const sidebarWidth = this.sidebarContainerElement.nativeElement.offsetWidth;
-                    const screenWidth = this.el.nativeElement.offsetWidth;
-                    this.width = screenWidth - sidebarWidth;
-
-                    return {'width': `${this.width}px`};
-                }
-            } else {
-                // 收到收缩侧边栏命令
-                if (this.tabContainerWidth > 0) {
-                    // 侧边栏已收缩
-                    if (this.sidebarContainerElement && (this.sidebarContainerElement.nativeElement.offsetWidth === 0)) {
-                        const screenWidth = this.el.nativeElement.offsetWidth;
-                        this.tabContainerWidth = -1;
-                        return {'width': `${screenWidth}px`};
-                    } else {
-                        // 侧边栏收缩过程
-                        return {'width': `${this.tabContainerWidth}px`};
-                    }
-                } else {
-                    // 侧边栏日常已收缩状态
-                    const screenWidth = this.el.nativeElement.offsetWidth;
-                    return {'width': `${screenWidth}px`};
-                }
-            }
+        let sidebarWidth = 0;
+        if (this.sidebarContainerElement && (this.sidebarContainerElement.nativeElement.offsetWidth > 0)) {
+            sidebarWidth = this.sidebarContainerElement.nativeElement.offsetWidth;
         }
 
-        return {};
+        const width = this._sidebarOpen ? sidebarWidth + 8 : 8;
+        return {'max-width': `calc(100vw - ${width}px)`};
     }
 
     private moduleList: Array<{ path: string, title: string, isSelect: boolean, menuData: MenuData[] }> = [];
