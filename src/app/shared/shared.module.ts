@@ -28,8 +28,6 @@ import {
 } from '@angular/material';
 
 import {FzMarkdownModule} from '../../lib';
-
-import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 import {ChipsListComponent} from './chips-list/chips-list.component';
 import {FzMessageModule} from '../../lib';
 import {FzNotificationModule} from '../../lib';
@@ -100,7 +98,6 @@ import {FzAppHeaderModule} from './header/header.module';
         FzAppHeaderModule,
     ],
     declarations: [
-        ConfirmDialogComponent,
         ChipsListComponent
     ],
     exports: [
@@ -151,7 +148,6 @@ import {FzAppHeaderModule} from './header/header.module';
         ChipsListComponent
     ],
     entryComponents: [
-        ConfirmDialogComponent,
     ]
 })
 export class SharedModule {

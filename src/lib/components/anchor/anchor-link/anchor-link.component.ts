@@ -4,7 +4,7 @@ import {
     ElementRef,
     HostBinding,
     HostListener,
-    Input,
+    Input, OnDestroy, OnInit,
     TemplateRef,
     ViewEncapsulation,
 } from '@angular/core';
@@ -16,12 +16,27 @@ import {AnchorComponent} from '../anchor.component';
     encapsulation: ViewEncapsulation.None,
     templateUrl: './anchor-link.component.html',
     styleUrls: ['./anchor-link.component.scss'],
+    // tslint:disable-next-line:use-host-property-decorator
+    host: {
+        '[class.ant-anchor-link]': 'true',
+        'style': 'display:block'
+    }
 })
-export class AnchorLinkComponent {
+export class AnchorLinkComponent implements OnInit, OnDestroy {
 
-    @Input() nzHref: string;
+    @Input() nzHref = '#';
 
-    @Input() nzTitle: string;
+    titleStr = '';
+    titleTpl: TemplateRef<void>;
+
+    @Input()
+    set nzTitle(value: string | TemplateRef<void>) {
+        if (value instanceof TemplateRef) {
+            this.titleTpl = value;
+        } else {
+            this.titleStr = value;
+        }
+    }
 
     @ContentChild('nzTemplate') nzTemplate: TemplateRef<void>;
 
@@ -29,19 +44,25 @@ export class AnchorLinkComponent {
 
     @HostBinding('class.ant-anchor-link-active') active = false;
 
-    @HostListener('click')
+    /*@HostListener('click')
     _onClick(): void {
         this._anchorComp.scrollTo(this);
+    }*/
+
+    constructor(public el: ElementRef, private anchorComp: AnchorComponent) {
     }
 
-    constructor(public el: ElementRef, private _anchorComp: AnchorComponent) {
-        this._anchorComp.add(this);
+    ngOnInit(): void {
+        this.anchorComp.registerLink(this);
     }
 
     goToClick(e: Event): void {
         e.preventDefault();
         e.stopPropagation();
-        this._anchorComp.scrollTo(this);
-        // return false;
+        this.anchorComp.handleScrollTo(this);
+    }
+
+    ngOnDestroy(): void {
+        this.anchorComp.unregisterLink(this);
     }
 }

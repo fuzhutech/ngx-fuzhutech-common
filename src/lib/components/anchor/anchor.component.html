@@ -1,8 +1,13 @@
-<div class="fz-anchor-wrapper" #container>
-    <div class="fz-anchor">
-        <div class="fz-anchor-ink">
-            <div class="fz-anchor-ink-ball" [class.visible]="_visible" #ball></div>
+<fz-affix *ngIf="nzAffix;else content" [fzOffsetTop]="nzOffsetTop">
+    <ng-template [ngTemplateOutlet]="content"></ng-template>
+</fz-affix>
+<ng-template #content>
+    <div class="fz-anchor-wrapper" #wrap [ngStyle]="wrapperStyle">
+        <div class="fz-anchor" [ngClass]="{'fixed': !nzAffix && !nzShowInkInFixed}">
+            <div class="fz-anchor-ink">
+                <div class="fz-anchor-ink-ball" [class.visible]="visible" #ink></div>
+            </div>
+            <ng-content></ng-content>
         </div>
-        <ng-content></ng-content>
     </div>
-</div>
+</ng-template>

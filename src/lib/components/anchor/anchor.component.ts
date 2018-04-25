@@ -1,5 +1,7 @@
 import {DOCUMENT} from '@angular/common';
 import {
+    AfterViewInit, ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     ElementRef,
     EventEmitter,
@@ -12,6 +14,7 @@ import {
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
+import {coerceNumberProperty, coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Subscription} from 'rxjs/Subscription';
 import {fromEvent} from 'rxjs/observable/fromEvent';
 import {distinctUntilChanged} from 'rxjs/operators/distinctUntilChanged';
@@ -25,28 +28,78 @@ interface Section {
     top: number;
 }
 
+const sharpMatcherRegx = /#([^#]+)$/;
+
 @Component({
     selector: 'fz-anchor',
-    encapsulation: ViewEncapsulation.None,
+    // encapsulation: ViewEncapsulation.None,
+    preserveWhitespaces: false,
     templateUrl: './anchor.component.html',
-    styleUrls: ['./anchor.component.scss']
+    styleUrls: ['./anchor.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AnchorComponent implements OnDestroy, OnInit {
+export class AnchorComponent implements OnDestroy, AfterViewInit {
 
     private links: AnchorLinkComponent[] = [];
-    private scroll$: Subscription = null;
-    private target: Element = null;
     private animating = false;
-    private doc: Document;
+    private target: Element = null;
+    /** @private */
+    scroll$: Subscription = null;
+    /** @private */
+    visible = false;
+    /** @private */
+    wrapperStyle: {} = {'max-height': '100vh'};
+    @ViewChild('wrap') private wrap: ElementRef;
+    @ViewChild('ink') private ink: ElementRef;
 
-    @ViewChild('container')
-    private container: ElementRef;
+    // region: fields
 
-    @ViewChild('ball')
-    private ball: ElementRef;
+    private _affix = true;
 
-    _top = 0;
-    _visible = false;
+    @Input()
+    set nzAffix(value: boolean) {
+        this._affix = coerceBooleanProperty(value);
+    }
+
+    get nzAffix(): boolean {
+        return this._affix;
+    }
+
+    private _bounds = 5;
+
+    @Input()
+    set nzBounds(value: number) {
+        this._bounds = coerceNumberProperty(value);
+    }
+
+    get nzBounds(): number {
+        return this._bounds;
+    }
+
+    private _offsetTop: number;
+
+    @Input()
+    set nzOffsetTop(value: number) {
+        this._offsetTop = coerceNumberProperty(value);
+        this.wrapperStyle = {
+            'max-height': `calc(100vh - ${this._offsetTop}px)`
+        };
+    }
+
+    get nzOffsetTop(): number {
+        return this._offsetTop;
+    }
+
+    private _showInkInFixed = false;
+
+    @Input()
+    set nzShowInkInFixed(value: boolean) {
+        this._showInkInFixed = coerceBooleanProperty(value);
+    }
+
+    get nzShowInkInFixed(): boolean {
+        return this._showInkInFixed;
+    }
 
     @Input()
     set nzTarget(el: Element) {
@@ -54,60 +107,43 @@ export class AnchorComponent implements OnDestroy, OnInit {
         this.registerScrollEvent();
     }
 
-    @Input() fzOffsetTop = 0;
+    @Output() nzClick: EventEmitter<string> = new EventEmitter();
 
-    @Input() fzBounds = 5;
+    @Output() nzScroll: EventEmitter<AnchorLinkComponent> = new EventEmitter();
 
-    @Output() fzScroll: EventEmitter<AnchorLinkComponent> = new EventEmitter();
+    // endregion
 
     /* tslint:disable-next-line:no-any */
-    constructor(private scrollSrv: ScrollService, private _renderer: Renderer2, @Inject(DOCUMENT) doc: any) {
-        this.doc = doc;
+    constructor(private scrollSrv: ScrollService, @Inject(DOCUMENT) private doc: any, private cd: ChangeDetectorRef) {
     }
 
-    ngOnInit(): void {
-        if (!this.scroll$) {
-            this.registerScrollEvent();
-        }
+    registerLink(link: AnchorLinkComponent): void {
+        this.links.push(link);
+    }
+
+    unregisterLink(link: AnchorLinkComponent): void {
+        this.links.splice(this.links.indexOf(link), 1);
     }
 
     private getTarget(): Element | Window {
         return this.target || window;
     }
 
-    private handleScroll(): void {
-        if (this.animating) {
-            return;
-        }
+    ngAfterViewInit(): void {
+        this.registerScrollEvent();
+    }
 
-        const sections: Section[] = [];
-        this.links.forEach(comp => {
-            comp.active = false;
-            const target = this.doc.querySelector(comp.nzHref);
+    ngOnDestroy(): void {
+        this.removeListen();
+    }
 
-            const top = this.scrollSrv.getOffset(target).top;
-            if (target && top < this.fzOffsetTop + this.fzBounds) {
-                sections.push({
-                    top,
-                    comp
-                });
-            }
-        });
-
-        this._visible = !!sections.length;
-        console.log(this._visible);
-
-        if (!this._visible) {
-            return;
-        }
-
-        const maxSection = sections.reduce((prev, curr) => curr.top > prev.top ? curr : prev);
-        maxSection.comp.active = true;
-
-        const linkNode = (maxSection.comp.el.nativeElement as HTMLDivElement).querySelector('.ant-anchor-link-title') as HTMLElement;
-        this.ball.nativeElement.style.top = `${linkNode.offsetTop + linkNode.clientHeight / 2 - 4.5}px`;
-
-        this.fzScroll.emit(maxSection.comp);
+    private registerScrollEvent(): void {
+        this.removeListen();
+        this.scroll$ = fromEvent(this.getTarget(), 'scroll').pipe(throttleTime(50), distinctUntilChanged())
+            .subscribe(e => this.handleScroll());
+        // 由于页面刷新时滚动条位置的记忆
+        // 倒置在dom未渲染完成，导致计算不正确
+        setTimeout(() => this.handleScroll());
     }
 
     private removeListen(): void {
@@ -116,27 +152,67 @@ export class AnchorComponent implements OnDestroy, OnInit {
         }
     }
 
-    private registerScrollEvent(): void {
-        this.removeListen();
-        // 由于页面刷新时滚动条位置的记忆
-        // 倒置在dom未渲染完成，导致计算不正确（500ms用于延后执行解决）
-        setTimeout(() => {
-            this.handleScroll();
-        }, 500);
-        this.scroll$ = fromEvent(this.getTarget(), 'scroll').pipe(throttleTime(50), distinctUntilChanged())
-            .subscribe(e => {
-                this.handleScroll();
-            });
+    private getOffsetTop(element: HTMLElement): number {
+        if (!element || !element.getClientRects().length) {
+            return 0;
+        }
+        const rect = element.getBoundingClientRect();
+        if (!rect.width && !rect.height) {
+            return rect.top;
+        }
+        return rect.top - element.ownerDocument.documentElement.clientTop;
     }
 
-    add(linkComp: AnchorLinkComponent): void {
-        this.links.push(linkComp);
+    handleScroll(): void {
+        if (this.animating) {
+            return;
+        }
+
+        const sections: Section[] = [];
+        const scope = (this.nzOffsetTop || 0) + this.nzBounds;
+        this.links.forEach(comp => {
+            const sharpLinkMatch = sharpMatcherRegx.exec(comp.nzHref.toString());
+            if (!sharpLinkMatch) {
+                return;
+            }
+            const target = this.doc.getElementById(sharpLinkMatch[1]);
+            if (target && this.getOffsetTop(target) < scope) {
+                const top = this.getOffsetTop(target);
+                sections.push({
+                    top,
+                    comp
+                });
+            }
+        });
+
+        this.visible = !!sections.length;
+        if (!this.visible) {
+            this.clearActive();
+            this.cd.detectChanges();
+        } else {
+            const maxSection = sections.reduce((prev, curr) => curr.top > prev.top ? curr : prev);
+            this.handleActive(maxSection.comp);
+        }
     }
 
-    /** 设置滚动条至 `linkComp` 所处位置 */
-    scrollTo(linkComp: AnchorLinkComponent): void {
+    private clearActive(): void {
+        this.links.forEach(i => i.active = false);
+    }
+
+    private handleActive(comp: AnchorLinkComponent): void {
+        this.clearActive();
+
+        comp.active = true;
+        this.cd.detectChanges();
+
+        const linkNode = (comp.el.nativeElement as HTMLDivElement).querySelector('.ant-anchor-link-title') as HTMLElement;
+        this.ink.nativeElement.style.top = `${linkNode.offsetTop + linkNode.clientHeight / 2 - 4.5}px`;
+
+        this.nzScroll.emit(comp);
+    }
+
+    handleScrollTo(linkComp: AnchorLinkComponent): void {
         const el = this.doc.querySelector(linkComp.nzHref);
-        console.log(linkComp.nzHref, el);
         if (!el) {
             return;
         }
@@ -144,15 +220,11 @@ export class AnchorComponent implements OnDestroy, OnInit {
         this.animating = true;
         const containerScrollTop = this.scrollSrv.getScroll(this.getTarget());
         const elOffsetTop = this.scrollSrv.getOffset(el).top;
-        const targetScrollTop = containerScrollTop + elOffsetTop - this.fzOffsetTop;
+        const targetScrollTop = containerScrollTop + elOffsetTop - (this.nzOffsetTop || 0);
         this.scrollSrv.scrollTo(this.getTarget(), targetScrollTop, null, () => {
             this.animating = false;
-            this.handleScroll();
+            this.handleActive(linkComp);
         });
+        this.nzClick.emit(linkComp.nzHref);
     }
-
-    ngOnDestroy(): void {
-        this.removeListen();
-    }
-
 }

@@ -1,5 +1,6 @@
 import {DOCUMENT} from '@angular/common';
 import {Inject, Injectable, Optional, Provider, SkipSelf} from '@angular/core';
+
 import {reqAnimFrame} from '../polyfill/request-animation';
 
 export type EasyingFn = (t: number, b: number, c: number, d: number) => number;
@@ -78,10 +79,12 @@ export class ScrollService {
      * @param easing 动作算法，默认：`easeInOutCubic`
      * @param callback 动画结束后回调
      */
-    scrollTo(containerEl: Element | Window,
-             targetTopValue: number = 0,
-             easing?: EasyingFn,
-             callback?: () => void): void {
+    scrollTo(
+        containerEl: Element | Window,
+        targetTopValue: number = 0,
+        easing?: EasyingFn,
+        callback?: () => void
+    ): void {
         const target = containerEl ? containerEl : window;
         const scrollTop = this.getScroll(target);
         const startTime = Date.now();

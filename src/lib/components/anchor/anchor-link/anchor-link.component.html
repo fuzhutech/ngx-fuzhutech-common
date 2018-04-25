@@ -1,4 +1,4 @@
-<a (click)="goToClick($event)" href="{{nzHref}}" class="fz-anchor-link-title">
+<a (click)="goToClick($event)" href="{{nzHref}}" class="fz-anchor-link-title" >
     <span *ngIf="!nzTemplate">{{ nzTitle }}</span>
     <ng-template *ngIf="nzTemplate" [ngTemplateOutlet]="nzTemplate"></ng-template>
 </a>
