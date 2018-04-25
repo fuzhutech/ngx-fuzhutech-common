@@ -3,21 +3,15 @@
      (mouseenter)="onEnter()"
      (mouseleave)="onLeave()">
     <div class="ant-message-notice-content">
-        <div *ngIf="!nzMessage.html" class="ant-message-custom-content" [ngClass]="'ant-message-' + nzMessage.type">
+        <div class="ant-message-custom-content" [ngClass]="'ant-message-' + nzMessage.type">
             <ng-container [ngSwitch]="nzMessage.type">
-                <!--<i *ngSwitchCase="'success'" class="anticon anticon-check-circle"></i>-->
                 <mat-icon *ngSwitchCase="'success'">check_circle</mat-icon>
-                <!--i *ngSwitchCase="'info'" class="anticon anticon-info-circle"></i-->
                 <mat-icon *ngSwitchCase="'info'">info</mat-icon>
-                <!--<i *ngSwitchCase="'warning'" class="anticon anticon-exclamation-circle"></i>-->
                 <mat-icon *ngSwitchCase="'warning'">warning</mat-icon>
-                <!--<i *ngSwitchCase="'error'" class="anticon anticon-cross-circle"></i>-->
                 <mat-icon *ngSwitchCase="'error'">error</mat-icon>
-                <!--<i *ngSwitchCase="'loading'" class="anticon anticon-spin anticon-loading"></i>-->
                 <mat-icon *ngSwitchCase="'loading'">cached</mat-icon>
             </ng-container>
-            <span>{{ nzMessage.content }}</span>
+            <span [innerHTML]="nzMessage.content"></span>
         </div>
-        <div *ngIf="nzMessage.html" [innerHTML]="nzMessage.html"></div>
     </div>
 </div>

@@ -1,20 +1,24 @@
 import {Overlay} from '@angular/cdk/overlay';
 import {ComponentPortal} from '@angular/cdk/portal';
-import {Injectable, Type} from '@angular/core';
+import {ApplicationRef, ComponentFactoryResolver, Injectable, Injector, Type} from '@angular/core';
 import {MessageContainerComponent} from './message-container.component';
 import {MessageData, MessageDataFilled, MessageDataOptions} from './message.definitions';
+import {MessageConfig} from './message-config';
 
-// TODO: remove MessageData generic type as it has no contributon in typing
-export class MessageBaseService<ContainerClass extends MessageContainerComponent, MessageData> {
+export class MessageBaseService<ContainerClass extends MessageContainerComponent> {
     protected _counter = 0; // Id counter for messages
     protected _container: ContainerClass;
 
-    constructor(overlay: Overlay, containerClass: Type<ContainerClass>, private _idPrefix: string = '') {
+    constructor(overlay: Overlay,
+                containerClass: Type<ContainerClass>,
+                // private injector: Injector,
+                // private cfr: ComponentFactoryResolver,
+                // private appRef: ApplicationRef,
+                private _idPrefix: string = '') {
 
         const overlayRef = overlay.create();
         const containerPortal = new ComponentPortal(containerClass);
         this._container = overlayRef.attach(containerPortal).instance;
-        // this._container = overlay.create().attach(new ComponentPortal(containerClass)).instance;
     }
 
     remove(messageId?: string): void {
@@ -39,13 +43,17 @@ export class MessageBaseService<ContainerClass extends MessageContainerComponent
         return resultMessage;
     }
 
+    config(config: MessageConfig): void {
+        this._container.setConfig(config);
+    }
+
     protected _generateMessageId(): string {
         return this._idPrefix + this._counter++;
     }
 }
 
 @Injectable()
-export class MessageService extends MessageBaseService<MessageContainerComponent, MessageData> {
+export class MessageService extends MessageBaseService<MessageContainerComponent> {
 
     constructor(overlay: Overlay) {
         super(overlay, MessageContainerComponent, 'message-');
@@ -74,10 +82,5 @@ export class MessageService extends MessageBaseService<MessageContainerComponent
 
     create(type: string, content: string, options?: MessageDataOptions): MessageDataFilled {
         return this.createMessage({type, content}, options);
-    }
-
-    // For content with html
-    html(html: string, options?: MessageDataOptions): MessageDataFilled {
-        return this.createMessage({html}, options);
     }
 }

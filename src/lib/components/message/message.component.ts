@@ -1,58 +1,28 @@
-import {
-    animate,
-    state,
-    style,
-    transition,
-    trigger,
-} from '@angular/animations';
-import {
-    Component,
-    Input,
-    OnDestroy,
-    OnInit,
-    ViewEncapsulation,
-} from '@angular/core';
-import { MessageConfig } from './message-config';
-import { MessageContainerComponent } from './message-container.component';
-import { MessageDataFilled, MessageDataOptions } from './message.definitions';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {Component, Input, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {MessageConfig} from './message-config';
+import {MessageContainerComponent} from './message-container.component';
+import {MessageDataFilled, MessageDataOptions} from './message.definitions';
 
 @Component({
-    selector     : 'fz-message',
-    encapsulation: ViewEncapsulation.None,
-    animations   : [
+    selector: 'fz-message',
+    preserveWhitespaces: false,
+    // encapsulation: ViewEncapsulation.None,
+    animations: [
         trigger('enterLeave', [
-            state('enter', style({ opacity: 1, transform: 'translateY(0)' })),
+            state('enter', style({opacity: 1, transform: 'translateY(0)'})),
             transition('* => enter', [
-                style({ opacity: 0, transform: 'translateY(-50%)' }),
+                style({opacity: 0, transform: 'translateY(-50%)'}),
                 animate('100ms linear')
             ]),
-            state('leave', style({ opacity: 0, transform: 'translateY(-50%)' })),
+            state('leave', style({opacity: 0, transform: 'translateY(-50%)'})),
             transition('* => leave', [
-                style({ opacity: 1, transform: 'translateY(0)' }),
+                style({opacity: 1, transform: 'translateY(0)'}),
                 animate('100ms linear')
             ]),
         ])
     ],
-    template     : `
-    <div class="ant-message-notice"
-      [@enterLeave]="nzMessage.state"
-      (mouseenter)="onEnter()"
-      (mouseleave)="onLeave()">
-      <div class="ant-message-notice-content">
-        <div *ngIf="!nzMessage.html" class="ant-message-custom-content" [ngClass]="'ant-message-' + nzMessage.type">
-          <ng-container [ngSwitch]="nzMessage.type">
-            <i *ngSwitchCase="'success'" class="anticon anticon-check-circle"></i>
-            <i *ngSwitchCase="'info'" class="anticon anticon-info-circle"></i>
-            <i *ngSwitchCase="'warning'" class="anticon anticon-exclamation-circle"></i>
-            <i *ngSwitchCase="'error'" class="anticon anticon-cross-circle"></i>
-            <i *ngSwitchCase="'loading'" class="anticon anticon-spin anticon-loading"></i>
-          </ng-container>
-          <span>{{ nzMessage.content }}</span>
-        </div>
-        <div *ngIf="nzMessage.html" [innerHTML]="nzMessage.html"></div>
-      </div>
-    </div>
-  `,
+    templateUrl: './message.component.html',
     styleUrls: ['./message.component.scss']
 })
 export class MessageComponent implements OnInit, OnDestroy {
@@ -68,7 +38,8 @@ export class MessageComponent implements OnInit, OnDestroy {
     private _eraseTimingStart: number;
     private _eraseTTL: number; // Time to live
 
-    constructor(private _messageContainer: MessageContainerComponent) { }
+    constructor(private _messageContainer: MessageContainerComponent) {
+    }
 
     ngOnInit(): void {
         this._options = this.nzMessage.options;

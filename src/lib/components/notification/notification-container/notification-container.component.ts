@@ -1,28 +1,28 @@
-import {Component, Inject, OnInit, Optional, ViewEncapsulation} from '@angular/core';
-import {MessageConfig, FZ_MESSAGE_CONFIG, FZ_MESSAGE_DEFAULT_CONFIG} from './message-config';
-import {MessageDataFilled, MessageDataOptions} from './message.definitions';
+import {Component, Inject, Optional, ViewEncapsulation} from '@angular/core';
+import {MessageContainerComponent} from '../../message/message-container.component';
+import {NotificationConfig, FZ_NOTIFICATION_CONFIG, FZ_NOTIFICATION_DEFAULT_CONFIG} from '../notification-config';
+import {MessageDataFilled, MessageDataOptions} from '../../message/message.definitions';
+import {FZ_MESSAGE_CONFIG, FZ_MESSAGE_DEFAULT_CONFIG, MessageConfig} from '../../message/message-config';
 
 @Component({
-    selector: 'fz-message-container',
-    encapsulation: ViewEncapsulation.None,
-    template: `
-        <div class="ant-message">
-            <fz-message *ngFor="let message of messages; let i = index" [nzMessage]="message" [nzIndex]="i"></fz-message>
-        </div>
-    `,
-    styleUrls: ['./message.component.scss']
+    selector: 'fz-notification-container',
+    // encapsulation: ViewEncapsulation.None,
+    preserveWhitespaces: false,
+    templateUrl: './notification-container.component.html',
+    styleUrls: ['./notification-container.component.scss']
 })
-export class MessageContainerComponent {
-    messages: MessageDataFilled[] = [];
-    config: MessageConfig;
+export class NotificationContainerComponent {
 
-    constructor(@Optional() @Inject(FZ_MESSAGE_DEFAULT_CONFIG) defaultConfig: MessageConfig,
-                @Optional() @Inject(FZ_MESSAGE_CONFIG) config: MessageConfig) {
+    messages: MessageDataFilled[] = [];
+    config: NotificationConfig;
+
+    constructor(@Optional() @Inject(FZ_NOTIFICATION_DEFAULT_CONFIG) defaultConfig: NotificationConfig,
+                @Optional() @Inject(FZ_NOTIFICATION_CONFIG) config: NotificationConfig) {
         this.config = {...defaultConfig, ...config};
     }
 
     setConfig(config: MessageConfig): void {
-        this.config = { ...this.config, ...config };
+        this.config = {...this.config, ...config};
     }
 
     // Create a new message

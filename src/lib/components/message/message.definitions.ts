@@ -6,10 +6,6 @@ export interface MessageDataOptions {
 
 // Message data for terminal users
 export interface MessageData {
-    // For html
-    html?: string;
-
-    // For string content
     // TODO: remove the literal parts as it's widened anyway
     type?: 'success' | 'info' | 'warning' | 'error' | 'loading' | string;
     content?: string;
@@ -21,5 +17,4 @@ export interface MessageDataFilled extends MessageData {
     state?: 'enter' | 'leave';
     options?: MessageDataOptions;
     createdAt: Date; // Auto created
-    title?: string;
 }

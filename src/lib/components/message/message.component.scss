@@ -1,68 +1,78 @@
 .ant-message {
-    font-size: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, .65);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
     position: fixed;
     z-index: 1010;
     width: 100%;
     top: 16px;
     left: 0;
-    pointer-events: none;
+    pointer-events: none
 }
 
-.ant-message {
-    // font-size: @font-size-base;
-    font-size: 12px;
-    position: fixed;
-    // z-index: @zindex-message;
-    z-index: 1010;
-    width: 100%;
-    top: 16px;
-    left: 0;
-    pointer-events: none;
+.ant-message-notice {
+    padding: 8px;
+    text-align: center
+}
 
-    &-notice {
-        padding: 8px;
-        text-align: center;
-        &:first-child {
-            margin-top: -8px;
-        }
-    }
+.ant-message-notice:first-child {
+    margin-top: -8px
+}
 
-    &-notice-content {
-        padding: 8px 16px;
-        //border-radius: @border-radius-base;
-        border-radius: 4px;
-        //box-shadow: @shadow-2;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
-        //background: @component-background;
-        background: #fff;
-        display: inline-block;
-        pointer-events: all;
-    }
+.ant-message-notice-content {
+    padding: 10px 16px;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+    background: #fff;
+    display: inline-block;
+    pointer-events: all
+}
 
-    /*&-success .@{iconfont-css-prefix}{
-        color: @success-color;
-    }
+.ant-message-success mat-icon {
+    color: #52c41a
+}
 
-    &-error .@{iconfont-css-prefix}
-    {color: @error-color;}
+.ant-message-error mat-icon {
+    color: #f5222d
+}
 
-    &-warning .@{iconfont-css-prefix}
-    {color: @warning-color;}
+.ant-message-warning mat-icon {
+    color: #faad14
+}
 
-    &-info .@{iconfont-css-prefix},& -loading . @ {iconfont-css-prefix} {
-    color: @info-color;}
+.ant-message-info mat-icon, .ant-message-loading mat-icon {
+    color: #1890ff
+}
 
-    .@{iconfont-css-prefix}{
+.ant-message .anticon {
     margin-right: 8px;
-    font-size: @font-size-lg;
+    font-size: 16px;
     top: 1px;
-    position: relative;
-    }*/
+    position: relative
+}
 
-    &-notice.move-up-leave.move-up-leave-active {
-        animation-name: MessageMoveOut;
-        overflow: hidden;
-        animation-duration: .3s;
+.ant-message-notice.move-up-leave.move-up-leave-active {
+    -webkit-animation-name: MessageMoveOut;
+    animation-name: MessageMoveOut;
+    overflow: hidden;
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s
+}
+
+@-webkit-keyframes MessageMoveOut {
+    0% {
+        opacity: 1;
+        max-height: 150px;
+        padding: 8px
+    }
+    100% {
+        opacity: 0;
+        max-height: 0;
+        padding: 0
     }
 }
 
@@ -70,11 +80,11 @@
     0% {
         opacity: 1;
         max-height: 150px;
-        padding: 8px;
+        padding: 8px
     }
     100% {
         opacity: 0;
         max-height: 0;
-        padding: 0;
+        padding: 0
     }
 }

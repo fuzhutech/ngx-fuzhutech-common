@@ -1,7 +1,8 @@
-import { OverlayModule } from '@angular/cdk/overlay';
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FZ_MESSAGE_DEFAULT_CONFIG_PROVIDER } from './message-config';
+import {OverlayModule} from '@angular/cdk/overlay';
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {MatIconModule} from '@angular/material';
+import {FZ_MESSAGE_DEFAULT_CONFIG_PROVIDER} from './message-config';
 import {MessageComponent} from './message.component';
 import {MessageContainerComponent} from './message-container.component';
 
@@ -10,9 +11,10 @@ const providers = [
 ];
 
 @NgModule({
-    imports: [ CommonModule, OverlayModule ],
-    declarations: [ MessageContainerComponent, MessageComponent ],
+    imports: [CommonModule, OverlayModule, MatIconModule],
+    declarations: [MessageContainerComponent, MessageComponent],
     providers,
-    entryComponents: [ MessageContainerComponent ]
+    entryComponents: [MessageContainerComponent]
 })
-export class FzMessageModule { }
+export class FzMessageModule {
+}

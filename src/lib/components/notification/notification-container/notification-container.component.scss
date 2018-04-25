@@ -1,0 +1,106 @@
+.ant-notification {
+    //font-family: "Monospaced Number", "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, .65);
+    box-sizing: border-box;
+    margin: 0 24px 0 0;
+    padding: 0;
+    list-style: none;
+    position: fixed;
+    z-index: 1010;
+    width: 384px;
+    max-width: calc(100vw - 32px)
+}
+
+.ant-notification-bottomLeft, .ant-notification-topLeft {
+    margin-left: 24px;
+    margin-right: 0
+}
+
+.ant-notification-bottomLeft .ant-notification-fade-appear.ant-notification-fade-appear-active, .ant-notification-bottomLeft .ant-notification-fade-enter.ant-notification-fade-enter-active, .ant-notification-topLeft .ant-notification-fade-appear.ant-notification-fade-appear-active, .ant-notification-topLeft .ant-notification-fade-enter.ant-notification-fade-enter-active {
+    animation-name: NotificationLeftFadeIn
+}
+
+.ant-notification .notification-fade-effect {
+    animation-duration: .24s;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(.645, .045, .355, 1)
+}
+
+.ant-notification-fade-appear, .ant-notification-fade-enter {
+    opacity: 0;
+    animation-duration: .24s;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(.645, .045, .355, 1);
+    animation-play-state: paused
+}
+
+.ant-notification-fade-leave {
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(.645, .045, .355, 1);
+    animation-duration: .2s;
+    animation-play-state: paused
+}
+
+.ant-notification-fade-appear.ant-notification-fade-appear-active, .ant-notification-fade-enter.ant-notification-fade-enter-active {
+    animation-name: NotificationFadeIn;
+    animation-play-state: running
+}
+
+.ant-notification-fade-leave.ant-notification-fade-leave-active {
+    animation-name: NotificationFadeOut;
+    animation-play-state: running
+}
+
+@-webkit-keyframes NotificationFadeIn {
+    0% {
+        opacity: 0;
+        left: 384px
+    }
+    100% {
+        left: 0;
+        opacity: 1
+    }
+}
+
+@keyframes NotificationFadeIn {
+    0% {
+        opacity: 0;
+        left: 384px
+    }
+    100% {
+        left: 0;
+        opacity: 1
+    }
+}
+
+@keyframes NotificationLeftFadeIn {
+    0% {
+        opacity: 0;
+        right: 384px
+    }
+    100% {
+        right: 0;
+        opacity: 1
+    }
+}
+
+@keyframes NotificationFadeOut {
+    0% {
+        opacity: 1;
+        margin-bottom: 16px;
+        //padding-top: 16px 24px;
+        padding-top: 16px;
+        //padding-bottom: 16px 24px;
+        padding-bottom: 16px;
+        max-height: 150px
+    }
+    100% {
+        opacity: 0;
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        max-height: 0
+    }
+}

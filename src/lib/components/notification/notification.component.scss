@@ -1,214 +1,227 @@
-.ant-notification {
-    position: fixed;
-    //z-index: @zindex-notification;
-    z-index: 1010;
-    // width: @notification-width;
-    width: 335px;
-    margin-right: 24px;
+.ant-notification-notice {
+    padding: 16px 24px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+    background: #fff;
+    line-height: 1.5;
+    position: relative;
+    margin-bottom: 16px;
+    overflow: hidden
+}
 
-    &-topLeft,
-    &-bottomLeft {
-        margin-left: 24px;
-        margin-right: 0;
+.ant-notification-notice-message {
+    font-size: 16px;
+    color: rgba(0, 0, 0, .85);
+    margin-bottom: 8px;
+    line-height: 24px;
+    display: inline-block
+}
 
-        .ant-notification-fade-enter.ant-notification-fade-enter-active,
-        .ant-notification-fade-appear.ant-notification-fade-appear-active {
-            animation-name: NotificationLeftFadeIn;
-        }
-    }
+.ant-notification-notice-message-single-line-auto-margin {
+    width: calc(384px - 24px * 2 - 24px - 48px - 100%);
+    background-color: transparent;
+    pointer-events: none;
+    display: block;
+    max-width: 4px
+}
 
-    &-notice {
-        //padding: @notification-padding;
-        padding: 16px;
-        //border-radius: @border-radius-base;
-        border-radius: 4px;
-        //box-shadow: @shadow-2;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, .2);;
-        //background: @component-background;
-        background: #fff;
-        line-height: 1.5;
-        position: relative;
-        //margin-bottom: @notification-margin-bottom;
-        margin-bottom: 10px;
-        overflow: hidden;
+.ant-notification-notice-message-single-line-auto-margin:before {
+    content: '';
+    display: block;
+    padding-bottom: 100%
+}
 
-        &-message {
-            //font-size: @font-size-lg;
-            font-size: 12px + 2px;
-            //color: @heading-color;
-            margin-bottom: 4px;
-            line-height: 20px;
-            display: inline-block;
+.ant-notification-notice-description {
+    font-size: 14px
+}
 
-            // https://github.com/ant-design/ant-design/issues/5846#issuecomment-296244140
-            &-single-line-auto-margin {
-                // width: ~"calc(@{notification-width} - @{notification-padding} * 2 - 24px - 48px - 100%)";
-                width: calc(335px - 16px * 2 - 24px - 48px - 100%);
-                background-color: transparent;
-                pointer-events: none;
-                display: block;
-                max-width: 4px;
-                &:before {
-                    content: '';
-                    display: block;
-                    padding-bottom: 100%;
-                }
-            }
-        }
+.ant-notification-notice-closable .ant-notification-notice-message {
+    padding-right: 24px
+}
 
-        &-description {
-            //font-size: @font-size-base;
-            font-size: 12px;
-        }
+.ant-notification-notice-with-icon .ant-notification-notice-message {
+    font-size: 16px;
+    margin-left: 48px;
+    margin-bottom: 4px
+}
 
-        &-closable &-message {
-            padding-right: 24px;
-        }
+.ant-notification-notice-with-icon .ant-notification-notice-description {
+    margin-left: 48px;
+    font-size: 14px
+}
 
-        &-with-icon &-message {
-            //font-size: @font-size-lg;
-            font-size: 12px + 2px;
-            margin-left: 48px;
-            margin-bottom: 4px;
-        }
+.ant-notification-notice-icon {
+    position: absolute;
+    font-size: 24px;
+    line-height: 24px;
+    margin-left: 4px
+}
 
-        &-with-icon &-description {
-            margin-left: 48px;
-            //font-size: @font-size-base;
-            font-size: 12px;
-        }
+.ant-notification-notice-icon-success {
+    color: #52c41a
+}
 
-        &-icon {
-            position: absolute;
-            font-size: 32px;
-            line-height: 32px;
+.ant-notification-notice-icon-info {
+    color: #1890ff
+}
 
-            &-success {
-                //color: @success-color;
-                color: #00a854;;
+.ant-notification-notice-icon-warning {
+    color: #faad14
+}
 
-            }
-            &-info {
-                //color: @info-color;
-                color: #108ee9;;
-            }
-            &-warning {
-                //color: @warning-color;
-                color: #ffbf00;;
-            }
-            &-error {
-                //color: @error-color;
-                color: #f04134;
-            }
-        }
+.ant-notification-notice-icon-error {
+    color: #f5222d
+}
 
-        &-close-x:after {
-            //font-size: @font-size-base;
-            font-size: 12px;
-            content: "\e633";
-            font-family: "anticon";
-            cursor: pointer;
-        }
+.ant-notification-notice-close-x:after {
+    font-size: 14px;
+    content: "\e633";
+    font-family: anticon;
+    cursor: pointer
+}
 
-        &-close {
-            position: absolute;
-            right: 16px;
-            top: 10px;
-            //color: @text-color-secondary;
-            //color: fade(#000, 43%);
-            outline: none;
-            text-decoration: none;
-            &:hover {
-                color: #404040;
-            }
-        }
+.ant-notification-notice-close {
+    position: absolute;
+    right: 22px;
+    top: 16px;
+    color: rgba(0, 0, 0, .45);
+    outline: 0
+}
 
-        &-btn {
-            float: right;
-            margin-top: 16px;
-        }
-    }
+a.ant-notification-notice-close:focus {
+    text-decoration: none
+}
 
-    .notification-fade-effect {
-        animation-duration: 0.24s;
-        animation-fill-mode: both;
-        //animation-timing-function: @ease-in-out;
-        animation-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
-    }
+.ant-notification-notice-close:hover {
+    color: #404040
+}
 
-    &-fade-enter,
-    &-fade-appear {
+.ant-notification-notice-btn {
+    float: right;
+    margin-top: 16px
+}
+
+.ant-notification .notification-fade-effect {
+    -webkit-animation-duration: .24s;
+    animation-duration: .24s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-timing-function: cubic-bezier(.645, .045, .355, 1);
+    animation-timing-function: cubic-bezier(.645, .045, .355, 1)
+}
+
+.ant-notification-fade-appear, .ant-notification-fade-enter {
+    opacity: 0;
+    -webkit-animation-duration: .24s;
+    animation-duration: .24s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-timing-function: cubic-bezier(.645, .045, .355, 1);
+    animation-timing-function: cubic-bezier(.645, .045, .355, 1);
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused
+}
+
+.ant-notification-fade-leave {
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-timing-function: cubic-bezier(.645, .045, .355, 1);
+    animation-timing-function: cubic-bezier(.645, .045, .355, 1);
+    -webkit-animation-duration: .2s;
+    animation-duration: .2s;
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused
+}
+
+.ant-notification-fade-appear.ant-notification-fade-appear-active, .ant-notification-fade-enter.ant-notification-fade-enter-active {
+    -webkit-animation-name: NotificationFadeIn;
+    animation-name: NotificationFadeIn;
+    -webkit-animation-play-state: running;
+    animation-play-state: running
+}
+
+.ant-notification-fade-leave.ant-notification-fade-leave-active {
+    -webkit-animation-name: NotificationFadeOut;
+    animation-name: NotificationFadeOut;
+    -webkit-animation-play-state: running;
+    animation-play-state: running
+}
+
+@-webkit-keyframes NotificationFadeIn {
+    0% {
         opacity: 0;
-        //.notification-fade-effect();
-        animation-duration: 0.24s;
-        animation-fill-mode: both;
-        animation-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
-
-        animation-play-state: paused;
+        left: 384px
     }
-
-    &-fade-leave {
-        //.notification-fade-effect();
-        animation-duration: 0.24s;
-        animation-fill-mode: both;
-        animation-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
-
-        animation-duration: 0.2s;
-        animation-play-state: paused;
-    }
-
-    &-fade-enter, &-fade-enter-active,
-    &-fade-appear, &-fade-appear-active {
-        animation-name: NotificationFadeIn;
-        animation-play-state: running;
-    }
-
-    &-fade-leave, &-fade-leave-active {
-        animation-name: NotificationFadeOut;
-        animation-play-state: running;
+    100% {
+        left: 0;
+        opacity: 1
     }
 }
 
 @keyframes NotificationFadeIn {
     0% {
         opacity: 0;
-        //left: @notification-width;
-        left: 335px;
+        left: 384px
     }
     100% {
         left: 0;
-        opacity: 1;
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes NotificationLeftFadeIn {
+    0% {
+        opacity: 0;
+        right: 384px
+    }
+    100% {
+        right: 0;
+        opacity: 1
     }
 }
 
 @keyframes NotificationLeftFadeIn {
     0% {
         opacity: 0;
-        //right: @notification-width;
-        right: 335px;
+        right: 384px
     }
     100% {
         right: 0;
-        opacity: 1;
+        opacity: 1
     }
 }
 
-@keyframes NotificationFadeOut {
+@-webkit-keyframes NotificationFadeOut {
     0% {
         opacity: 1;
-        //margin-bottom: @notification-margin-bottom;
-        margin-bottom: 10px;
-        //padding-top: @notification-padding;
-        padding-top: 16px;
-        // padding-bottom: @notification-padding;
-        padding-bottom: 16px;
-        max-height: 150px;
+        margin-bottom: 16px;
+        padding-top: 16px 24px;
+        padding-bottom: 16px 24px;
+        max-height: 150px
     }
     100% {
         opacity: 0;
         margin-bottom: 0;
         padding-top: 0;
         padding-bottom: 0;
-        max-height: 0;
+        max-height: 0
+    }
+}
+
+@keyframes NotificationFadeOut {
+    0% {
+        opacity: 1;
+        margin-bottom: 16px;
+        padding-top: 16px 24px;
+        padding-bottom: 16px 24px;
+        max-height: 150px
+    }
+    100% {
+        opacity: 0;
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        max-height: 0
     }
 }
