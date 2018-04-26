@@ -1,13 +1,135 @@
 <p>
-    fz-demo-popover works!
+    弹出框(Popover) fz-demo-popover works!
 </p>
 
 <div>
-    <fz-popover [title]="'标题'">
+    <fz-popover [nzTitle]="'标题'">
         <button fzPopover>弹出卡片</button>
         <ng-template #nzTemplate>
             <div><p>内容</p>
                 <p>内容</p></div>
         </ng-template>
     </fz-popover>
+</div>
+
+
+<div>
+    <fz-popover [nzTitle]="'Title'">
+        <button fzPopover>Hover me</button>
+        <ng-template #nzTemplate>
+            <div>
+                <p>Content</p>
+                <p>Content</p>
+            </div>
+        </ng-template>
+    </fz-popover>
+</div>
+
+
+<div>
+    <fz-popover [nzTitle]="'Title'" [(nzVisible)]="visible" [nzTrigger]="'click'">
+        <button fzPopover>Click me</button>
+        <ng-template #nzTemplate>
+            <a (click)='clickMe()'>Close</a>
+        </ng-template>
+    </fz-popover>
+</div>
+
+
+<div style="margin: 80px 80px 80px 80px;
+      width: 70px;
+      text-align: center;
+      padding: 0;">
+    <div style="margin-left: 60px">
+        <fz-popover [nzTitle]="'Title'" [nzPlacement]="'topLeft'">
+            <button fzPopover>TL</button>
+            <ng-template #nzTemplate>
+                <div><p>Content</p>
+                    <p>Content</p></div>
+            </ng-template>
+        </fz-popover>
+        <fz-popover [nzTitle]="'Title'" [nzPlacement]="'top'">
+            <button fzPopover>Top</button>
+            <ng-template #nzTemplate>
+                <div><p>Content</p>
+                    <p>Content</p></div>
+            </ng-template>
+        </fz-popover>
+        <fz-popover [nzTitle]="'Title'" [nzPlacement]="'topRight'">
+            <button fzPopover>TR</button>
+            <ng-template #nzTemplate>
+                <div><p>Content</p>
+                    <p>Content</p></div>
+            </ng-template>
+        </fz-popover>
+    </div>
+    <div style="width: 60px; float: left;">
+        <fz-popover [nzTitle]="'Title'" [nzPlacement]="'leftTop'">
+            <button fzPopover>LT</button>
+            <ng-template #nzTemplate>
+                <div><p>Content</p>
+                    <p>Content</p></div>
+            </ng-template>
+        </fz-popover>
+        <fz-popover [nzTitle]="'Title'" [nzPlacement]="'left'">
+            <button fzPopover>Left</button>
+            <ng-template #nzTemplate>
+                <div><p>Content</p>
+                    <p>Content</p></div>
+            </ng-template>
+        </fz-popover>
+        <fz-popover [nzTitle]="'Title'" [nzPlacement]="'leftBottom'">
+            <button fzPopover>LB</button>
+            <ng-template #nzTemplate>
+                <div><p>Content</p>
+                    <p>Content</p></div>
+            </ng-template>
+        </fz-popover>
+    </div>
+    <div style="width: 60px; margin-left: 252px;">
+        <fz-popover [nzTitle]="'Title'" [nzPlacement]="'rightTop'">
+            <button fzPopover>RT</button>
+            <ng-template #nzTemplate>
+                <div><p>Content</p>
+                    <p>Content</p></div>
+            </ng-template>
+        </fz-popover>
+        <fz-popover [nzTitle]="'Title'" [nzPlacement]="'right'">
+            <button fzPopover>Right</button>
+            <ng-template #nzTemplate>
+                <div><p>Content</p>
+                    <p>Content</p></div>
+            </ng-template>
+        </fz-popover>
+        <fz-popover [nzTitle]="'Title'" [nzPlacement]="'rightBottom'">
+            <button fzPopover>RB</button>
+            <ng-template #nzTemplate>
+                <div><p>Content</p>
+                    <p>Content</p></div>
+            </ng-template>
+        </fz-popover>
+    </div>
+    <div style="margin-left: 60px; clear: both;">
+        <fz-popover [nzTitle]="'Title'" [nzPlacement]="'bottomLeft'">
+            <button fzPopover>BL</button>
+            <ng-template #nzTemplate>
+                <div><p>Content</p>
+                    <p>Content</p></div>
+            </ng-template>
+        </fz-popover>
+        <fz-popover [nzTitle]="'Title'" [nzPlacement]="'bottom'">
+            <button fzPopover>Bottom</button>
+            <ng-template #nzTemplate>
+                <div><p>Content</p>
+                    <p>Content</p></div>
+            </ng-template>
+        </fz-popover>
+        <fz-popover [nzTitle]="'Title'" [nzPlacement]="'bottomRight'">
+            <button fzPopover>BR</button>
+            <ng-template #nzTemplate>
+                <div><p>Content</p>
+                    <p>Content</p></div>
+            </ng-template>
+        </fz-popover>
+    </div>
 </div>

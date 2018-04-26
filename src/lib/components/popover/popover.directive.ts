@@ -16,22 +16,32 @@ import {PopoverComponent} from './popover.component';
     selector: '[fzPopover]',
 })
 export class PopoverDirective implements AfterViewInit {
+
     @HostBinding('class.ant-tooltip-open') isTooltipOpen;
 
     private popover: PopoverComponent;
+    private isDynamicTooltip = false; // Indicate whether current tooltip is dynamic created
     private delayTimer; // Timer for delay enter/leave
 
-    constructor(public elementRef: ElementRef,
-                private hostView: ViewContainerRef,
-                private resolver: ComponentFactoryResolver,
-                private renderer: Renderer2,
-                popover: PopoverComponent) {
+    constructor(
+        public elementRef: ElementRef,
+        private hostView: ViewContainerRef,
+        private resolver: ComponentFactoryResolver,
+        private renderer: Renderer2,
+        @Optional() popover: PopoverComponent) {
+
         this.popover = popover;
+        // Support faster tooltip mode: <a nz-tooltip="xxx"></a>. [NOTE] Used only under NzTooltipDirective currently.
+        if (!this.popover) {
+            const factory = this.resolver.resolveComponentFactory(PopoverComponent);
+            this.popover = this.hostView.createComponent(factory).instance;
+            this.isDynamicTooltip = true;
+        }
         this.popover.setOverlayOrigin(this);
     }
 
     ngAfterViewInit(): void {
-        if (this.popover.trigger === 'hover') {
+        if (this.popover.nzTrigger === 'hover') {
             let overlayElement;
             this.renderer.listen(
                 this.elementRef.nativeElement, 'mouseenter', () =>
@@ -40,15 +50,17 @@ export class PopoverDirective implements AfterViewInit {
             this.renderer.listen(this.elementRef.nativeElement, 'mouseleave', () => {
                 this.delayEnterLeave(true, false, this.popover.nzMouseLeaveDelay);
                 if (this.popover.overlay.overlayRef && !overlayElement) {
+                    // NOTE: we bind events under "mouseleave" due to the overlayRef is only created after
+                    // the overlay was completely shown up
                     overlayElement = this.popover.overlay.overlayRef.overlayElement;
                     this.renderer.listen(overlayElement, 'mouseenter', () => this.delayEnterLeave(false, true));
                     this.renderer.listen(overlayElement, 'mouseleave', () => this.delayEnterLeave(false, false));
                 }
             });
-        } else if (this.popover.trigger === 'focus') {
+        } else if (this.popover.nzTrigger === 'focus') {
             this.renderer.listen(this.elementRef.nativeElement, 'focus', () => this.show());
             this.renderer.listen(this.elementRef.nativeElement, 'blur', () => this.hide());
-        } else if (this.popover.trigger === 'click') {
+        } else if (this.popover.nzTrigger === 'click') {
             this.renderer.listen(this.elementRef.nativeElement, 'click', (e) => {
                 e.preventDefault();
                 this.show();
@@ -77,6 +89,7 @@ export class PopoverDirective implements AfterViewInit {
             }, delay * 1000);
         } else {
             isEnter && isOrigin ? this.show() : this.hide();
+            // [Compatible] The "isOrigin" is used due to the tooltip will not hide immediately (may caused by the fade-out animation)
         }
     }
 }

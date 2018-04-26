@@ -23,6 +23,7 @@ import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {fadeAnimation} from '../../core/animation/fade-animations';
 import {DEFAULT_4_POSITIONS, POSITION_MAP} from '../../core/overlay/overlay-position-map';
+import {Observable} from 'rxjs/Observable';
 
 
 @Component({
@@ -35,15 +36,12 @@ import {DEFAULT_4_POSITIONS, POSITION_MAP} from '../../core/overlay/overlay-posi
     styleUrls: ['./popover.component.scss']
 })
 export class PopoverComponent {
-    _prefix = 'ant-popover-placement';
+    @Input() nzTitle: string;
     @Input() nzContent;
 
-    _hasBackdrop = false;
-
-    @Input() title: string;
-    @Input() overlayClassName = '';
-    @Input() overlayStyle = {};
-    @Input() nzMouseEnterDelay = 0; // Unit: second
+    @Input() nzOverlayClassName = '';
+    @Input() nzOverlayStyle = {};
+    @Input() nzMouseEnterDelay = 0.15; // Unit: second
     @Input() nzMouseLeaveDelay = 0.1; // Unit: second
     @Output() nzVisibleChange: EventEmitter<boolean> = new EventEmitter();
     @ContentChild('nzTemplate') nzTemplate: TemplateRef<void>;
@@ -65,32 +63,34 @@ export class PopoverComponent {
     }
 
     visibleSource = new BehaviorSubject<boolean>(false);
-    visible$ = this.visibleSource.asObservable();
+    visible$: Observable<boolean> = this.visibleSource.asObservable();
 
     @Input()
-    set trigger(value: string) {
+    set nzTrigger(value: string) {
         this._trigger = value;
         this._hasBackdrop = this._trigger === 'click';
     }
 
-    get trigger(): string {
+    get nzTrigger(): string {
         return this._trigger;
     }
 
+    _prefix = 'ant-popover-placement';
+    _hasBackdrop = false;
     _positions: ConnectionPositionPair[] = [...DEFAULT_4_POSITIONS];
     _classMap = {};
     _placement = 'top';
     _trigger = 'hover';
 
     @Input()
-    set placement(value: string) {
+    set nzPlacement(value: string) {
         if (value !== this._placement) {
             this._placement = value;
-            this._positions.unshift(POSITION_MAP[this.placement] as ConnectionPositionPair);
+            this._positions.unshift(POSITION_MAP[this.nzPlacement] as ConnectionPositionPair);
         }
     }
 
-    get placement(): string {
+    get nzPlacement(): string {
         return this._placement;
     }
 
@@ -104,7 +104,7 @@ export class PopoverComponent {
     onPositionChange($event: ConnectedOverlayPositionChange): void {
         for (const key in POSITION_MAP) {
             if (JSON.stringify($event.connectionPair) === JSON.stringify(POSITION_MAP[key])) {
-                this.placement = key;
+                this.nzPlacement = key;
                 break;
             }
         }
@@ -134,7 +134,7 @@ export class PopoverComponent {
 
     setClassMap(): void {
         this._classMap = {
-            [this.overlayClassName]: true,
+            [this.nzOverlayClassName]: true,
             [`${this._prefix}-${this._placement}`]: true
         };
     }
@@ -147,6 +147,8 @@ export class PopoverComponent {
     }
 
     private isContentEmpty(): boolean {
-       return this.nzTemplate ? false : (this.title === '' || this.title == null);
+        // return this.nzTemplate ? !(this.nzTemplate.elementRef.nativeElement as HTMLElement).hasChildNodes() : this.nzTitle === '';
+        return (this.nzTemplate || this.nzContent) ? false : (this.nzTitle === '' || this.nzTitle == null);
+        // Pity, can't detect whether nzTemplate is empty due to can't get it's content before shown up
     }
 }
