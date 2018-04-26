@@ -18,7 +18,7 @@ import {AnchorComponent} from '../anchor.component';
     styleUrls: ['./anchor-link.component.scss'],
     // tslint:disable-next-line:use-host-property-decorator
     host: {
-        '[class.ant-anchor-link]': 'true',
+        '[class.fz-anchor-link]': 'true',
         'style': 'display:block'
     }
 })
@@ -40,9 +40,9 @@ export class AnchorLinkComponent implements OnInit, OnDestroy {
 
     @ContentChild('nzTemplate') nzTemplate: TemplateRef<void>;
 
-    @HostBinding('class.ant-anchor-link') class = true;
+    @HostBinding('class.fz-anchor-link') class = true;
 
-    @HostBinding('class.ant-anchor-link-active') active = false;
+    @HostBinding('class.fz-anchor-link-active') active = false;
 
     /*@HostListener('click')
     _onClick(): void {

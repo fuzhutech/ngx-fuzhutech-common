@@ -1,5 +1,4 @@
-<a (click)="goToClick($event)" href="{{nzHref}}" class="fz-anchor-link-title" >
-    <span *ngIf="!nzTemplate">{{ nzTitle }}</span>
-    <ng-template *ngIf="nzTemplate" [ngTemplateOutlet]="nzTemplate"></ng-template>
+<a (click)="goToClick($event)" href="{{nzHref}}" class="fz-anchor-link-title" title="{{titleStr}}">
+    <span *ngIf="titleStr; else (titleTpl || nzTemplate)">{{ titleStr }}</span>
 </a>
 <ng-content></ng-content>

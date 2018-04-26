@@ -1,16 +1,3 @@
-.fz-anchor {
-    font-family: "Monospaced Number", "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.5;
-    color: rgba(0, 0, 0, .65);
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0 0 0 2px;
-    list-style: none;
-    position: relative
-}
-
 .fz-anchor-wrapper {
     background-color: #fff;
     overflow: auto;
@@ -18,11 +5,22 @@
     margin-left: -4px
 }
 
+.fz-anchor {
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, .65);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0 0 0 2px;
+    list-style: none;
+    position: relative;
+}
+
 .fz-anchor-ink {
     position: absolute;
     height: 100%;
     left: 0;
-    top: 0
+    top: 0;
 }
 
 .fz-anchor-ink:before {
@@ -32,7 +30,7 @@
     height: 100%;
     display: block;
     background-color: #e8e8e8;
-    margin: 0 auto
+    margin: 0 auto;
 }
 
 .fz-anchor-ink-ball {
@@ -44,9 +42,7 @@
     border: 2px solid #1890ff;
     background-color: #fff;
     left: 50%;
-    -webkit-transition: top .3s ease-in-out;
     transition: top .3s ease-in-out;
-    -webkit-transform: translateX(-50%);
     transform: translateX(-50%)
 }
 
@@ -56,34 +52,4 @@
 
 .fz-anchor.fixed .fz-anchor-ink .fz-anchor-ink-ball {
     display: none
-}
-
-.fz-anchor-link {
-    padding: 8px 0 8px 16px;
-    line-height: 1
-}
-
-.fz-anchor-link-title {
-    display: block;
-    position: relative;
-    -webkit-transition: all .3s;
-    transition: all .3s;
-    color: rgba(0, 0, 0, .65);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 8px
-}
-
-.fz-anchor-link-title:only-child {
-    margin-bottom: 0
-}
-
-.fz-anchor-link-active > .fz-anchor-link-title {
-    color: #1890ff
-}
-
-.fz-anchor-link .fz-anchor-link {
-    padding-top: 6px;
-    padding-bottom: 6px
 }
