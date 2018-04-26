@@ -1,3 +1,7 @@
+:host {
+    display: inline-block;
+}
+
 .ant-row {
     position: relative;
     margin-left: 0;
@@ -2913,9 +2917,10 @@
     animation-fill-mode: both;
 }
 
-/*.top-nav*/ .item {
+/*.top-nav*/
+.item {
     display: block;
-    color: #fff!important;
+    color: #fff !important;
     border-radius: 2px;
     text-align: center;
     line-height: 100%;
