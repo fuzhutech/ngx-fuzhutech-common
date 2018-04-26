@@ -1,25 +1,3 @@
-<!--fz-dropdown-- nzTrigger="contextmenu" nzPlacement="bottomRight">
-    <div class="item" fzDropdown>
-        <div (dblclick)="remove(index)" (contextmenu)="onNodeRightClick($event,tab)" style="width: 100%">
-            {{tab.title}}
-            <i *ngIf="allowClose" class="anticon anticon-close op" (click)="remove(index)"></i>
-        </div>
-    </div>
-    <div nz-menu class="wd-xl animated jello">
-        <div nz-row class="ant-row-flex ant-row-flex-center ant-row-flex-middle app-icons">
-            <div nz-col class="ant-col-6">
-                <i class="anticon anticon-calendar bg-error text-white"></i>
-                <small>Calendar</small>
-            </div>
-            <div nz-col class="ant-col-6">
-                <i class="anticon anticon-file bg-teal text-white"></i>
-                <small>Files</small>
-            </div>
-        </div>
-    </div>
-</fz-dropdown-->
-
-
 <div cdk-overlay-origin
      class="fz-reuse-tab-label"
      aria-hidden="true"
