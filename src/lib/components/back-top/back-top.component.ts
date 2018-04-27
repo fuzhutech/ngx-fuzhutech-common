@@ -1,4 +1,5 @@
 import {
+    ChangeDetectionStrategy, ChangeDetectorRef,
     Component,
     ContentChild,
     EventEmitter,
@@ -23,10 +24,11 @@ import {fromEvent} from 'rxjs/observable/fromEvent';
 import {distinctUntilChanged} from 'rxjs/operators/distinctUntilChanged';
 import {throttleTime} from 'rxjs/operators/throttleTime';
 import {ScrollService} from '../../core/scroll/scroll.service';
+import {coerceNumberProperty} from '@angular/cdk/coercion';
 
 @Component({
     selector: 'fz-back-top',
-    encapsulation: ViewEncapsulation.None,
+    // encapsulation: ViewEncapsulation.None,
     animations: [
         trigger('enterLeave', [
             transition(':enter', [
@@ -40,18 +42,27 @@ import {ScrollService} from '../../core/scroll/scroll.service';
         ])
     ],
     templateUrl: './back-top.component.html',
-    styleUrls: ['./back-top.component.scss']
+    styleUrls: ['./back-top.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    preserveWhitespaces: false
 })
 export class BackTopComponent implements OnInit, OnDestroy {
 
     private scroll$: Subscription = null;
     private target: HTMLElement = null;
 
-    _display = false;
+    visible = false;
 
     @ContentChild('fzTemplate') fzTemplate: TemplateRef<void>;
 
-    @Input() visibilityHeight = 400;
+    _visibilityHeight = 400;
+    @Input()
+    set visibilityHeight(value: number) {
+        this._visibilityHeight = coerceNumberProperty(value);
+    }
+    get visibilityHeight(): number {
+        return this._visibilityHeight;
+    }
 
     @Input()
     set fzTarget(el: HTMLElement) {
@@ -61,7 +72,7 @@ export class BackTopComponent implements OnInit, OnDestroy {
 
     @Output() fzClick: EventEmitter<boolean> = new EventEmitter();
 
-    constructor(private scrollSrv: ScrollService, private _renderer: Renderer2) {
+    constructor(private scrollSrv: ScrollService, private cd: ChangeDetectorRef) {
     }
 
     ngOnInit(): void {
@@ -80,7 +91,10 @@ export class BackTopComponent implements OnInit, OnDestroy {
     }
 
     private handleScroll(): void {
-        this._display = this.scrollSrv.getScroll(this.getTarget()) > this.visibilityHeight;
+        // this._display = this.scrollSrv.getScroll(this.getTarget()) > this.visibilityHeight;
+        if (this.visible === this.scrollSrv.getScroll(this.getTarget()) > this.visibilityHeight) { return; }
+        this.visible = !this.visible;
+        this.cd.detectChanges();
     }
 
     private removeListen(): void {

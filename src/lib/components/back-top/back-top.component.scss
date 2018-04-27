@@ -1,4 +1,12 @@
 .fz-back-top {
+    /*font-size: 14px;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, .65);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;*/
+
     z-index: 10;
     position: fixed;
     right: 100px;
@@ -8,23 +16,19 @@
     cursor: pointer;
 }
 
-
 .fz-back-top-content {
     height: 40px;
     width: 40px;
     border-radius: 20px;
-    //background-color: @back-top-bg;
     background-color: rgba(64, 64, 64, 0.4);
-    //color: @back-top-color;
     color: #fff;
     text-align: center;
-    //transition: all .3s @ease-in-out;
     transition: all .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    overflow: hidden;
 
     &:hover {
-        //background-color: @back-top-hover-bg;
-        background-color: rgba(64, 64, 64, 0.6);
-        //transition: all .3s @ease-in-out;
+        // background-color: rgba(64, 64, 64, 0.6);
+        background-color: rgba(0, 0, 0, .65);
         transition: all .3s cubic-bezier(0.645, 0.045, 0.355, 1);
     }
 }
@@ -32,4 +36,16 @@
 .fz-back-top-icon {
     font-size: 20px;
     margin-top: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .fz-back-top {
+        right: 60px
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .fz-back-top {
+        right: 20px
+    }
 }
