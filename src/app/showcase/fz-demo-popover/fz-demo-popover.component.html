@@ -27,7 +27,7 @@
 
 
 <div>
-    <fz-popover [nzTitle]="'Title'" [(nzVisible)]="visible" [nzTrigger]="'click'">
+    <fz-popover [nzTitle]="'Title'" [(panelOpen)]="visible" [nzTrigger]="'click'">
         <button fzPopover>Click me</button>
         <ng-template #nzTemplate>
             <a (click)='clickMe()'>Close</a>

@@ -102,6 +102,7 @@ export class NoticeIconComponent {
     }
 
     _onPositionChange(position: ConnectedOverlayPositionChange): void {
+        console.log(position);
         this._dropDownPosition = position.connectionPair.originY;
     }
 

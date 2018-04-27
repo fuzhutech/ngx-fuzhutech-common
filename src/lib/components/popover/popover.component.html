@@ -1,4 +1,35 @@
-<ng-content></ng-content>
+<div cdk-overlay-origin #origin="cdkOverlayOrigin">
+    <ng-content></ng-content>
+</div>
+<ng-template
+    cdkConnectedOverlay
+    #overlay="cdkConnectedOverlay"
+    [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayHasBackdrop]="_hasBackdrop"
+    (backdropClick)="hide()"
+    (detach)="hide()"
+    (positionChange)="_onPositionChange($event)"
+    [cdkConnectedOverlayPositions]="_positions"
+    [cdkConnectedOverlayOpen]="visible$ | async"
+    [cdkConnectedOverlayMinWidth]="_triggerWidth">
+    <div class="{{'ant-popover ant-popover-placement-'+nzPlacement}}">
+        <div class="ant-popover-content">
+            <div class="ant-popover-arrow"></div>
+            <div class="ant-popover-inner">
+                <div class="ant-popover-title" *ngIf="nzTitle" [innerHTML]="nzTitle"></div>
+                <div class="ant-popover-inner-content">
+                    <span *ngIf="!nzTemplate">{{ nzContent }}</span>
+                    <ng-template
+                        *ngIf="nzTemplate"
+                        [ngTemplateOutlet]="nzTemplate">
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!--ng-content></ng-content>
 <ng-template
     #overlay="cdkConnectedOverlay"
     cdkConnectedOverlay
@@ -25,4 +56,5 @@
             </div>
         </div>
     </div>
-</ng-template>
+</ng-template-->
+
