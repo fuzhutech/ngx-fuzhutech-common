@@ -1,6 +1,5 @@
 <div class="item" cdk-overlay-origin
      #origin="cdkOverlayOrigin"
-     (click)="_toggle()"
      #trigger>
     <i *ngIf="data?.length <= 0" class="anticon anticon-bell"></i>
     <fz-badge *ngIf="data?.length > 0" [count]="count" [showDot]="dot">

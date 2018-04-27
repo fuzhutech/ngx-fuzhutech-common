@@ -1,10 +1,17 @@
-import {Component, Input, Output, EventEmitter, HostListener, HostBinding, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
+import {Component, Input, OnDestroy, Output, EventEmitter, ChangeDetectorRef, AfterViewInit, Renderer2, ViewChild} from '@angular/core';
 import {coerceNumberProperty, coerceBooleanProperty} from '@angular/cdk/coercion';
 import {NoticeItem} from './notice-item';
 import {DEFAULT_DROPDOWN_POSITIONS, POSITION_MAP} from '../../core/overlay/overlay-position-map';
-import {ConnectionPositionPair, ConnectedOverlayPositionChange} from '@angular/cdk/overlay';
+import {ConnectionPositionPair, ConnectedOverlayPositionChange, CdkConnectedOverlay} from '@angular/cdk/overlay';
 import {NzPlacement} from '../dropdown/dropdown.component';
 import {dropDownAnimation} from '../../core/animation/dropdown-animations';
+import {fromEvent} from 'rxjs/observable/fromEvent';
+import {mapTo} from 'rxjs/operators/mapTo';
+import {Observable} from 'rxjs/Observable';
+import {merge} from 'rxjs/operators/merge';
+import {Subject} from 'rxjs/Subject';
+import {debounceTime} from 'rxjs/operators/debounceTime';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'fz-notice-icon',
@@ -14,8 +21,10 @@ import {dropDownAnimation} from '../../core/animation/dropdown-animations';
         dropDownAnimation
     ],
 })
-export class NoticeIconComponent {
+export class NoticeIconComponent implements AfterViewInit, OnDestroy {
     @Input() data: NoticeItem[] = [];
+
+    @Input() nzTrigger: 'click' | 'contextmenu' = 'click';
 
     /** 图标上的消息总数 */
     @Input()
@@ -56,6 +65,7 @@ export class NoticeIconComponent {
     @Output() select = new EventEmitter<any>();
     @Output() clear = new EventEmitter<string>();
 
+    @Output() _visibleChange = new Subject<boolean>();
     @Output() visibleChange = new EventEmitter<boolean>();
 
     private isOpen = false;
@@ -83,17 +93,15 @@ export class NoticeIconComponent {
         return this._placement;
     }
 
+    @ViewChild('origin') overlayOrigin;
+    @ViewChild(CdkConnectedOverlay) _cdkOverlay: CdkConnectedOverlay;
 
     _triggerWidth = 0;
     _dropDownPosition: 'top' | 'center' | 'bottom' = 'bottom';
+    _subscription: Subscription;
 
-    constructor(private _cdr: ChangeDetectorRef) {
+    constructor(private _renderer: Renderer2, private _changeDetector: ChangeDetectorRef) {
         this.placement = 'bottomRight';
-    }
-
-    _toggle() {
-        this.panelOpen = !this.panelOpen;
-        this.visibleChange.emit(this.panelOpen);
     }
 
     _close(): void {
@@ -112,6 +120,54 @@ export class NoticeIconComponent {
 
     _onClear(title: string) {
         this.clear.emit(title);
+    }
+
+    ngAfterViewInit(): void {
+        let mouse$: Observable<boolean>;
+        if (this.nzTrigger === 'click') {
+            mouse$ = fromEvent(this.overlayOrigin.elementRef.nativeElement, 'click').pipe(mapTo(true));
+            this._renderer.listen(this.overlayOrigin.elementRef.nativeElement, 'click', (e) => {
+                e.preventDefault();
+            });
+        }
+        if (this.nzTrigger === 'contextmenu') {
+            mouse$ = fromEvent(this.overlayOrigin.elementRef.nativeElement, 'contextmenu').pipe(mapTo(true));
+            this._renderer.listen(this.overlayOrigin.elementRef.nativeElement, 'contextmenu', (e) => {
+                e.preventDefault();
+            });
+        }
+        const observable$ = mouse$.pipe(merge(this._visibleChange));
+        this._startSubscribe(observable$);
+    }
+
+    _startSubscribe(observable$: Observable<boolean>): void {
+        this._subscription = observable$.pipe(debounceTime(50))
+            .subscribe((visible: boolean) => {
+                if (visible) {
+                    this._setTriggerWidth();
+                }
+                if (this.panelOpen !== visible) {
+                    this.panelOpen = visible;
+                    this.visibleChange.emit(this.panelOpen);
+                }
+                this._changeDetector.markForCheck();
+            });
+    }
+
+    _setTriggerWidth(): void {
+        this._triggerWidth = this.overlayOrigin.elementRef.nativeElement.getBoundingClientRect().width;
+        /** should remove after https://github.com/angular/material2/pull/8765 merged **/
+        if (this._cdkOverlay && this._cdkOverlay.overlayRef) {
+            this._cdkOverlay.overlayRef.updateSize({
+                minWidth: this._triggerWidth
+            });
+        }
+    }
+
+    ngOnDestroy(): void {
+        if (this._subscription) {
+            this._subscription.unsubscribe();
+        }
     }
 
 }
