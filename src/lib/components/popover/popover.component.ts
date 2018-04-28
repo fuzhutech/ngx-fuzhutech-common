@@ -61,6 +61,17 @@ export class PopoverComponent implements AfterViewInit {
     visibleSource = new BehaviorSubject<boolean>(false);
     visible$: Observable<boolean> = this.visibleSource.asObservable();
 
+    private _clickHide = true;
+
+    @Input()
+    set nzClickHide(value: boolean) {
+        this._clickHide = coerceBooleanProperty(value);
+    }
+
+    get nzClickHide(): boolean {
+        return this._clickHide;
+    }
+
     @Input()
     set panelOpen(value: boolean) {
         // this.isOpen = coerceBooleanProperty(value);
@@ -231,6 +242,14 @@ export class PopoverComponent implements AfterViewInit {
         } else {
             isEnter && isOrigin ? this.show() : this.hide();
             // [Compatible] The "isOrigin" is used due to the tooltip will not hide immediately (may caused by the fade-out animation)
+        }
+    }
+
+    _clickDropDown($event: MouseEvent): void {
+        console.log('_clickDropDown');
+        $event.stopPropagation();
+        if (this.nzClickHide) {
+            this.hide();
         }
     }
 

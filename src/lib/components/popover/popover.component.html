@@ -12,7 +12,7 @@
     [cdkConnectedOverlayPositions]="_positions"
     [cdkConnectedOverlayOpen]="visible$ | async"
     [cdkConnectedOverlayMinWidth]="_triggerWidth">
-    <div class="{{'ant-popover ant-popover-placement-'+nzPlacement}}">
+    <div class="{{'ant-popover ant-popover-placement-'+nzPlacement}}" (click)="_clickDropDown($event)">
         <div class="ant-popover-content">
             <div class="ant-popover-arrow"></div>
             <div class="ant-popover-inner">
